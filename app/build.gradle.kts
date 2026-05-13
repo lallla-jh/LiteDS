@@ -14,10 +14,10 @@ android {
     signingConfigs {
         create("release") {
             val props = gradleLocalProperties(rootDir, providers)
-            (props["MELONDS_KEYSTORE"] as String?)?.let { storeFile = file(it) }
-            storePassword = props["MELONDS_KEYSTORE_PASSWORD"] as String? ?: ""
-            keyAlias = props["MELONDS_KEY_ALIAS"] as String? ?: ""
-            keyPassword = props["MELONDS_KEY_PASSWORD"] as String? ?: ""
+            (props["LITEDS_KEYSTORE"] as String?)?.let { storeFile = file(it) }
+            storePassword = props["LITEDS_KEYSTORE_PASSWORD"] as String? ?: ""
+            keyAlias = props["LITEDS_KEY_ALIAS"] as String? ?: ""
+            keyPassword = props["LITEDS_KEY_PASSWORD"] as String? ?: ""
         }
     }
 
@@ -25,7 +25,7 @@ android {
     compileSdk = AppConfig.compileSdkVersion
     ndkVersion = AppConfig.ndkVersion
     defaultConfig {
-        applicationId = "me.magnum.melonds"
+        applicationId = "io.liteds.emulator"
         minSdk = AppConfig.minSdkVersion
         targetSdk = AppConfig.targetSdkVersion
         versionCode = AppConfig.versionCode
