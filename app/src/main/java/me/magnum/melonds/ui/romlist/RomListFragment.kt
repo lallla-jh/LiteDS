@@ -24,6 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,6 +71,11 @@ class RomListFragment : Fragment() {
     private lateinit var romListAdapter: RomListAdapter
 
     private var romSelectedListener: ((Rom) -> Unit)? = null
+    private var isGridMode = false
+    private val viewModePrefs by lazy {
+        requireContext().getSharedPreferences("liteds_prefs", Context.MODE_PRIVATE)
+    }
+    private var dividerDecoration: DividerItemDecoration? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = RomListFragmentBinding.inflate(inflater, container, false)
@@ -109,12 +115,9 @@ class RomListFragment : Fragment() {
             romEnabledFilter = buildRomEnabledFilter(romEnableCriteria),
         )
 
-        binding.listRoms.apply {
-            val listLayoutManager = LinearLayoutManager(context)
-            layoutManager = listLayoutManager
-            addItemDecoration(DividerItemDecoration(context, listLayoutManager.orientation))
-            adapter = romListAdapter
-        }
+        isGridMode = viewModePrefs.getString("view_mode", "list") == "grid"
+        binding.listRoms.adapter = romListAdapter
+        applyLayoutMode()
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -143,6 +146,29 @@ class RomListFragment : Fragment() {
         }
     }
 
+    private fun applyLayoutMode() {
+        romListAdapter.isGridMode = isGridMode
+        if (isGridMode) {
+            dividerDecoration?.let { binding.listRoms.removeItemDecoration(it) }
+            binding.listRoms.layoutManager = GridLayoutManager(context, 2)
+        } else {
+            val lm = LinearLayoutManager(context)
+            binding.listRoms.layoutManager = lm
+            dividerDecoration = DividerItemDecoration(context, lm.orientation).also {
+                binding.listRoms.addItemDecoration(it)
+            }
+        }
+        romListAdapter.notifyDataSetChanged()
+    }
+
+    fun toggleViewMode() {
+        isGridMode = !isGridMode
+        viewModePrefs.edit()
+            .putString("view_mode", if (isGridMode) "grid" else "list")
+            .apply()
+        applyLayoutMode()
+    }
+
     private fun displayEmptyListViewIfRequired() {
         val isScanning = binding.swipeRefreshRoms.isRefreshing
         val emptyViewVisible = !isScanning && romListViewModel.roms.value?.isEmpty() == true
@@ -166,8 +192,13 @@ class RomListFragment : Fragment() {
         private val coroutineScope: CoroutineScope,
         private val listener: RomClickListener,
         private val romEnabledFilter: RomEnabledFilter,
-    ) : RecyclerView.Adapter<RomViewHolder>() {
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+        private val VIEW_TYPE_LIST = 0
+        private val VIEW_TYPE_LIST_CONFIG = 1
+        private val VIEW_TYPE_GRID = 2
+
+        var isGridMode: Boolean = false
         private val roms: ArrayList<Rom> = ArrayList()
 
         fun setRoms(roms: List<Rom>) {
@@ -183,28 +214,47 @@ class RomListFragment : Fragment() {
             diff.dispatchUpdatesTo(this)
         }
 
-        override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RomViewHolder {
-            return if (allowRomConfiguration) {
-                val binding = ItemRomConfigurableBinding.inflate(LayoutInflater.from(context), viewGroup, false)
-                ConfigurableRomViewHolder(binding.root, lifecycleScope, listener::onRomClicked, listener::onRomConfigClicked)
-            } else {
-                val binding = ItemRomSimpleBinding.inflate(LayoutInflater.from(context), viewGroup, false)
-                RomViewHolder(binding.root, coroutineScope, listener::onRomClicked)
+        override fun getItemCount(): Int {
+            return roms.size
+        }
+
+        override fun getItemViewType(position: Int): Int = when {
+            isGridMode -> VIEW_TYPE_GRID
+            allowRomConfiguration -> VIEW_TYPE_LIST_CONFIG
+            else -> VIEW_TYPE_LIST
+        }
+
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return when (viewType) {
+                VIEW_TYPE_GRID -> {
+                    val view = LayoutInflater.from(context).inflate(R.layout.item_rom_grid, viewGroup, false)
+                    GridRomViewHolder(view, coroutineScope, listener::onRomClicked, listener::onRomConfigClicked)
+                }
+                VIEW_TYPE_LIST_CONFIG -> {
+                    val binding = ItemRomConfigurableBinding.inflate(LayoutInflater.from(context), viewGroup, false)
+                    ConfigurableRomViewHolder(binding.root, lifecycleScope, listener::onRomClicked, listener::onRomConfigClicked)
+                }
+                else -> {
+                    val binding = ItemRomSimpleBinding.inflate(LayoutInflater.from(context), viewGroup, false)
+                    RomViewHolder(binding.root, coroutineScope, listener::onRomClicked)
+                }
             }
         }
 
-        override fun onBindViewHolder(romViewHolder: RomViewHolder, i: Int) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, i: Int) {
             val rom = roms[i]
             val isRomEnabled = romEnabledFilter.isRomEnabled(rom)
-            romViewHolder.setRom(rom, isRomEnabled)
+            when (holder) {
+                is GridRomViewHolder -> holder.setRom(rom, isRomEnabled)
+                is RomViewHolder -> holder.setRom(rom, isRomEnabled)
+            }
         }
 
-        override fun onViewRecycled(holder: RomViewHolder) {
-            holder.cleanup()
-        }
-
-        override fun getItemCount(): Int {
-            return roms.size
+        override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+            when (holder) {
+                is GridRomViewHolder -> holder.cleanup()
+                is RomViewHolder -> holder.cleanup()
+            }
         }
 
         open inner class RomViewHolder(itemView: View, private val coroutineScope: CoroutineScope, onRomClick: (Rom) -> Unit) : RecyclerView.ViewHolder(itemView) {
@@ -280,6 +330,49 @@ class RomListFragment : Fragment() {
                 imageViewButtonRomConfig.setOnClickListener {
                     onRomConfigClick(getRom())
                 }
+            }
+        }
+
+        inner class GridRomViewHolder(
+            itemView: View,
+            private val coroutineScope: CoroutineScope,
+            onRomClick: (Rom) -> Unit,
+            onRomLongClick: (Rom) -> Unit,
+        ) : RecyclerView.ViewHolder(itemView) {
+
+            private val imageViewRomIcon = itemView.findViewById<ImageView>(R.id.imageRomIcon)
+            private val textViewRomName = itemView.findViewById<TextView>(R.id.textRomName)
+            private lateinit var currentRom: Rom
+            private var romIconLoadJob: Job? = null
+
+            init {
+                itemView.setOnClickListener { onRomClick(currentRom) }
+                itemView.setOnLongClickListener {
+                    onRomLongClick(currentRom)
+                    true
+                }
+            }
+
+            fun cleanup() { romIconLoadJob?.cancel() }
+
+            fun setRom(rom: Rom, isEnabled: Boolean) {
+                currentRom = rom
+                textViewRomName.text = rom.config.customName ?: rom.name
+                imageViewRomIcon.setImageDrawable(null)
+
+                romIconLoadJob = coroutineScope.launch {
+                    val romIcon = romListViewModel.getRomIcon(rom)
+                    val iconDrawable = romIcon.bitmap?.toDrawable(itemView.resources)?.apply {
+                        paint.isFilterBitmap = romIcon.filtering == RomIconFiltering.LINEAR
+                        if (!isEnabled) {
+                            colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
+                            alpha = 127
+                        }
+                    }
+                    imageViewRomIcon.setImageDrawable(iconDrawable)
+                }
+
+                itemView.setViewEnabledRecursive(isEnabled)
             }
         }
 

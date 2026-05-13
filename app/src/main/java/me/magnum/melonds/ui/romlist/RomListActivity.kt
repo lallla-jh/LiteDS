@@ -1,6 +1,7 @@
 package me.magnum.melonds.ui.romlist
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -188,11 +189,23 @@ class RomListActivity : AppCompatActivity() {
             }
         })
 
+        val viewModePrefs = getSharedPreferences("liteds_prefs", Context.MODE_PRIVATE)
+        val isGridMode = viewModePrefs.getString("view_mode", "list") == "grid"
+        menu.findItem(R.id.action_toggle_view_mode)?.title =
+            if (isGridMode) getString(R.string.action_view_list)
+            else getString(R.string.action_view_grid)
+
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_toggle_view_mode -> {
+                val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_ROM_LIST) as? RomListFragment
+                fragment?.toggleViewMode()
+                invalidateOptionsMenu()
+                return true
+            }
             R.id.action_sort_alphabetically -> {
                 viewModel.setRomSorting(SortingMode.ALPHABETICALLY)
                 return true
