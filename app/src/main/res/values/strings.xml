@@ -672,9 +672,23 @@
     <string name="onboarding_step3_desc">게임을 시작해보세요.</string>
     <string name="onboarding_step3_button">게임 목록 보기 →</string>
     <!-- View mode toggle -->
-    <string name="action_view_grid">그리드 뷰</string>
-    <string name="action_view_list">목록 뷰</string>
+    <string name="action_view_grid">Grid View</string>
+    <string name="action_view_list">List View</string>
     <!-- Settings advanced toggle -->
     <string name="settings_show_advanced">고급 설정 보기</string>
     <string name="settings_show_advanced_summary">더 세밀한 설정을 원하시나요?</string>
+    <!-- Pause menu bottom sheet -->
+    <string name="pause_menu_resume">계속하기</string>
+    <string name="pause_menu_save">저장</string>
+    <string name="pause_menu_load">불러오기</string>
+    <string name="pause_menu_reset">재시작</string>
+    <string name="pause_menu_exit">홈으로</string>
+    <string name="pause_menu_cheats">치트</string>
+    <string name="pause_menu_save_slots">저장 슬롯</string>
+    <string name="pause_menu_slot_label">슬롯 %1$d</string>
+    <string name="pause_menu_empty_slot">빈 슬롯</string>
+    <string name="pause_menu_reset_confirm_title">재시작</string>
+    <string name="pause_menu_reset_confirm_msg">저장하지 않은 진행상황이 사라집니다.\n재시작할까요?</string>
+    <string name="pause_menu_exit_confirm_title">홈으로</string>
+    <string name="pause_menu_exit_confirm_msg">게임을 종료하고 홈 화면으로 나가시겠어요?</string>
 </resources>

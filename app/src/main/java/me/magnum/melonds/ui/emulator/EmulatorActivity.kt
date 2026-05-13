@@ -12,7 +12,6 @@ import android.view.Display
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -39,9 +38,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import com.squareup.picasso.Picasso
@@ -57,7 +54,6 @@ import me.magnum.melonds.domain.model.ConsoleType
 import me.magnum.melonds.domain.model.ControllerConfiguration
 import me.magnum.melonds.domain.model.FpsCounterPosition
 import me.magnum.melonds.domain.model.Rect
-import me.magnum.melonds.domain.model.SaveStateSlot
 import me.magnum.melonds.domain.model.layout.Insets
 import me.magnum.melonds.domain.model.layout.LayoutComponent
 import me.magnum.melonds.domain.model.layout.ScreenFold
@@ -96,14 +92,13 @@ import me.magnum.melonds.ui.emulator.render.FrameRenderCoordinator
 import me.magnum.melonds.ui.emulator.rewind.EdgeSpacingDecorator
 import me.magnum.melonds.ui.emulator.rewind.RewindSaveStateAdapter
 import me.magnum.melonds.ui.emulator.rewind.model.RewindWindow
-import me.magnum.melonds.ui.emulator.rom.SaveStateAdapter
 import me.magnum.melonds.ui.emulator.ui.AchievementListDialog
+import me.magnum.melonds.ui.emulator.ui.PauseMenuBottomSheetFragment
 import me.magnum.melonds.ui.emulator.ui.AchievementUpdatesUi
 import me.magnum.melonds.ui.emulator.ui.PendingSubmissionsDialog
 import me.magnum.melonds.ui.layouteditor.model.LayoutTarget
 import me.magnum.melonds.ui.settings.SettingsActivity
 import me.magnum.melonds.ui.theme.MelonTheme
-import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -504,15 +499,7 @@ class EmulatorActivity : AppCompatActivity() {
                         }
                         is EmulatorUiEvent.ShowPauseMenu -> showPauseMenu(it.pauseMenu)
                         is EmulatorUiEvent.ShowRewindWindow -> showRewindWindow(it.rewindWindow)
-                        is EmulatorUiEvent.ShowRomSaveStates -> {
-                            showSaveStateSlotsDialog(it.saveStates) { slot ->
-                                if (it.reason == EmulatorUiEvent.ShowRomSaveStates.Reason.SAVING) {
-                                    viewModel.saveStateToSlot(slot)
-                                } else {
-                                    viewModel.loadStateFromSlot(slot)
-                                }
-                            }
-                        }
+                        is EmulatorUiEvent.ShowRomSaveStates -> { /* handled by PauseMenuBottomSheetFragment */ }
                         EmulatorUiEvent.ShowAchievementList -> {
                             activeOverlays.addActiveOverlay(EmulatorOverlay.ACHIEVEMENTS_DIALOG)
                             showAchievementList.value = true
@@ -839,24 +826,13 @@ class EmulatorActivity : AppCompatActivity() {
     }
 
     private fun showPauseMenu(pauseMenu: PauseMenu) {
-        val options = Array(pauseMenu.options.size) {
-            getString(pauseMenu.options[it].textResource)
-        }
-
+        if (supportFragmentManager.findFragmentByTag("pause_menu") != null) return
         activeOverlays.addActiveOverlay(EmulatorOverlay.PAUSE_MENU)
-        AlertDialog.Builder(this)
-                .setTitle(R.string.pause)
-                .setItems(options) { _, which ->
-                    val selectedOption = pauseMenu.options[which]
-                    viewModel.onPauseMenuOptionSelected(selectedOption)
-                }
-                .setOnDismissListener {
-                    activeOverlays.removeActiveOverlay(EmulatorOverlay.PAUSE_MENU)
-                }
-                .setOnCancelListener {
-                    viewModel.resumeEmulator()
-                }
-                .show()
+        val fragment = PauseMenuBottomSheetFragment()
+        fragment.onDismissCallback = {
+            activeOverlays.removeActiveOverlay(EmulatorOverlay.PAUSE_MENU)
+        }
+        fragment.show(supportFragmentManager, "pause_menu")
     }
 
     private fun disableScreenTimeOut() {
@@ -883,53 +859,6 @@ class EmulatorActivity : AppCompatActivity() {
 
     private fun isRewindWindowOpen(): Boolean {
         return binding.root.currentState == R.id.rewind_visible
-    }
-
-    private fun showSaveStateSlotsDialog(slots: List<SaveStateSlot>, onSlotPicked: (SaveStateSlot) -> Unit) {
-        val dateFormatter = SimpleDateFormat("EEE, dd MMM yyyy", ConfigurationCompat.getLocales(resources.configuration)[0])
-        val timeFormatter = SimpleDateFormat("kk:mm:ss", ConfigurationCompat.getLocales(resources.configuration)[0])
-        var dialog: AlertDialog? = null
-        var adapter: SaveStateAdapter? = null
-
-        adapter = SaveStateAdapter(
-            slots = slots,
-            picasso = picasso,
-            dateFormat = dateFormatter,
-            timeFormat = timeFormatter,
-            onSlotSelected = {
-                dialog?.dismiss()
-                onSlotPicked(it)
-            },
-            onDeletedSlot = {
-                viewModel.deleteSaveStateSlot(it)?.let { newSlots ->
-                    adapter?.updateSaveStateSlots(newSlots)
-                }
-            },
-        )
-
-        val recyclerView = RecyclerView(this).apply {
-            val layoutManager = LinearLayoutManager(this@EmulatorActivity)
-            this.layoutManager = layoutManager
-            addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
-            this.adapter = adapter
-            descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
-        }
-
-        activeOverlays.addActiveOverlay(EmulatorOverlay.SAVE_STATES_DIALOG)
-
-        dialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.save_slot))
-            .setView(recyclerView)
-            .setNegativeButton(R.string.cancel) { _dialog, _ ->
-                _dialog.cancel()
-            }
-            .setOnDismissListener {
-                activeOverlays.removeActiveOverlay(EmulatorOverlay.SAVE_STATES_DIALOG)
-            }
-            .setOnCancelListener {
-                viewModel.resumeEmulator()
-            }
-            .show()
     }
 
     private fun showRomLoadErrorDialog() {
