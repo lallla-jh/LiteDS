@@ -146,6 +146,11 @@
             android:name=".ui.backgrounds.BackgroundsActivity"
             android:label="@string/backgrounds">
         </activity>
+        <activity
+            android:name="me.magnum.melonds.ui.about.AboutActivity"
+            android:label="@string/about"
+            android:exported="false"
+            android:parentActivityName="me.magnum.melonds.ui.settings.SettingsActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

@@ -54,4 +54,10 @@
             android:summary="@string/cheats_summary"
             app:icon="@drawable/ic_cheat"
             android:fragment="me.magnum.melonds.ui.settings.fragments.CheatsPreferencesFragment" />
+
+    <Preference
+            android:key="about"
+            android:title="@string/about"
+            android:summary="@string/about_summary"
+            app:icon="@drawable/ic_settings" />
 </PreferenceScreen>
