@@ -95,6 +95,12 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
+data class PauseMenuState(
+    val romName: String?,
+    val options: List<PauseMenuOption>,
+    val saveSlots: List<me.magnum.melonds.domain.model.SaveStateSlot>,
+)
+
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class EmulatorViewModel @Inject constructor(
@@ -157,6 +163,9 @@ class EmulatorViewModel @Inject constructor(
 
     private val _uiEvent = EventSharedFlow<EmulatorUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
+
+    private val _pauseMenuState = MutableStateFlow<PauseMenuState?>(null)
+    val pauseMenuState = _pauseMenuState.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -350,19 +359,19 @@ class EmulatorViewModel @Inject constructor(
         sessionCoroutineScope.launch {
             emulatorManager.pauseEmulator()
             if (showPauseMenu) {
-                val pauseOptions = when (_emulatorState.value) {
-                    is EmulatorState.RunningRom -> {
-                        RomPauseMenuOption.entries.filter {
-                            filterRomPauseMenuOption(it)
-                        }
-                    }
-                    is EmulatorState.RunningFirmware -> {
-                        FirmwarePauseMenuOption.entries
-                    }
+                val state = _emulatorState.value
+                val pauseOptions: List<PauseMenuOption>? = when (state) {
+                    is EmulatorState.RunningRom -> RomPauseMenuOption.entries.filter { filterRomPauseMenuOption(it) }
+                    is EmulatorState.RunningFirmware -> FirmwarePauseMenuOption.entries
                     else -> null
                 }
 
                 if (pauseOptions != null) {
+                    val romName = (state as? EmulatorState.RunningRom)?.rom?.name
+                    val saveSlots = (state as? EmulatorState.RunningRom)
+                        ?.let { getRomSaveStateSlots(it.rom) }
+                        ?: emptyList()
+                    _pauseMenuState.value = PauseMenuState(romName, pauseOptions, saveSlots)
                     _uiEvent.emit(EmulatorUiEvent.ShowPauseMenu(PauseMenu(pauseOptions)))
                 }
             }
@@ -569,6 +578,16 @@ class EmulatorViewModel @Inject constructor(
             saveStatesRepository.deleteRomSaveState(it.rom, slot)
             getRomSaveStateSlots(it.rom)
         }
+    }
+
+    fun dismissPauseMenu() {
+        _pauseMenuState.value = null
+    }
+
+    fun refreshPauseMenuSaveSlots() {
+        val runningRom = _emulatorState.value as? EmulatorState.RunningRom ?: return
+        val current = _pauseMenuState.value ?: return
+        _pauseMenuState.value = current.copy(saveSlots = getRomSaveStateSlots(runningRom.rom))
     }
 
     private suspend fun saveRomState(rom: Rom, slot: SaveStateSlot): Boolean {
