@@ -39,6 +39,9 @@ import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.ui.common.rom.EmulatorLaunchValidatorDelegate
 import me.magnum.melonds.ui.dsiwaremanager.DSiWareManagerActivity
 import me.magnum.melonds.ui.emulator.EmulatorActivity
+import androidx.preference.PreferenceManager
+import me.magnum.melonds.ui.onboarding.OnboardingActivity
+import me.magnum.melonds.ui.onboarding.OnboardingViewModel
 import me.magnum.melonds.ui.settings.SettingsActivity
 import javax.inject.Inject
 
@@ -58,6 +61,15 @@ class RomListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
+
+        // 온보딩 미완료 시 리다이렉트
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (!prefs.getBoolean(OnboardingViewModel.PREF_ONBOARDING_COMPLETED, false)) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+            return
+        }
+
         super.onCreate(savedInstanceState)
         WindowCompat.enableEdgeToEdge(window)
         val binding = ActivityRomListBinding.inflate(layoutInflater)

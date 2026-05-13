@@ -658,4 +658,17 @@
     <string name="about_github_url">https://github.com/your-username/LiteDS</string>
     <string name="about_github_label">GitHub 보러가기</string>
     <string name="about_review_label">Play Store 리뷰 남기기</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">건너뛰기</string>
+    <string name="onboarding_step1_title">LiteDS</string>
+    <string name="onboarding_step1_desc">ROM 파일만 있으면 바로 플레이할 수 있어요.</string>
+    <string name="onboarding_step1_button">시작하기 →</string>
+    <string name="onboarding_step2_title">게임 파일이\n어디 있나요?</string>
+    <string name="onboarding_step2_desc">.nds 파일이 있는 폴더를 선택하면\n자동으로 목록에 추가돼요.</string>
+    <string name="onboarding_step2_button">📁 폴더 선택하기</string>
+    <string name="onboarding_step2_skip">나중에 할게요</string>
+    <string name="onboarding_step3_title">준비 완료!</string>
+    <string name="onboarding_step3_desc">게임을 시작해보세요.</string>
+    <string name="onboarding_step3_button">게임 목록 보기 →</string>
 </resources>

@@ -151,6 +151,10 @@
             android:label="@string/about"
             android:exported="false"
             android:parentActivityName="me.magnum.melonds.ui.settings.SettingsActivity" />
+        <activity
+            android:name="me.magnum.melonds.ui.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
