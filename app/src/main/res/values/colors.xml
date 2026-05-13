@@ -40,4 +40,8 @@
     <color name="statusError">#D51F12</color>
 
     <color name="white">#FFF</color>
+
+    <!-- LiteDS brand colors -->
+    <color name="litedsMain">#00BFA5</color>
+    <color name="litedsDark">#00897B</color>
 </resources>

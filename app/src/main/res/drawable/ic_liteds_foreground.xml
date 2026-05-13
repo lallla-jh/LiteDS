@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LiteDS 아이콘 포그라운드 — 듀얼스크린 실루엣
+  Adaptive Icon 108dp × 108dp (safe zone: 72dp 중앙)
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 상단 화면 (top screen) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M22,20 L86,20 Q90,20 90,24 L90,50 Q90,54 86,54 L22,54 Q18,54 18,50 L18,24 Q18,20 22,20 Z" />
+
+    <!-- 힌지 구분선 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.35"
+        android:pathData="M18,56 L90,56 L90,58 L18,58 Z" />
+
+    <!-- 하단 화면 (touch screen) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.72"
+        android:pathData="M22,60 L86,60 Q90,60 90,64 L90,88 Q90,92 86,92 L22,92 Q18,92 18,88 L18,64 Q18,60 22,60 Z" />
+
+</vector>
