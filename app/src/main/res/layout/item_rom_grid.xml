@@ -29,11 +29,34 @@
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="2dp"
             android:textSize="13sp"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end"
             android:textColor="?android:attr/textColorPrimary" />
+
+        <TextView
+            android:id="@+id/textPlayTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="2dp"
+            android:textSize="11sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textLastPlayed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="8dp"
+            android:textSize="11sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

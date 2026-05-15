@@ -277,7 +277,12 @@ class RomListFragment : Fragment() {
             open fun setRom(rom: Rom, isEnabled: Boolean) {
                 this.rom = rom
                 textViewRomName.text = rom.config.customName ?: rom.name
-                textViewRomPath.text = rom.fileName
+                val playTimeStr = rom.totalPlayTime.toPlayTimeString()
+                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString() ?: ""
+                textViewRomPath.text = listOfNotNull(
+                    playTimeStr.ifEmpty { null },
+                    lastPlayedStr.ifEmpty { null },
+                ).joinToString("  ").ifEmpty { rom.fileName }
                 imageViewRomIcon.setImageDrawable(null)
                 imagePlatformLogo.isVisible = rom.isDsiWareTitle
 
@@ -342,15 +347,14 @@ class RomListFragment : Fragment() {
 
             private val imageViewRomIcon = itemView.findViewById<ImageView>(R.id.imageRomIcon)
             private val textViewRomName = itemView.findViewById<TextView>(R.id.textRomName)
+            private val textViewPlayTime = itemView.findViewById<TextView>(R.id.textPlayTime)
+            private val textViewLastPlayed = itemView.findViewById<TextView>(R.id.textLastPlayed)
             private lateinit var currentRom: Rom
             private var romIconLoadJob: Job? = null
 
             init {
                 itemView.setOnClickListener { onRomClick(currentRom) }
-                itemView.setOnLongClickListener {
-                    onRomLongClick(currentRom)
-                    true
-                }
+                itemView.setOnLongClickListener { onRomLongClick(currentRom); true }
             }
 
             fun cleanup() { romIconLoadJob?.cancel() }
@@ -358,8 +362,17 @@ class RomListFragment : Fragment() {
             fun setRom(rom: Rom, isEnabled: Boolean) {
                 currentRom = rom
                 textViewRomName.text = rom.config.customName ?: rom.name
-                imageViewRomIcon.setImageDrawable(null)
 
+                val playTimeStr = rom.totalPlayTime.toPlayTimeString()
+                textViewPlayTime.text = playTimeStr
+                textViewPlayTime.visibility = if (playTimeStr.isNotEmpty()) View.VISIBLE else View.GONE
+
+                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString() ?: ""
+                textViewLastPlayed.text = lastPlayedStr
+                textViewLastPlayed.visibility = if (lastPlayedStr.isNotEmpty()) View.VISIBLE else View.GONE
+
+                imageViewRomIcon.setImageDrawable(null)
+                romIconLoadJob?.cancel()
                 romIconLoadJob = coroutineScope.launch {
                     val romIcon = romListViewModel.getRomIcon(rom)
                     val iconDrawable = romIcon.bitmap?.toDrawable(itemView.resources)?.apply {
