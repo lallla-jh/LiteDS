@@ -55,6 +55,8 @@ class RomListViewModel @Inject constructor(
     private val _roms = MutableStateFlow<List<Rom>?>(null)
     val roms = _roms.asStateFlow()
 
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
     val recentlyPlayed: StateFlow<List<Rom>> = _roms
         .map { romList ->
             romList

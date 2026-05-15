@@ -34,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import me.magnum.melonds.R
@@ -127,7 +128,6 @@ class RomListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 romListViewModel.romScanningStatus.collectLatest { status ->
                     binding.swipeRefreshRoms.isRefreshing = status == RomScanningStatus.SCANNING
-                    displayEmptyListViewIfRequired()
                 }
             }
         }
@@ -136,7 +136,32 @@ class RomListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 romListViewModel.roms.filterNotNull().collectLatest { roms ->
                     romListAdapter.setRoms(roms)
-                    displayEmptyListViewIfRequired()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                combine(
+                    romListViewModel.roms,
+                    romListViewModel.romScanningStatus,
+                ) { roms, status ->
+                    roms != null && roms.isEmpty() && status != RomScanningStatus.SCANNING
+                }.collectLatest { showEmpty ->
+                    binding.composeEmptyState.isVisible = showEmpty
+                }
+            }
+        }
+
+        binding.composeEmptyState.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MelonTheme {
+                    val searchQuery by romListViewModel.searchQuery.collectAsState()
+                    RomListEmptyStateView(
+                        searchQuery = searchQuery,
+                        onRefresh = { romListViewModel.refreshRoms() },
+                    )
                 }
             }
         }
@@ -187,12 +212,6 @@ class RomListFragment : Fragment() {
             .putString("view_mode", if (isGridMode) "grid" else "list")
             .apply()
         applyLayoutMode()
-    }
-
-    private fun displayEmptyListViewIfRequired() {
-        val isScanning = binding.swipeRefreshRoms.isRefreshing
-        val emptyViewVisible = !isScanning && romListViewModel.roms.value?.isEmpty() == true
-        binding.textRomListEmpty.isVisible = emptyViewVisible
     }
 
     private fun buildRomEnabledFilter(romEnableCriteria: RomEnableCriteria): RomEnabledFilter {
