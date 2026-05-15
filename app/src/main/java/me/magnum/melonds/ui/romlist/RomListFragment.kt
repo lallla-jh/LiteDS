@@ -10,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.bundleOf
@@ -34,6 +37,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import me.magnum.melonds.R
+import me.magnum.melonds.ui.theme.MelonTheme
 import me.magnum.melonds.databinding.ItemRomConfigurableBinding
 import me.magnum.melonds.databinding.ItemRomSimpleBinding
 import me.magnum.melonds.databinding.RomListFragmentBinding
@@ -141,6 +145,22 @@ class RomListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 romListViewModel.onRomIconFilteringChanged.collectLatest {
                     romListAdapter.updateIcons()
+                }
+            }
+        }
+
+        binding.composeRecentlyPlayed.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MelonTheme {
+                    val recentlyPlayed by romListViewModel.recentlyPlayed.collectAsState()
+                    RecentlyPlayedSection(
+                        recentlyPlayed = recentlyPlayed,
+                        onRomClick = { rom ->
+                            romListViewModel.setRomLastPlayedNow(rom)
+                            romSelectedListener?.invoke(rom)
+                        },
+                    )
                 }
             }
         }
