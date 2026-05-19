@@ -43,6 +43,13 @@
             app:iconSpaceReserved="false"
             android:defaultValue="false" />
 
+    <SwitchPreference
+            android:key="hide_auxiliary_buttons"
+            android:title="@string/hide_auxiliary_buttons"
+            android:summary="@string/hide_auxiliary_buttons_summary"
+            app:iconSpaceReserved="false"
+            android:defaultValue="false" />
+
     <Preference
             android:key="backup_settings"
             android:title="@string/backup_settings"

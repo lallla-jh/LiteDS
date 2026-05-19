@@ -17,6 +17,7 @@ interface SettingsRepository {
     fun getFastForwardSpeedMultiplier(): Float
     fun isRewindEnabled(): Boolean
     fun isSustainedPerformanceModeEnabled(): Boolean
+    fun getHideAuxiliaryButtons(): Boolean
 
     fun getRomSearchDirectories(): Array<Uri>
     fun clearRomSearchDirectories()
