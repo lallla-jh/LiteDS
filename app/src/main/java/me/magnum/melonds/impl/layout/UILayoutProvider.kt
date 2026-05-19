@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.update
 import me.magnum.melonds.domain.model.Point
 import me.magnum.melonds.domain.model.Rect
 import me.magnum.melonds.domain.model.layout.Insets
@@ -26,6 +27,9 @@ class UILayoutProvider(private val defaultLayoutProvider: DefaultLayoutProvider)
     private val currentFolds = MutableStateFlow<List<ScreenFold>?>(null)
     private val currentDisplays = MutableStateFlow<LayoutDisplayPair?>(null)
 
+    // Incremented when settings that affect the default layout change (e.g. hide_auxiliary_buttons)
+    private val settingsRevision = MutableStateFlow(0)
+
     private val currentLayoutVariant = combine(currentUiSize, currentUiInsets, currentOrientation, currentFolds, currentDisplays) { size, insets, orientation, folds, displays ->
         if (size == null || insets == null || orientation == null || folds == null || displays == null) {
             null
@@ -36,12 +40,17 @@ class UILayoutProvider(private val defaultLayoutProvider: DefaultLayoutProvider)
 
     private val _currentLayoutConfiguration = MutableStateFlow<LayoutConfiguration?>(null)
 
-    val currentLayout = combine(_currentLayoutConfiguration, currentLayoutVariant) { layoutConfiguration, variant ->
+    val currentLayout = combine(_currentLayoutConfiguration, currentLayoutVariant, settingsRevision) { layoutConfiguration, variant, _ ->
         if (layoutConfiguration == null || variant == null) {
             null
         } else {
             variant to getOptimalLayoutForVariant(layoutConfiguration, variant)
         }
+    }
+
+    /** Call when a setting that affects the default layout has changed, to force an immediate rebuild. */
+    fun invalidateForSettingsChange() {
+        settingsRevision.update { it + 1 }
     }
 
     fun updateCurrentOrientation(orientation: Orientation) {

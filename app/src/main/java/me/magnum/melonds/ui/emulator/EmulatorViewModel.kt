@@ -174,8 +174,14 @@ class EmulatorViewModel @Inject constructor(
 
     fun setFastForwardSpeed(multiplier: Float) {
         _fastForwardSpeed.value = multiplier
+        val currentState = _emulatorState.value
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setFastForwardSpeedMultiplier(multiplier)
+            when (currentState) {
+                is EmulatorState.RunningRom -> emulatorManager.updateRomEmulatorConfiguration(currentState.rom)
+                is EmulatorState.RunningFirmware -> emulatorManager.updateFirmwareEmulatorConfiguration(currentState.console)
+                else -> { /* not running — saved for next launch */ }
+            }
         }
     }
 
@@ -265,6 +271,7 @@ class EmulatorViewModel @Inject constructor(
         startObservingSecondaryScreenBackground()
         startObservingRuntimeInputLayoutConfiguration()
         startObservingRendererConfiguration()
+        startObservingHideAuxiliaryButtons()
         startObservingEmulatorEvents()
         startObservingAchievementEvents()
         startObservingLayoutForRom(rom)
@@ -299,6 +306,7 @@ class EmulatorViewModel @Inject constructor(
                 startObservingSecondaryScreenBackground()
                 startObservingRuntimeInputLayoutConfiguration()
                 startObservingRendererConfiguration()
+                startObservingHideAuxiliaryButtons()
                 startObservingLayoutForFirmware()
                 startObservingEmulatorEvents()
 
@@ -764,6 +772,14 @@ class EmulatorViewModel @Inject constructor(
         sessionCoroutineScope.launch {
             settingsRepository.observeRenderConfiguration().collectLatest {
                 _runtimeRendererConfiguration.value = RuntimeRendererConfiguration(it.videoFiltering, it.resolutionScaling)
+            }
+        }
+    }
+
+    private fun startObservingHideAuxiliaryButtons() {
+        sessionCoroutineScope.launch {
+            settingsRepository.observeHideAuxiliaryButtons().collectLatest {
+                uiLayoutProvider.invalidateForSettingsChange()
             }
         }
     }

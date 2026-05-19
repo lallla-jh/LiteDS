@@ -19,6 +19,7 @@ interface SettingsRepository {
     fun isRewindEnabled(): Boolean
     fun isSustainedPerformanceModeEnabled(): Boolean
     fun getHideAuxiliaryButtons(): Boolean
+    fun observeHideAuxiliaryButtons(): Flow<Boolean>
 
     fun getRomSearchDirectories(): Array<Uri>
     fun clearRomSearchDirectories()
