@@ -172,16 +172,22 @@ class EmulatorViewModel @Inject constructor(
     private val _fastForwardSpeed = MutableStateFlow(settingsRepository.getFastForwardSpeedMultiplier())
     val fastForwardSpeed: StateFlow<Float> = _fastForwardSpeed.asStateFlow()
 
+    // hide auxiliary buttons — pause menu toggle
+    private val _hideAuxiliaryButtons = MutableStateFlow(settingsRepository.getHideAuxiliaryButtons())
+    val hideAuxiliaryButtons: StateFlow<Boolean> = _hideAuxiliaryButtons.asStateFlow()
+
+    fun setHideAuxiliaryButtons(hide: Boolean) {
+        _hideAuxiliaryButtons.value = hide
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setHideAuxiliaryButtons(hide)
+        }
+    }
+
     fun setFastForwardSpeed(multiplier: Float) {
         _fastForwardSpeed.value = multiplier
-        val currentState = _emulatorState.value
+        MelonEmulator.setFastForwardSpeedMultiplier(multiplier)
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setFastForwardSpeedMultiplier(multiplier)
-            when (currentState) {
-                is EmulatorState.RunningRom -> emulatorManager.updateRomEmulatorConfiguration(currentState.rom)
-                is EmulatorState.RunningFirmware -> emulatorManager.updateFirmwareEmulatorConfiguration(currentState.console)
-                else -> { /* not running — saved for next launch */ }
-            }
         }
     }
 

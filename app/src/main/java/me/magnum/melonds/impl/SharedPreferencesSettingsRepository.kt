@@ -196,6 +196,10 @@ class SharedPreferencesSettingsRepository(
         return preferences.getBoolean("hide_auxiliary_buttons", false)
     }
 
+    override fun setHideAuxiliaryButtons(hide: Boolean) {
+        preferences.edit { putBoolean("hide_auxiliary_buttons", hide) }
+    }
+
     override fun observeHideAuxiliaryButtons(): Flow<Boolean> {
         return getOrCreatePreferenceSharedFlow("hide_auxiliary_buttons") {
             getHideAuxiliaryButtons()

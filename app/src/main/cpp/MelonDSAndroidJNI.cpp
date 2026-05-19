@@ -541,6 +541,24 @@ Java_me_magnum_melonds_MelonEmulator_setMicrophoneEnabled(JNIEnv* env, jobject t
 }
 
 JNIEXPORT void JNICALL
+Java_me_magnum_melonds_MelonEmulator_setFastForwardSpeedMultiplier(JNIEnv* env, jobject thiz, jfloat multiplier)
+{
+    fastForwardSpeedMultiplier = multiplier;
+    if (isFastForwardEnabled) {
+        limitFps = fastForwardSpeedMultiplier > 0;
+        targetFps = 60 * fastForwardSpeedMultiplier;
+        if (performanceHintSession != nullptr) {
+            if (fastForwardSpeedMultiplier > 0) {
+                auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
+                performanceHintSession->updateTargetWorkDuration(frameDurationNs);
+            } else {
+                performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
+            }
+        }
+    }
+}
+
+JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_updateEmulatorConfiguration(JNIEnv* env, jobject thiz, jobject emulatorConfiguration)
 {
     MelonDSAndroid::EmulatorConfiguration newConfiguration = MelonDSAndroidConfiguration::buildEmulatorConfiguration(env, emulatorConfiguration);

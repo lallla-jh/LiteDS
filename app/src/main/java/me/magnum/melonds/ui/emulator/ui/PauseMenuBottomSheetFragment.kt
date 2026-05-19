@@ -66,10 +66,12 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
                 MelonTheme {
                     val state by viewModel.pauseMenuState.collectAsState()
                     val fastForwardSpeed by viewModel.fastForwardSpeed.collectAsState()
+                    val hideAuxiliaryButtons by viewModel.hideAuxiliaryButtons.collectAsState()
                     state?.let { pauseState ->
                         PauseMenuSheetContent(
                             state = pauseState,
                             fastForwardSpeed = fastForwardSpeed,
+                            hideAuxiliaryButtons = hideAuxiliaryButtons,
                             onResume = {
                                 actionTaken = true
                                 viewModel.resumeEmulator()
@@ -106,6 +108,7 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
                                 viewModel.refreshPauseMenuSaveSlots()
                             },
                             onSpeedChange = { viewModel.setFastForwardSpeed(it) },
+                            onHideAuxiliaryButtonsChange = { viewModel.setHideAuxiliaryButtons(it) },
                         )
                     }
                 }
@@ -131,6 +134,7 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
 private fun PauseMenuSheetContent(
     state: PauseMenuState,
     fastForwardSpeed: Float,
+    hideAuxiliaryButtons: Boolean,
     onResume: () -> Unit,
     onSave: (SaveStateSlot) -> Unit,
     onLoad: (SaveStateSlot) -> Unit,
@@ -139,6 +143,7 @@ private fun PauseMenuSheetContent(
     onCheats: () -> Unit,
     onDeleteSlot: (SaveStateSlot) -> Unit,
     onSpeedChange: (Float) -> Unit,
+    onHideAuxiliaryButtonsChange: (Boolean) -> Unit,
 ) {
     val mintColor = Color(0xFF00BFA5)
     var pendingSlot by remember { mutableStateOf<SaveStateSlot?>(null) }
@@ -247,10 +252,15 @@ private fun PauseMenuSheetContent(
                 }
             }
 
-            // 배속 스피너
+            // 컨트롤 설정 영역
             Spacer(Modifier.height(8.dp))
             Divider(color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f))
             Spacer(Modifier.height(4.dp))
+            HideAuxButtonsToggleRow(
+                enabled = hideAuxiliaryButtons,
+                mintColor = mintColor,
+                onToggle = onHideAuxiliaryButtonsChange,
+            )
             SpeedSpinnerRow(
                 currentSpeed = fastForwardSpeed,
                 mintColor = mintColor,
@@ -451,6 +461,42 @@ private fun SaveSlotCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun HideAuxButtonsToggleRow(
+    enabled: Boolean,
+    mintColor: Color,
+    onToggle: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Default.VideogameAsset,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = "L·R·Sel·Sta 숨기기",
+            fontSize = 14.sp,
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.75f),
+            modifier = Modifier.weight(1f),
+        )
+        Switch(
+            checked = enabled,
+            onCheckedChange = onToggle,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = mintColor,
+                checkedTrackColor = mintColor.copy(alpha = 0.5f),
+            ),
+        )
     }
 }
 
