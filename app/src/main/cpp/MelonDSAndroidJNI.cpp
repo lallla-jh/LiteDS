@@ -44,10 +44,13 @@ bool paused;
 std::atomic_bool isThreadReallyPaused = false;
 int observedFrames = 0;
 float fps = 0;
-int targetFps;
-float fastForwardSpeedMultiplier;
+float fastForwardSpeedMultiplier = 1.0f;
 bool limitFps = true;
 bool isFastForwardEnabled = false;
+// Fractional accumulator for sub-integer multipliers (e.g. 1.5×).
+// Each display tick we add fastForwardSpeedMultiplier; the integer part
+// is the number of NDS frames to run this tick.
+float fastForwardAccumulator = 0.0f;
 
 jobject globalCameraManager;
 MelonDSAndroidCameraHandler* androidCameraHandler;
@@ -243,8 +246,8 @@ Java_me_magnum_melonds_MelonEmulator_startEmulation(JNIEnv* env, jobject thiz)
     stop = false;
     isThreadReallyPaused = false;
     limitFps = true;
-    targetFps = 60;
     isFastForwardEnabled = false;
+    fastForwardAccumulator = 0.0f;
 
     pthread_mutex_init(&emuThreadMutex, NULL);
     pthread_cond_init(&emuThreadCond, NULL);
@@ -509,12 +512,16 @@ JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject thiz, jboolean enabled)
 {
     isFastForwardEnabled = enabled;
-    if (enabled) {
-        limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+    fastForwardAccumulator = 0.0f;
+
+    // For unlimited fast-forward (multiplier <= 0): remove the frame limiter so
+    // the emulation runs as fast as the hardware allows.
+    // For fixed multipliers: keep limitFps=true so the display stays at 60fps;
+    // the extra speed comes from running N NDS frames per display tick.
+    if (enabled && fastForwardSpeedMultiplier <= 0) {
+        limitFps = false;
     } else {
         limitFps = true;
-        targetFps = 60;
     }
 
     if (performanceHintSession != nullptr) {
@@ -544,9 +551,13 @@ JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_setFastForwardSpeedMultiplier(JNIEnv* env, jobject thiz, jfloat multiplier)
 {
     fastForwardSpeedMultiplier = multiplier;
+    fastForwardAccumulator = 0.0f;
     if (isFastForwardEnabled) {
-        limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+        if (fastForwardSpeedMultiplier <= 0) {
+            limitFps = false;
+        } else {
+            limitFps = true;
+        }
         if (performanceHintSession != nullptr) {
             if (fastForwardSpeedMultiplier > 0) {
                 auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
@@ -568,8 +579,12 @@ Java_me_magnum_melonds_MelonEmulator_updateEmulatorConfiguration(JNIEnv* env, jo
     MelonDSAndroid::updateEmulatorConfiguration(std::make_unique<MelonDSAndroid::EmulatorConfiguration>(std::move(newConfiguration)));
 
     if (isFastForwardEnabled) {
-        limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+        fastForwardAccumulator = 0.0f;
+        if (fastForwardSpeedMultiplier <= 0) {
+            limitFps = false;
+        } else {
+            limitFps = true;
+        }
 
         if (performanceHintSession != nullptr) {
             if (fastForwardSpeedMultiplier > 0) {
@@ -650,7 +665,32 @@ void* emulate(void*)
 
         auto frameStart = std::chrono::steady_clock::now();
 
-        u32 nLines = MelonDSAndroid::loop();
+        // Determine how many NDS frames to run this display tick.
+        //
+        // For fixed multipliers (e.g. 2×, 3×, 1.5×) we run N NDS frames
+        // per display tick while keeping the display at 60 fps.  This gives
+        // genuine N× game speed regardless of renderer performance – just as
+        // desktop melonDS does when the CPU is fast enough.  A fractional
+        // accumulator handles non-integer multipliers (e.g. 1.5× alternates
+        // 1 and 2 frames per tick so the average is 1.5×).
+        //
+        // For unlimited fast-forward (multiplier <= 0) we run one frame per
+        // tick and remove the frame limiter so the emulation runs as fast as
+        // the hardware allows (original behaviour).
+        int framesToRun = 1;
+        if (isFastForwardEnabled && fastForwardSpeedMultiplier > 0) {
+            fastForwardAccumulator += fastForwardSpeedMultiplier;
+            framesToRun = static_cast<int>(fastForwardAccumulator);
+            if (framesToRun < 1) framesToRun = 1;
+            fastForwardAccumulator -= static_cast<float>(framesToRun);
+        } else {
+            fastForwardAccumulator = 0.0f;
+        }
+
+        u32 nLines = 263;
+        for (int i = 0; i < framesToRun; i++) {
+            nLines = MelonDSAndroid::loop();
+        }
 
         auto frameDuration = std::chrono::steady_clock::now() - frameStart;
         if (performanceHintSession != nullptr)
@@ -659,8 +699,12 @@ void* emulate(void*)
         double currentTick = getCurrentMillis();
         double delay = currentTick - lastTick;
 
-        // All times are in ms
-        double frameTimeStep = (double) nLines / ((float) targetFps * 263.0) * 1000.0;
+        // All times are in ms.  Display is always targeted at 60fps (one NDS
+        // frame worth of time), regardless of how many NDS frames we just ran.
+        // If the N frames finished faster than 16.67ms the loop sleeps; if
+        // slower it just runs immediately (display FPS drops but game speed
+        // remains exactly N×).
+        double frameTimeStep = (double) nLines / (60.0 * 263.0) * 1000.0;
         if (frameTimeStep < 1)
             frameTimeStep = 1;
 
