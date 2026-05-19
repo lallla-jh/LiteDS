@@ -190,10 +190,10 @@ namespace MelonDSAndroid
         instance->start();
     }
 
-    u32 loop(int skipFrames)
+    u32 loop()
     {
         MPInterface::Get().Process();
-        return instance->runFrame(skipFrames);
+        return instance->runFrame();
     }
 
     Frame* getPresentationFrame(std::optional<std::chrono::time_point<std::chrono::steady_clock>> deadline)

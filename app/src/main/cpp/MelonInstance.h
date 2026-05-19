@@ -35,7 +35,7 @@ public:
     bool bootFirmware();
     void start();
     void reset();
-    melonDS::u32 runFrame(int skipFrames = 0);
+    melonDS::u32 runFrame();
     void stop();
 
     void touchScreen(u16 x, u16 y);

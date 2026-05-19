@@ -6,7 +6,6 @@
 #include <GLES3/gl3.h>
 #include "Args.h"
 #include "GPU3D_Compute.h"
-#include "GPU3D_Soft.h"
 #include "Configuration.h"
 #include "DSi.h"
 #include "DSiSupport.h"
@@ -278,7 +277,7 @@ void MelonInstance::reset()
     nds->Start();
 }
 
-u32 MelonInstance::runFrame(int skipFrames)
+u32 MelonInstance::runFrame()
 {
     if (isRenderConfigurationDirty)
     {
@@ -339,38 +338,6 @@ u32 MelonInstance::runFrame(int skipFrames)
     }
 
     bool isRendererAccelerated = nds->GPU.GetRenderer3D().Accelerated;
-
-    // Frame skip: run extra NDS frames without GL output to achieve N× speed.
-    // Software renderer: SetSkipFrame(true) makes the render thread skip actual 3D
-    // rasterization and immediately post scanline semaphores — much faster per frame.
-    // Hardware renderer: render into the same texture (overwritten by final frame).
-    if (skipFrames > 0)
-    {
-        if (!isRendererAccelerated)
-        {
-            auto& softRenderer = static_cast<SoftRenderer&>(nds->GPU.GetRenderer3D());
-            softRenderer.SetSkipFrame(true);
-            for (int i = 0; i < skipFrames; i++)
-            {
-                nds->RunFrame();
-                retroAchievementsManager->FrameUpdate();
-                frame++;
-            }
-            softRenderer.SetSkipFrame(false);
-        }
-        else
-        {
-            for (int i = 0; i < skipFrames; i++)
-            {
-                int backBuffer = nds->GPU.FrontBuffer ? 0 : 1;
-                nds->GPU.GetRenderer3D().SetOutputTexture(backBuffer, renderFrame->frameTexture);
-                nds->RunFrame();
-                retroAchievementsManager->FrameUpdate();
-                frame++;
-            }
-        }
-    }
-
     if (isRendererAccelerated)
     {
         int backBuffer = nds->GPU.FrontBuffer ? 0 : 1;
