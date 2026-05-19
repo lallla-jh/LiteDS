@@ -48,6 +48,28 @@ int targetFps;
 float fastForwardSpeedMultiplier;
 bool limitFps = true;
 bool isFastForwardEnabled = false;
+std::atomic_int fastForwardSkipFrames{0};
+
+// Compute skip-frame count for a given multiplier.
+// For integer multiples >= 2: use frame-skip (N-1 extra frames, target display at 60fps).
+// For fractional multiples (e.g. 1.5x): no skip, rely on targetFps throttle.
+// For unlimited (-1): skip up to 7 extra frames and remove frame limit.
+static int calcSkipFrames(float multiplier)
+{
+    if (multiplier <= 0.0f) return 7;    // unlimited: max skip
+    if (multiplier < 2.0f) return 0;     // < 2x: fractional speed, no skip
+    return static_cast<int>(multiplier) - 1; // 2x→1, 3x→2, 4x→3, 8x→7
+}
+
+// Compute targetFps for a given multiplier + skip count.
+// When using frame-skip the display loop runs at 60fps and skip provides the N×.
+// When no frame-skip, use the traditional targetFps = 60 * multiplier approach.
+static int calcTargetFps(float multiplier, int skipFrames)
+{
+    if (multiplier <= 0.0f) return 60;   // limitFps=false, value unused
+    if (skipFrames == 0) return static_cast<int>(60.0f * multiplier + 0.5f);
+    return 60;
+}
 
 jobject globalCameraManager;
 MelonDSAndroidCameraHandler* androidCameraHandler;
@@ -510,21 +532,19 @@ Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject 
 {
     isFastForwardEnabled = enabled;
     if (enabled) {
+        int skip = calcSkipFrames(fastForwardSpeedMultiplier);
+        fastForwardSkipFrames.store(skip, std::memory_order_relaxed);
         limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+        targetFps = calcTargetFps(fastForwardSpeedMultiplier, skip);
     } else {
+        fastForwardSkipFrames.store(0, std::memory_order_relaxed);
         limitFps = true;
         targetFps = 60;
     }
 
     if (performanceHintSession != nullptr) {
         if (enabled) {
-            if (fastForwardSpeedMultiplier > 0) {
-                auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
-                performanceHintSession->updateTargetWorkDuration(frameDurationNs);
-            } else {
-                performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
-            }
+            performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
         } else {
             performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_60FPS_NS);
         }
@@ -545,15 +565,12 @@ Java_me_magnum_melonds_MelonEmulator_setFastForwardSpeedMultiplier(JNIEnv* env, 
 {
     fastForwardSpeedMultiplier = multiplier;
     if (isFastForwardEnabled) {
+        int skip = calcSkipFrames(fastForwardSpeedMultiplier);
+        fastForwardSkipFrames.store(skip, std::memory_order_relaxed);
         limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+        targetFps = calcTargetFps(fastForwardSpeedMultiplier, skip);
         if (performanceHintSession != nullptr) {
-            if (fastForwardSpeedMultiplier > 0) {
-                auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
-                performanceHintSession->updateTargetWorkDuration(frameDurationNs);
-            } else {
-                performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
-            }
+            performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
         }
     }
 }
@@ -568,16 +585,13 @@ Java_me_magnum_melonds_MelonEmulator_updateEmulatorConfiguration(JNIEnv* env, jo
     MelonDSAndroid::updateEmulatorConfiguration(std::make_unique<MelonDSAndroid::EmulatorConfiguration>(std::move(newConfiguration)));
 
     if (isFastForwardEnabled) {
+        int skip = calcSkipFrames(fastForwardSpeedMultiplier);
+        fastForwardSkipFrames.store(skip, std::memory_order_relaxed);
         limitFps = fastForwardSpeedMultiplier > 0;
-        targetFps = 60 * fastForwardSpeedMultiplier;
+        targetFps = calcTargetFps(fastForwardSpeedMultiplier, skip);
 
         if (performanceHintSession != nullptr) {
-            if (fastForwardSpeedMultiplier > 0) {
-                auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
-                performanceHintSession->updateTargetWorkDuration(frameDurationNs);
-            } else {
-                performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
-            }
+            performanceHintSession->updateTargetWorkDuration(FRAME_DURATION_1000FPS_NS);
         }
     }
 }
@@ -650,7 +664,7 @@ void* emulate(void*)
 
         auto frameStart = std::chrono::steady_clock::now();
 
-        u32 nLines = MelonDSAndroid::loop();
+        u32 nLines = MelonDSAndroid::loop(fastForwardSkipFrames.load(std::memory_order_relaxed));
 
         auto frameDuration = std::chrono::steady_clock::now() - frameStart;
         if (performanceHintSession != nullptr)
