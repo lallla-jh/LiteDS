@@ -65,9 +65,11 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
             setContent {
                 MelonTheme {
                     val state by viewModel.pauseMenuState.collectAsState()
+                    val fastForwardSpeed by viewModel.fastForwardSpeed.collectAsState()
                     state?.let { pauseState ->
                         PauseMenuSheetContent(
                             state = pauseState,
+                            fastForwardSpeed = fastForwardSpeed,
                             onResume = {
                                 actionTaken = true
                                 viewModel.resumeEmulator()
@@ -103,6 +105,7 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
                                 viewModel.deleteSaveStateSlot(slot)
                                 viewModel.refreshPauseMenuSaveSlots()
                             },
+                            onSpeedChange = { viewModel.setFastForwardSpeed(it) },
                         )
                     }
                 }
@@ -127,6 +130,7 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
 @Composable
 private fun PauseMenuSheetContent(
     state: PauseMenuState,
+    fastForwardSpeed: Float,
     onResume: () -> Unit,
     onSave: (SaveStateSlot) -> Unit,
     onLoad: (SaveStateSlot) -> Unit,
@@ -134,6 +138,7 @@ private fun PauseMenuSheetContent(
     onExit: () -> Unit,
     onCheats: () -> Unit,
     onDeleteSlot: (SaveStateSlot) -> Unit,
+    onSpeedChange: (Float) -> Unit,
 ) {
     val mintColor = Color(0xFF00BFA5)
     var pendingSlot by remember { mutableStateOf<SaveStateSlot?>(null) }
@@ -241,6 +246,16 @@ private fun PauseMenuSheetContent(
                     }
                 }
             }
+
+            // 배속 스피너
+            Spacer(Modifier.height(8.dp))
+            Divider(color = MaterialTheme.colors.onSurface.copy(alpha = 0.08f))
+            Spacer(Modifier.height(4.dp))
+            SpeedSpinnerRow(
+                currentSpeed = fastForwardSpeed,
+                mintColor = mintColor,
+                onSpeedChange = onSpeedChange,
+            )
 
             Spacer(Modifier.height(16.dp))
         }
@@ -435,6 +450,71 @@ private fun SaveSlotCard(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SpeedSpinnerRow(
+    currentSpeed: Float,
+    mintColor: Color,
+    onSpeedChange: (Float) -> Unit,
+) {
+    val speedCycle = listOf(-1.0f, 1.5f, 2.0f, 3.0f, 4.0f, 8.0f)
+    val labels = mapOf(
+        -1.0f to "무제한",
+        1.5f  to "1.5×",
+        2.0f  to "2×",
+        3.0f  to "3×",
+        4.0f  to "4×",
+        8.0f  to "8×",
+    )
+    val currentIndex = speedCycle.indexOf(currentSpeed).takeIf { it >= 0 } ?: 0
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Default.FastForward,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = "패스트포워드",
+            fontSize = 14.sp,
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.75f),
+            modifier = Modifier.weight(1f),
+        )
+        IconButton(
+            onClick = {
+                val prev = speedCycle[(currentIndex - 1 + speedCycle.size) % speedCycle.size]
+                onSpeedChange(prev)
+            },
+            modifier = Modifier.size(36.dp),
+        ) {
+            Text("‹", fontSize = 20.sp, color = mintColor, fontWeight = FontWeight.Bold)
+        }
+        Text(
+            text = labels[currentSpeed] ?: "무제한",
+            fontSize = 14.sp,
+            color = mintColor,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.widthIn(min = 52.dp),
+            textAlign = TextAlign.Center,
+        )
+        IconButton(
+            onClick = {
+                val next = speedCycle[(currentIndex + 1) % speedCycle.size]
+                onSpeedChange(next)
+            },
+            modifier = Modifier.size(36.dp),
+        ) {
+            Text("›", fontSize = 20.sp, color = mintColor, fontWeight = FontWeight.Bold)
         }
     }
 }
