@@ -172,8 +172,8 @@ class DefaultLayoutProvider(
 
         if (!hideAuxiliary) {
             components += listOf(
-                PositionedLayoutComponent(Rect(safeLeft, dpadY, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_L),
-                PositionedLayoutComponent(Rect(width - safeRight - lrButtonsSize, dpadY, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_R),
+                PositionedLayoutComponent(Rect(safeLeft, utilityButtonsTop, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_L),
+                PositionedLayoutComponent(Rect(width - safeRight - lrButtonsSize, utilityButtonsTop, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_R),
                 PositionedLayoutComponent(Rect(width / 2 - selStaButtonsSize - spacing4dp / 2, height - safeBottom - selStaButtonsSize, selStaButtonsSize, selStaButtonsSize), LayoutComponent.BUTTON_SELECT),
                 PositionedLayoutComponent(Rect(width / 2 + spacing4dp / 2, height - safeBottom - selStaButtonsSize, selStaButtonsSize, selStaButtonsSize), LayoutComponent.BUTTON_START),
             )
