@@ -198,10 +198,12 @@ class DefaultLayoutProvider(
         val safeWidth = width - safeLeft - safeRight
         val safeHeight = height - safeTop - safeBottom
 
-        val largeButtonsSize = screenUnitsConverter.dpToPixels(140f).toInt()
-        val lrButtonsSize = screenUnitsConverter.dpToPixels(50f).toInt()
-        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()
+        val largeButtonsSize = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 160f else 140f).toInt()
+        val lrButtonsSize = screenUnitsConverter.dpToPixels(60f).toInt()
+        val selStaButtonsSize = screenUnitsConverter.dpToPixels(48f).toInt()
+        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()   // HINGE/TOGGLE/MIC/FF 유지
         val spacing4dp = screenUnitsConverter.dpToPixels(4f).toInt()
+        val verticalOffset = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 48f else 32f).toInt()
 
         val screenComponents = if (singleScreenComponent == null) {
             var topScreenWidth = (safeWidth * 0.66f).roundToInt()
@@ -226,24 +228,31 @@ class DefaultLayoutProvider(
             arrayOf(PositionedLayoutComponent(offsetScreen, singleScreenComponent))
         }
 
-        val dpadView = Rect(safeLeft, height - safeBottom - largeButtonsSize, largeButtonsSize, largeButtonsSize)
-        val buttonsView = Rect(width - safeRight - largeButtonsSize, height - safeBottom - largeButtonsSize, largeButtonsSize, largeButtonsSize)
+        val dpadY = height - safeBottom - largeButtonsSize - verticalOffset
+        val dpadView = Rect(safeLeft, dpadY, largeButtonsSize, largeButtonsSize)
+        val buttonsView = Rect(width - safeRight - largeButtonsSize, dpadY, largeButtonsSize, largeButtonsSize)
 
-        return ScreenLayout(
-            listOf(
-                *screenComponents,
-                PositionedLayoutComponent(dpadView, LayoutComponent.DPAD),
-                PositionedLayoutComponent(buttonsView, LayoutComponent.BUTTONS),
+        val components = mutableListOf<PositionedLayoutComponent>()
+        components.addAll(screenComponents.toList())
+        components.addAll(listOf(
+            PositionedLayoutComponent(dpadView, LayoutComponent.DPAD),
+            PositionedLayoutComponent(buttonsView, LayoutComponent.BUTTONS),
+            PositionedLayoutComponent(Rect(width / 2 - (smallButtonsSize * 2.0 + spacing4dp * 1.5).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_HINGE),
+            PositionedLayoutComponent(Rect(width / 2 - smallButtonsSize - (spacing4dp / 2.0).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_TOGGLE_SOFT_INPUT),
+            PositionedLayoutComponent(Rect(width / 2 + (spacing4dp / 2.0).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_MICROPHONE_TOGGLE),
+            PositionedLayoutComponent(Rect(width / 2 + smallButtonsSize + (spacing4dp * 1.5).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_FAST_FORWARD_TOGGLE),
+        ))
+
+        if (!hideAuxiliary) {
+            components.addAll(listOf(
                 PositionedLayoutComponent(Rect(safeLeft, safeTop, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_L),
                 PositionedLayoutComponent(Rect(width - safeRight - lrButtonsSize, safeTop, lrButtonsSize, lrButtonsSize), LayoutComponent.BUTTON_R),
-                PositionedLayoutComponent(Rect((width - spacing4dp) / 2 - smallButtonsSize, height - safeBottom - smallButtonsSize, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_SELECT),
-                PositionedLayoutComponent(Rect((width + spacing4dp) / 2, height - safeBottom - smallButtonsSize, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_START),
-                PositionedLayoutComponent(Rect(width / 2 - (smallButtonsSize * 2.0 + spacing4dp * 1.5).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_HINGE),
-                PositionedLayoutComponent(Rect(width / 2 - smallButtonsSize - (spacing4dp / 2.0).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_TOGGLE_SOFT_INPUT),
-                PositionedLayoutComponent(Rect(width / 2 + (spacing4dp / 2.0).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_MICROPHONE_TOGGLE),
-                PositionedLayoutComponent(Rect(width / 2 + smallButtonsSize + (spacing4dp * 1.5).toInt(), safeTop, smallButtonsSize, smallButtonsSize), LayoutComponent.BUTTON_FAST_FORWARD_TOGGLE),
-            )
-        )
+                PositionedLayoutComponent(Rect((width - spacing4dp) / 2 - selStaButtonsSize, height - safeBottom - selStaButtonsSize, selStaButtonsSize, selStaButtonsSize), LayoutComponent.BUTTON_SELECT),
+                PositionedLayoutComponent(Rect((width + spacing4dp) / 2, height - safeBottom - selStaButtonsSize, selStaButtonsSize, selStaButtonsSize), LayoutComponent.BUTTON_START),
+            ))
+        }
+
+        return ScreenLayout(components)
     }
 
     /**
