@@ -298,7 +298,20 @@ class SharedPreferencesSettingsRepository(
 
     override fun getVideoRenderer(): Flow<VideoRenderer> {
         return getOrCreatePreferenceSharedFlow("video_renderer") {
-            val videoRendererPreference = preferences.getString("video_renderer", "software")!!
+            // LiteDS defaults to OpenGL renderer for better fast-forward performance.
+            // If the user had the old "software" default (set automatically, not by user choice),
+            // upgrade them to "opengl" on first read by checking a migration flag.
+            if (!preferences.getBoolean("liteds_renderer_upgraded_v1", false)) {
+                val current = preferences.getString("video_renderer", null)
+                if (current == null || current == "software") {
+                    preferences.edit().putString("video_renderer", "opengl")
+                        .putBoolean("liteds_renderer_upgraded_v1", true)
+                        .apply()
+                } else {
+                    preferences.edit().putBoolean("liteds_renderer_upgraded_v1", true).apply()
+                }
+            }
+            val videoRendererPreference = preferences.getString("video_renderer", "opengl")!!
             VideoRenderer.valueOf(videoRendererPreference.uppercase())
         }
     }
