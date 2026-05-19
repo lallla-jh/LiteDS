@@ -34,32 +34,6 @@
     </item>
 
     <item
-        android:id="@+id/action_boot_firmware"
-        android:title="@string/action_boot_firmware"
-        android:icon="@drawable/ic_firmware"
-        android:orderInCategory="3"
-        app:showAsAction="ifRoom">
-
-        <menu>
-            <item
-                android:id="@+id/action_boot_firmware_ds"
-                android:title="@string/console_ds"
-                android:orderInCategory="1" />
-
-            <item
-                android:id="@+id/action_boot_firmware_dsi"
-                android:title="@string/console_dsi"
-                android:orderInCategory="1" />
-        </menu>
-    </item>
-
-    <item
-        android:id="@+id/action_dsiware_manager"
-        android:title="@string/dsiware_manager"
-        android:orderInCategory="3"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_toggle_view_mode"
         android:title="@string/action_view_grid"
         android:orderInCategory="3"

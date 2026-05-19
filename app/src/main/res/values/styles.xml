@@ -13,8 +13,8 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/splashBackground</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="windowSplashScreenBackground">@color/litedsMain</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_liteds_foreground</item>
 
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>

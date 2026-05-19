@@ -149,7 +149,7 @@ class DefaultLayoutProvider(
 
         val screensBottom = if (singleScreenComponent == null) safeTop + screenHeight * 2 else safeTop + screenHeight
         // Check if there's space to put all the buttons below the screens. If not, place L, R, and utility buttons aligned with the top of the bottom screen
-        val utilityButtonsTop = if (screensBottom + lrButtonsSize + largeButtonsSize > height) {
+        val utilityButtonsTop = if (screensBottom + lrButtonsSize + largeButtonsSize + verticalOffset > height) {
             safeTop + screenHeight
         } else {
             screensBottom

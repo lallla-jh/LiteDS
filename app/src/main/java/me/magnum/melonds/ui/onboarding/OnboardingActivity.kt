@@ -42,8 +42,13 @@ class OnboardingActivity : AppCompatActivity() {
         setContent {
             MelonTheme {
                 OnboardingScreen(
-                    onFinish = {
-                        startActivity(Intent(this, RomListActivity::class.java))
+                    onFinish = { selectedUri ->
+                        val intent = Intent(this, RomListActivity::class.java).apply {
+                            if (selectedUri != null) {
+                                putExtra(RomListActivity.EXTRA_ROM_DIRECTORY_URI, selectedUri.toString())
+                            }
+                        }
+                        startActivity(intent)
                         finish()
                     }
                 )
@@ -53,15 +58,16 @@ class OnboardingActivity : AppCompatActivity() {
 }
 
 @Composable
-fun OnboardingScreen(onFinish: () -> Unit) {
+fun OnboardingScreen(onFinish: (selectedUri: android.net.Uri?) -> Unit) {
     val onboardingViewModel: OnboardingViewModel = viewModel()
     var currentStep by remember { mutableStateOf(1) }
+    var selectedUri by remember { mutableStateOf<android.net.Uri?>(null) }
     val mintColor = ComposeColor(0xFF00BFA5)
 
     val folderPickerLauncher = rememberLauncherForActivityResult(
         contract = DirectoryPickerContract(Permission.READ_WRITE)
     ) { uri ->
-        uri?.let { onboardingViewModel.addRomDirectory(it) }
+        selectedUri = uri
         currentStep = 3
     }
 
@@ -79,7 +85,7 @@ fun OnboardingScreen(onFinish: () -> Unit) {
                 onNext = { currentStep = 2 },
                 onSkip = {
                     onboardingViewModel.markOnboardingComplete()
-                    onFinish()
+                    onFinish(null)
                 }
             )
             2 -> OnboardingStep2(
@@ -91,7 +97,7 @@ fun OnboardingScreen(onFinish: () -> Unit) {
                 mintColor = mintColor,
                 onFinish = {
                     onboardingViewModel.markOnboardingComplete()
-                    onFinish()
+                    onFinish(selectedUri)
                 }
             )
         }

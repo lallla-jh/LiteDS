@@ -38,7 +38,6 @@ import me.magnum.melonds.domain.model.Version
 import me.magnum.melonds.domain.model.appupdate.AppUpdate
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.ui.common.rom.EmulatorLaunchValidatorDelegate
-import me.magnum.melonds.ui.dsiwaremanager.DSiWareManagerActivity
 import me.magnum.melonds.ui.emulator.EmulatorActivity
 import androidx.preference.PreferenceManager
 import me.magnum.melonds.ui.onboarding.OnboardingActivity
@@ -51,6 +50,7 @@ class RomListActivity : AppCompatActivity() {
     companion object {
         private const val FRAGMENT_ROM_LIST = "ROM_LIST"
         private const val FRAGMENT_NO_ROM_DIRECTORIES = "NO_ROM_DIRECTORY"
+        const val EXTRA_ROM_DIRECTORY_URI = "extra_rom_directory_uri"
     }
 
     @Inject lateinit var markwon: Markwon
@@ -72,6 +72,12 @@ class RomListActivity : AppCompatActivity() {
         }
 
         super.onCreate(savedInstanceState)
+
+        // 온보딩에서 선택한 ROM 폴더 URI를 수신하여 저장
+        intent.getStringExtra(EXTRA_ROM_DIRECTORY_URI)?.let { uriString ->
+            android.net.Uri.parse(uriString)?.let { uri -> viewModel.addRomSearchDirectory(uri) }
+        }
+
         WindowCompat.enableEdgeToEdge(window)
         val binding = ActivityRomListBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -212,19 +218,6 @@ class RomListActivity : AppCompatActivity() {
             }
             R.id.action_sort_recent -> {
                 viewModel.setRomSorting(SortingMode.RECENTLY_PLAYED)
-                return true
-            }
-            R.id.action_boot_firmware_ds -> {
-                launchFirmware(ConsoleType.DS)
-                return true
-            }
-            R.id.action_boot_firmware_dsi -> {
-                launchFirmware(ConsoleType.DSi)
-                return true
-            }
-            R.id.action_dsiware_manager -> {
-                val intent = Intent(this, DSiWareManagerActivity::class.java)
-                startActivity(intent)
                 return true
             }
             R.id.action_rom_list_refresh -> {
