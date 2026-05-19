@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -166,6 +167,17 @@ class EmulatorViewModel @Inject constructor(
 
     private val _pauseMenuState = MutableStateFlow<PauseMenuState?>(null)
     val pauseMenuState = _pauseMenuState.asStateFlow()
+
+    // fast-forward speed — pause menu spinner
+    private val _fastForwardSpeed = MutableStateFlow(settingsRepository.getFastForwardSpeedMultiplier())
+    val fastForwardSpeed: StateFlow<Float> = _fastForwardSpeed.asStateFlow()
+
+    fun setFastForwardSpeed(multiplier: Float) {
+        _fastForwardSpeed.value = multiplier
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setFastForwardSpeedMultiplier(multiplier)
+        }
+    }
 
     init {
         viewModelScope.launch {

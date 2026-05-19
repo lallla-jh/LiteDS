@@ -180,6 +180,10 @@ class SharedPreferencesSettingsRepository(
         return speedMultiplierPreference.toFloat()
     }
 
+    override fun setFastForwardSpeedMultiplier(multiplier: Float) {
+        preferences.edit { putString("fast_forward_speed_multiplier", multiplier.toString()) }
+    }
+
     override fun isRewindEnabled(): Boolean {
         return preferences.getBoolean("enable_rewind", false)
     }

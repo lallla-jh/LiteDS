@@ -15,6 +15,7 @@ interface SettingsRepository {
 
     fun getTheme(): Theme
     fun getFastForwardSpeedMultiplier(): Float
+    fun setFastForwardSpeedMultiplier(multiplier: Float)
     fun isRewindEnabled(): Boolean
     fun isSustainedPerformanceModeEnabled(): Boolean
     fun getHideAuxiliaryButtons(): Boolean
