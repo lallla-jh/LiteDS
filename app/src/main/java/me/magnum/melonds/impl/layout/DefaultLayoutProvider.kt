@@ -119,7 +119,7 @@ class DefaultLayoutProvider(
         val largeButtonsSize = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 160f else 140f).toInt()
         val lrButtonsSize = screenUnitsConverter.dpToPixels(60f).toInt()
         val selStaButtonsSize = screenUnitsConverter.dpToPixels(48f).toInt()
-        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()   // HINGE/TOGGLE/MIC/FF 유지
+        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()   // used for center utility buttons
         val spacing4dp = screenUnitsConverter.dpToPixels(4f).toInt()
         val verticalOffset = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 48f else 32f).toInt()
 
@@ -201,7 +201,7 @@ class DefaultLayoutProvider(
         val largeButtonsSize = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 160f else 140f).toInt()
         val lrButtonsSize = screenUnitsConverter.dpToPixels(60f).toInt()
         val selStaButtonsSize = screenUnitsConverter.dpToPixels(48f).toInt()
-        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()   // HINGE/TOGGLE/MIC/FF 유지
+        val smallButtonsSize = screenUnitsConverter.dpToPixels(40f).toInt()   // used for center utility buttons
         val spacing4dp = screenUnitsConverter.dpToPixels(4f).toInt()
         val verticalOffset = screenUnitsConverter.dpToPixels(if (hideAuxiliary) 48f else 32f).toInt()
 
@@ -233,7 +233,7 @@ class DefaultLayoutProvider(
         val buttonsView = Rect(width - safeRight - largeButtonsSize, dpadY, largeButtonsSize, largeButtonsSize)
 
         val components = mutableListOf<PositionedLayoutComponent>()
-        components.addAll(screenComponents.toList())
+        components.addAll(screenComponents)
         components.addAll(listOf(
             PositionedLayoutComponent(dpadView, LayoutComponent.DPAD),
             PositionedLayoutComponent(buttonsView, LayoutComponent.BUTTONS),
