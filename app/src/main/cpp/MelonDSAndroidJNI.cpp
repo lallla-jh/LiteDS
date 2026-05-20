@@ -510,15 +510,11 @@ Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject 
 {
     isFastForwardEnabled = enabled;
     if (enabled) {
-        // For fractional multipliers (<2×) keep the legacy single-frame/targetFps approach.
-        // For ≥2× the emulation loop handles multi-frame directly and ignores targetFps.
-        if (fastForwardSpeedMultiplier > 0.0f && fastForwardSpeedMultiplier < 2.0f) {
-            limitFps = true;
-            targetFps = (int)(60 * fastForwardSpeedMultiplier);
-        } else {
-            limitFps = fastForwardSpeedMultiplier > 0.0f; // ≥2×: kept true but unused
-            targetFps = 60;
-        }
+        // limitFps=false (unlimited) when multiplier<=0 (e.g. -1 = "unlimited").
+        // limitFps=true for positive multipliers: targetFps = N*60 acts as both a
+        // speed floor on fast devices and a ceiling on slow ones.
+        limitFps = fastForwardSpeedMultiplier > 0;
+        targetFps = (int)(60 * fastForwardSpeedMultiplier);
     } else {
         limitFps = true;
         targetFps = 60;
@@ -526,7 +522,6 @@ Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject 
 
     if (performanceHintSession != nullptr) {
         if (enabled) {
-            // Hint the OS that we are working harder; use a short target duration.
             if (fastForwardSpeedMultiplier > 0.0f) {
                 auto frameDurationNs = static_cast<int64_t>(
                     FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
@@ -553,14 +548,10 @@ JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_setFastForwardSpeedMultiplier(JNIEnv* env, jobject thiz, jfloat multiplier)
 {
     fastForwardSpeedMultiplier = multiplier;
-    // The emulation loop reads fastForwardSpeedMultiplier directly every iteration,
-    // so no further state updates are needed here for ≥2× (multi-frame) cases.
-    // For fractional multipliers keep targetFps in sync for the legacy path.
     if (isFastForwardEnabled) {
-        if (fastForwardSpeedMultiplier > 0.0f && fastForwardSpeedMultiplier < 2.0f) {
-            limitFps = true;
-            targetFps = (int)(60 * fastForwardSpeedMultiplier);
-        }
+        // Keep limitFps/targetFps in sync so the emulation loop sees the new speed immediately.
+        limitFps = fastForwardSpeedMultiplier > 0;
+        targetFps = (int)(60 * fastForwardSpeedMultiplier);
         if (performanceHintSession != nullptr) {
             if (fastForwardSpeedMultiplier > 0.0f) {
                 auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
@@ -582,10 +573,8 @@ Java_me_magnum_melonds_MelonEmulator_updateEmulatorConfiguration(JNIEnv* env, jo
     MelonDSAndroid::updateEmulatorConfiguration(std::make_unique<MelonDSAndroid::EmulatorConfiguration>(std::move(newConfiguration)));
 
     if (isFastForwardEnabled) {
-        if (fastForwardSpeedMultiplier > 0.0f && fastForwardSpeedMultiplier < 2.0f) {
-            limitFps = true;
-            targetFps = (int)(60 * fastForwardSpeedMultiplier);
-        }
+        limitFps = fastForwardSpeedMultiplier > 0;
+        targetFps = (int)(60 * fastForwardSpeedMultiplier);
         if (performanceHintSession != nullptr) {
             if (fastForwardSpeedMultiplier > 0.0f) {
                 auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
@@ -665,33 +654,7 @@ void* emulate(void*)
 
         auto frameStart = std::chrono::steady_clock::now();
 
-        // Multi-frame fast-forward: run N NDS frames per loop iteration.
-        // FrameQueue is sized for 8× (9 slots), so up to 8 frames/loop is safe.
-        // For non-integer multipliers (e.g. 1.5×): fall back to single-frame
-        // with the higher targetFps (old approach; works when hardware is fast enough).
-        int framesToRun = 1;
-        bool applyFrameLimit = limitFps;
-
-        if (isFastForwardEnabled) {
-            if (fastForwardSpeedMultiplier >= 2.0f) {
-                // Integer multiplier ≥ 2×: multi-frame path
-                framesToRun = (int) fastForwardSpeedMultiplier;
-                applyFrameLimit = true; // target 60 fps for the outer loop
-            } else if (fastForwardSpeedMultiplier > 0.0f) {
-                // Fractional multiplier (1.5×): single-frame, targetFps already set
-                framesToRun = 1;
-                applyFrameLimit = limitFps;
-            } else {
-                // Unlimited (multiplier ≤ 0): no sleep
-                framesToRun = 1;
-                applyFrameLimit = false;
-            }
-        }
-
-        u32 nLines = 0;
-        for (int i = 0; i < framesToRun; i++) {
-            nLines = MelonDSAndroid::loop();
-        }
+        u32 nLines = MelonDSAndroid::loop();
 
         auto frameDuration = std::chrono::steady_clock::now() - frameStart;
         if (performanceHintSession != nullptr)
@@ -701,16 +664,11 @@ void* emulate(void*)
         double delay = currentTick - lastTick;
 
         // All times are in ms.
-        // For multi-frame mode the outer loop always targets 60 fps (one display
-        // frame per iteration); the speed comes from running N NDS frames inside.
-        float baseTargetFps = (isFastForwardEnabled && fastForwardSpeedMultiplier >= 2.0f)
-                              ? 60.0f
-                              : (float) targetFps;
-        double frameTimeStep = (double) nLines / (baseTargetFps * 263.0) * 1000.0;
+        double frameTimeStep = (double) nLines / ((float) targetFps * 263.0) * 1000.0;
         if (frameTimeStep < 1)
             frameTimeStep = 1;
 
-        if (applyFrameLimit)
+        if (limitFps)
         {
             frameLimitError += frameTimeStep - delay;
             if (frameLimitError < -frameTimeStep)

@@ -181,7 +181,11 @@ class SharedPreferencesSettingsRepository(
     }
 
     override fun setFastForwardSpeedMultiplier(multiplier: Float) {
-        preferences.edit { putString("fast_forward_speed_multiplier", multiplier.toString()) }
+        // Store as a clean string matching the list values in arrays.xml:
+        // integers drop the ".0" suffix (2.0f → "2") so the settings ListPreference
+        // can correctly highlight the selected entry.
+        val stored = if (multiplier == multiplier.toLong().toFloat()) multiplier.toLong().toString() else multiplier.toString()
+        preferences.edit { putString("fast_forward_speed_multiplier", stored) }
     }
 
     override fun isRewindEnabled(): Boolean {
