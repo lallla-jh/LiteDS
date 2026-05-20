@@ -21,8 +21,11 @@
 #include "RetroAchievementsMapper.h"
 #include "performancehint/ThreadSafePerformanceHintSession.h"
 #include "performancehint/PerformanceHintManagerFactory.h"
+#include "MelonLog.h"
 
 #include "Platform.h"
+
+#define FF_LOG_TAG "MelonFastForward"
 
 enum GbaSlotType {
     NONE = 0,
@@ -519,6 +522,8 @@ Java_me_magnum_melonds_MelonEmulator_setFastForwardEnabled(JNIEnv* env, jobject 
         limitFps = true;
         targetFps = 60;
     }
+    LOG_INFO(FF_LOG_TAG, "setFastForwardEnabled(%d): multiplier=%.2f -> limitFps=%d targetFps=%d",
+             (int) enabled, fastForwardSpeedMultiplier, (int) limitFps, targetFps);
 
     if (performanceHintSession != nullptr) {
         if (enabled) {
@@ -548,10 +553,13 @@ JNIEXPORT void JNICALL
 Java_me_magnum_melonds_MelonEmulator_setFastForwardSpeedMultiplier(JNIEnv* env, jobject thiz, jfloat multiplier)
 {
     fastForwardSpeedMultiplier = multiplier;
+    LOG_INFO(FF_LOG_TAG, "setFastForwardSpeedMultiplier(%.2f): isFastForwardEnabled=%d",
+             multiplier, (int) isFastForwardEnabled);
     if (isFastForwardEnabled) {
         // Keep limitFps/targetFps in sync so the emulation loop sees the new speed immediately.
         limitFps = fastForwardSpeedMultiplier > 0;
         targetFps = (int)(60 * fastForwardSpeedMultiplier);
+        LOG_INFO(FF_LOG_TAG, "  -> applied live: limitFps=%d targetFps=%d", (int) limitFps, targetFps);
         if (performanceHintSession != nullptr) {
             if (fastForwardSpeedMultiplier > 0.0f) {
                 auto frameDurationNs = static_cast<int64_t>(FRAME_DURATION_60FPS_NS / fastForwardSpeedMultiplier);
@@ -699,6 +707,9 @@ void* emulate(void*)
             fps = (observedFrames * 1000.0) / (lastTick - lastMeasureFpsTick);
             lastMeasureFpsTick = lastTick;
             observedFrames = 0;
+            LOG_INFO(FF_LOG_TAG, "measured fps=%.1f (targetFps=%d limitFps=%d ff=%d mult=%.2f frameTimeStep=%.2fms delay=%.2fms)",
+                     fps, targetFps, (int) limitFps, (int) isFastForwardEnabled,
+                     fastForwardSpeedMultiplier, frameTimeStep, delay);
         }
     }
 
