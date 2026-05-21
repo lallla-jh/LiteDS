@@ -620,4 +620,46 @@
         <item>Pas bawah</item>
         <item>Pas kanan</item>
     </string-array>
+
+    <string name="hide_auxiliary_buttons">Sembunyikan tombol tambahan</string>
+    <string name="hide_auxiliary_buttons_summary">Menyembunyikan tombol L, R, Select, dan Start saat bermain</string>
+    <string name="about">Tentang</string>
+    <string name="about_summary">Versi, dukungan, sumber terbuka</string>
+    <string name="about_tagline">Punya ROM? Langsung mainkan.\nDS, kembali lagi.</string>
+    <string name="about_support_title">Dukung pengembang</string>
+    <string name="about_support_desc">LiteDS adalah aplikasi gratis dan sumber terbuka.\nJika kamu menyukainya, dukung pengembangan\ndengan secangkir kopi ☕</string>
+    <string name="about_kofi">Dukung di Ko-fi</string>
+    <string name="about_opensource_title">Sumber terbuka</string>
+    <string name="about_opensource_desc">Berdasarkan melonDS-android\ndan dilisensikan di bawah GPL-3.0.\nKode sumber tersedia di GitHub.</string>
+    <string name="about_github_label">Lihat di GitHub</string>
+    <string name="about_review_label">Beri ulasan di Play Store</string>
+    <string name="about_version">Versi %1$s</string>
+    <string name="about_back">Kembali</string>
+    <string name="about_melonds_credit">Aplikasi ini dibangun di atas proyek sumber terbuka melonDS (GPLv3).</string>
+    <string name="about_melonds_label">Lihat melonDS asli</string>
+    <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_step1_desc">Cukup bawa file ROM dan langsung mulai bermain.</string>
+    <string name="onboarding_step1_button">Mulai →</string>
+    <string name="onboarding_step2_title">Di mana file\ngame kamu?</string>
+    <string name="onboarding_step2_desc">Pilih folder dengan file .nds kamu\ndan akan ditambahkan secara otomatis.</string>
+    <string name="onboarding_step2_button">📁 Pilih folder</string>
+    <string name="onboarding_step2_skip">Nanti saja</string>
+    <string name="onboarding_step3_title">Siap semua!</string>
+    <string name="onboarding_step3_desc">Silakan mulai sebuah game.</string>
+    <string name="onboarding_step3_button">Lihat daftar game →</string>
+    <string name="settings_show_advanced">Tampilkan pengaturan lanjutan</string>
+    <string name="settings_show_advanced_summary">Ingin pengaturan yang lebih detail?</string>
+    <string name="pause_menu_resume">Lanjutkan</string>
+    <string name="pause_menu_save">Simpan</string>
+    <string name="pause_menu_load">Muat</string>
+    <string name="pause_menu_reset">Mulai ulang</string>
+    <string name="pause_menu_exit">Beranda</string>
+    <string name="pause_menu_cheats">Cheats</string>
+    <string name="pause_menu_save_slots">Slot simpanan</string>
+    <string name="pause_menu_slot_label">Slot %1$d</string>
+    <string name="pause_menu_empty_slot">Slot kosong</string>
+    <string name="pause_menu_reset_confirm_title">Mulai ulang</string>
+    <string name="pause_menu_reset_confirm_msg">Kemajuan yang belum disimpan akan hilang.\nMulai ulang tetap?</string>
+    <string name="pause_menu_exit_confirm_title">Beranda</string>
+    <string name="pause_menu_exit_confirm_msg">Keluar dari game dan kembali ke layar beranda?</string>
 </resources>

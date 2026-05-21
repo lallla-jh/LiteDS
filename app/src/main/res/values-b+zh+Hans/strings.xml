@@ -618,4 +618,46 @@
         <item>底部</item>
         <item>右侧</item>
     </string-array>
+
+    <string name="hide_auxiliary_buttons">隐藏辅助按钮</string>
+    <string name="hide_auxiliary_buttons_summary">在游戏过程中隐藏 L、R、选择和开始按钮</string>
+    <string name="about">关于</string>
+    <string name="about_summary">版本、支持、开源</string>
+    <string name="about_tagline">有 ROM？直接开玩。\nDS，重新上线。</string>
+    <string name="about_support_title">支持开发者</string>
+    <string name="about_support_desc">LiteDS 是一款免费的开源应用。\n如果你喜欢它，请用一杯咖啡支持开发 ☕</string>
+    <string name="about_kofi">在 Ko-fi 上支持</string>
+    <string name="about_opensource_title">开源</string>
+    <string name="about_opensource_desc">基于 melonDS-android\n并在 GPL-3.0 许可证下发布。\n源代码可在 GitHub 上获取。</string>
+    <string name="about_github_label">在 GitHub 上查看</string>
+    <string name="about_review_label">在 Play Store 上留下评价</string>
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_back">返回</string>
+    <string name="about_melonds_credit">本应用基于 melonDS（GPLv3）开源项目构建。</string>
+    <string name="about_melonds_label">查看原版 melonDS</string>
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_step1_desc">只需带上 ROM 文件，立即开始游戏。</string>
+    <string name="onboarding_step1_button">开始 →</string>
+    <string name="onboarding_step2_title">你的游戏\n文件在哪里？</string>
+    <string name="onboarding_step2_desc">选择包含 .nds 文件的文件夹，\n它们将自动添加。</string>
+    <string name="onboarding_step2_button">📁 选择文件夹</string>
+    <string name="onboarding_step2_skip">稍后再说</string>
+    <string name="onboarding_step3_title">准备就绪！</string>
+    <string name="onboarding_step3_desc">去开始一个游戏吧。</string>
+    <string name="onboarding_step3_button">查看游戏列表 →</string>
+    <string name="settings_show_advanced">显示高级设置</string>
+    <string name="settings_show_advanced_summary">想要更详细的设置？</string>
+    <string name="pause_menu_resume">继续</string>
+    <string name="pause_menu_save">保存</string>
+    <string name="pause_menu_load">读取</string>
+    <string name="pause_menu_reset">重新开始</string>
+    <string name="pause_menu_exit">主页</string>
+    <string name="pause_menu_cheats">作弊码</string>
+    <string name="pause_menu_save_slots">存档槽</string>
+    <string name="pause_menu_slot_label">槽位 %1$d</string>
+    <string name="pause_menu_empty_slot">空槽位</string>
+    <string name="pause_menu_reset_confirm_title">重新开始</string>
+    <string name="pause_menu_reset_confirm_msg">未保存的进度将丢失。\n仍要重新开始？</string>
+    <string name="pause_menu_exit_confirm_title">主页</string>
+    <string name="pause_menu_exit_confirm_msg">退出游戏并返回主页？</string>
 </resources>
