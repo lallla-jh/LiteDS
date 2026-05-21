@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiteDS</string>
+
+    <string name="ok">OK</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="on">オン</string>
+    <string name="off">オフ</string>
+    <string name="cancel">キャンセル</string>
+    <string name="not_set">未設定</string>
+    <string name="delete">削除</string>
+    <string name="edit">編集</string>
+    <string name="clear">クリア</string>
+    <string name="none">なし</string>
+    <string name="options">オプション</string>
+    <string name="preview">プレビュー</string>
+    <string name="undo">元に戻す</string>
+    <string name="update">更新</string>
+    <string name="close">閉じる</string>
+    <string name="play">プレイ</string>
+    <string name="save">保存</string>
+    <string name="ellipsis">…</string>
+    <string name="navigate_back">戻る</string>
+
+    <string name="version_alpha">アルファ</string>
+    <string name="version_beta">ベータ</string>
+    <string name="version_nightly">ナイトリー</string>
+
+    <string name="console_ds">DS</string>
+    <string name="console_dsi">DSi (実験的)</string>
+
+    <string name="console_ds_full">Nintendo DS</string>
+    <string name="console_dsi_full">Nintendo DSi</string>
+
+    <string name="size_bytes">B</string>
+    <string name="size_kb">KB</string>
+    <string name="size_mb">MB</string>
+    <string name="size_gb">GB</string>
+
+    <string name="error_rom_not_found">ROM が見つかりません</string>
+    <string name="error_rom_not_found_info">選択した ROM ファイルが見つかりませんでした。選択した ROM が現在の ROM 検索ディレクトリにあるか確認してください。\n%1$s</string>
+    <string name="error_load_rom">ROM を読み込めません</string>
+    <string name="error_load_rom_message">ROM の読み込み中に問題が発生しました。ファイルが破損していないか確認してから再試行してください。</string>
+    <string name="error_load_firmware">ファームウェアを読み込めません</string>
+    <string name="error_load_firmware_message">ファームウェア（%1$s）の読み込み中に問題が発生しました。BIOS とファームウェアのダンプが破損していないか、ファームウェアが起動可能かを確認してから再試行してください。</string>
+    <string name="error_load_rom_report_issue">この問題の解決に役立つエラーログが生成されました。このログを含めて GitHub に Issue を作成しますか？GitHub アカウントが必要です。</string>
+    <string name="title_emulator_running">エミュレーター実行中</string>
+    <string name="message_stop_emulation">エミュレーションを停止して新しい ROM を読み込みますか？</string>
+    <string name="error_load_gba_rom">GBA ROM を読み込めません</string>
+    <string name="action_search_roms">ROM を検索</string>
+    <string name="action_sort_roms">ROM を並び替え</string>
+    <string name="action_boot_firmware">ファームウェアを起動</string>
+    <string name="action_refresh_rom_list">ROM リストを更新</string>
+    <string name="hint_search_roms">ROM を検索…</string>
+    <string name="update_available">アップデートあり: %1$s</string>
+    <string name="nightly_update_available">ナイトリーアップデートあり</string>
+    <string name="nightly_update_available_message">今すぐダウンロードしますか？</string>
+    <string name="skip_update">スキップ</string>
+    <string name="remind_later_update">後で</string>
+    <string name="downloading_update">アップデートをダウンロード中…</string>
+    <string name="starting_download">ダウンロードを開始中…</string>
+    <string name="download_progress_sizes">%1$.1fMB/%2$.1fMB</string>
+    <string name="update_download_failed">アップデートのダウンロードに失敗しました</string>
+
+    <string name="dsiware_manager">DSiWare マネージャー</string>
+    <string name="no_dsiware_titles_installed">DSiWare タイトルがインストールされていません</string>
+    <string name="dsiware_manager_no_dsi_setup">DSi システムが設定されていません</string>
+    <string name="dsiware_manager_invalid_dsi_setup">DSi システムの設定が無効です</string>
+    <string name="import_dsiware_title">DSiWare タイトルをインポート</string>
+    <string name="dsiware_manager_setup">セットアップ</string>
+    <string name="dsiware_manager_fix_setup">設定を修正</string>
+    <string name="dsiware_manager_load_error">DSiWare タイトルの一覧取得中に問題が発生しました。DSi の設定を確認してください</string>
+    <string name="dsiware_manager_import_title_error_open_nand_failed">NAND を開くことができませんでした</string>
+    <string name="dsiware_manager_import_title_error_open_file_failed">選択したファイルを開く際にエラーが発生しました</string>
+    <string name="dsiware_manager_import_title_error_not_dsiware_title">DSiWare タイトルではありません</string>
+    <string name="dsiware_manager_import_title_error_title_already_imported">DSiWare タイトルは既にインポートされています</string>
+    <string name="dsiware_manager_import_title_error_insatll_failed">タイトルのインストールに失敗しました</string>
+    <string name="dsiware_manager_import_title_error_metadat_fetch_failed">タイトルのメタデータのダウンロードに失敗しました。インターネット接続を確認してください</string>
+    <string name="dsiware_manager_import_title_error_unknown">不明なエラーが発生しました</string>
+    <string name="dsiware_manager_import_data">データをインポート…</string>
+    <string name="dsiware_manager_export_data">データをエクスポート…</string>
+    <string name="dsiware_manager_import_file_success">%1$s のインポートが完了しました</string>
+    <string name="dsiware_manager_import_file_error">ファイルのインポートに失敗しました</string>
+    <string name="dsiware_manager_export_file_success">%1$s のエクスポートが完了しました</string>
+    <string name="dsiware_manager_export_file_error">ファイルのエクスポートに失敗しました</string>
+    <string name="dsiware_import_from_file">ファイルから</string>
+    <string name="dsiware_import_from_rom_list">ROM リストから</string>
+
+    <string name="select_dsiware_title">DSiWare タイトルを選択</string>
+    <string name="no_dsiware_roms_found">DSiWare ROM が見つかりません</string>
+
+    <string name="info_fps">FPS: %1$d</string>
+    <string name="info_play_time_hours_minutes">プレイ時間: %1$dh %2$dm</string>
+    <string name="info_play_time_minutes">プレイ時間: %1$dm</string>
+    <string name="info_loading">読み込み中…</string>
+    <string name="save_state_slot">%1$s.</string>
+    <string name="failed_save_state">状態の保存に失敗しました</string>
+    <string name="failed_load_state">状態の読み込みに失敗しました</string>
+    <string name="cant_load_empty_slot">空のセーブスロットは読み込めません</string>
+    <string name="failed_reset_emulation">エミュレーションのリセットに失敗しました</string>
+    <string name="save_states_not_supported">ファームウェア実行中はセーブステートがサポートされていません</string>
+    <string name="save_states_unavailable_ra_hardcore_enabled">ハードコアモードが有効な間はセーブステートを使用できません</string>
+    <string name="rewind_time_seconds">%1$ss</string>
+    <string name="rewind_time_minutes_seconds">%1$dm%2$ss</string>
+    <string name="rewind_not_enabled">巻き戻しが有効になっていません</string>
+    <string name="rewind_unavailable_ra_hardcore_enabled">ハードコアモードが有効な間は巻き戻しを使用できません</string>
+    <string name="no_image_selected">画像が選択されていません</string>
+    <string name="failed_to_load_image">画像の読み込みに失敗しました</string>
+    <string name="emulator_stop_gba_mode_unsupported">GBA モードはサポートされていません</string>
+    <string name="emulator_stop_internal_error">ROM の実行中にエラーが発生しました</string>
+
+    <string name="action_sort_alphabetically">アルファベット順</string>
+    <string name="action_sort_recently_played">最近プレイした順</string>
+
+    <string name="ds_bios_dir_not_set">DS BIOS ディレクトリが設定されていません</string>
+    <string name="ds_bios_dir_not_set_info">DS BIOS ディレクトリが設定されていません。次のファイルが含まれるディレクトリを選択してください:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
+    <string name="dsi_bios_dir_not_set">DSi BIOS ディレクトリが設定されていません</string>
+    <string name="dsi_bios_dir_not_set_info">DSi BIOS ディレクトリが設定されていません。次のファイルが含まれるディレクトリを選択してください:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
+    <string name="incorrect_bios_dir">BIOS ディレクトリが正しくありません</string>
+    <string name="ds_incorrect_bios_dir_info">DS システム用の BIOS ディレクトリが正しくありません。選択したディレクトリに次のファイルが含まれているか確認してください:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
+    <string name="dsi_incorrect_bios_dir_info">DSi システム用の BIOS ディレクトリが正しくありません。選択したディレクトリに次のファイルが含まれているか確認してください:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
+    <string name="storage_permission_required">ストレージの権限が必要です</string>
+    <string name="storage_permission_required_info">デバイスから ROM を読み込むにはストレージの権限が必要です。次のダイアログでストレージへのアクセスを許可してください。</string>
+    <string name="microphone_permission_required">音声録音の権限が必要です</string>
+    <string name="microphone_permission_required_info">エミュレーターにマイクのデータを送信するには音声録音の権限が必要です。次のダイアログでマイクへのアクセス権限を許可してください。</string>
+    <string name="system_file_picker_not_found">このデバイスにはファイルピッカーがありません。ファイルピッカーなしではこのエミュレーターは動作しません</string>
+    <string name="system_file_picker_not_enabled">デバイスのファイルピッカーが無効になっています。有効にしてください</string>
+    <string name="file_picker_settings">ファイルピッカーの設定</string>
+    <string name="no_rom_search_directory_specified">ROM 検索ディレクトリが指定されていません</string>
+    <string name="set_rom_directory">ROM ディレクトリを設定</string>
+    <string name="error_invalid_directory">無効なディレクトリ</string>
+    <string name="error_invalid_directory_description">選択したディレクトリには書き込みできません。別のディレクトリを選択してください。圧縮ファイルを選択している場合は、先に解凍してみてください。</string>
+    <string name="no_roms_found">ROM が見つかりません</string>
+    <string name="rom_launch_failed">ROM の起動に失敗しました</string>
+    <string name="rom_launch_custom_bios_firmware_bad_setup">この ROM はカスタム BIOS とファームウェアを使用するよう設定されていますが、正しく構成されていません。</string>
+    <string name="firmware_launch_failed">ファームウェアの起動に失敗しました</string>
+    <string name="firmware_launch_bad_setup">このファームウェアを起動するにはカスタム BIOS とファームウェアが必要ですが、正しく構成されていません。</string>
+    <string name="failed_launch_dsiware_title">DSiWare タイトルの起動に失敗しました</string>
+    <string name="failed_launch_dsiware_title_check_failed">DSiWare タイトルがインストールされているか確認できませんでした。詳細は DSiWare マネージャーを確認してください。</string>
+    <string name="failed_launch_dsiware_title_rom_failed">ROM ファイルを解析できませんでした。ROM ファイルが有効で破損していないか確認してください。</string>
+    <string name="failed_launch_dsiware_title_not_installed">DSiWare タイトルを起動するには、まず NAND にインストールする必要があります。DSiWare マネージャーでインストールできます。</string>
+
+    <string name="press_any_button">任意のボタンを押してください…</string>
+    <string name="waiting_for_input">入力待機中…</string>
+
+    <string name="choose_component">コンポーネントを選択</string>
+
+    <string name="pause">一時停止</string>
+    <string name="achievements">実績</string>
+    <string name="reset">リセット</string>
+    <string name="exit">終了</string>
+
+    <string name="settings">設定</string>
+    <string name="save_state">セーブステート</string>
+    <string name="load_state">ロードステート</string>
+    <string name="rewind">巻き戻し</string>
+    <string name="save_slot">セーブスロット</string>
+    <string name="empty_slot">%1$s. &lt;空き&gt;</string>
+    <string name="quick_slot">クイックスロット</string>
+    <string name="saved">保存しました</string>
+    <string name="loaded">読み込みました</string>
+    <string name="title_activity_settings">設定</string>
+    <string name="category_general">一般</string>
+    <string name="category_general_summary">テーマ、一般設定</string>
+    <string name="category_roms">ROM</string>
+    <string name="category_roms_summary">検索ディレクトリ、アイコンフィルタリング、キャッシュ設定</string>
+    <string name="category_system">システム</string>
+    <string name="category_system_summary">ファームウェア設定、カスタム BIOS、JIT</string>
+    <string name="theme">テーマ</string>
+    <string name="fast_forward_max_speed">早送りの最大速度</string>
+    <string name="rewind_description">有効にすると、セーブステートが定期的に自動保存されます。少し前の状態に戻りたいときは、巻き戻し画面を開いて再開したい状態を選択してください。\n\nこの機能を有効にすると、デバイスの性能によっては断続的なカクつきが発生する場合があります。状態のキャプチャ頻度と保持期間によっては、かなりのメモリが使用されます。</string>
+    <string name="rewind_save_period">保存周期</string>
+    <string name="rewind_length">巻き戻し長さ</string>
+    <string name="rewind_max_memory_usage">最大メモリ使用量: %1$s</string>
+    <string name="rewind_memory_usage_above_recommended_limit">メモリ使用量が推奨制限を超えています</string>
+    <string name="sustained_performance_mode">持続パフォーマンスモード</string>
+    <string name="sustained_performance_mode_summary">有効にすると、ピーク性能は低下しますが、サーマルスロットリングが緩やかになります。</string>
+    <string name="hide_auxiliary_buttons">補助ボタンを隠す</string>
+    <string name="hide_auxiliary_buttons_summary">プレイ中に L、R、Select、Start ボタンを隠します</string>
+    <string name="check_for_updates">アップデートを確認</string>
+    <string name="check_for_updates_summary">有効にすると、アプリが定期的に新しいアップデートを確認します</string>
+    <string name="rom_icon_filtering">アイコンフィルタリング</string>
+    <string name="max_rom_cache_size">ROM キャッシュの最大サイズ</string>
+    <string name="clear_extracted_rom_cache">展開済み ROM キャッシュをクリア</string>
+    <string name="cache_size">キャッシュサイズ: %s</string>
+    <string name="cache_size_calculating">キャッシュサイズ: 計算中…</string>
+    <string name="rom_search_directory">検索ディレクトリ</string>
+    <string name="use_custom_bios">カスタム BIOS とファームウェアを使用</string>
+    <string name="console_type">デフォルトシステム</string>
+    <string name="internal_firmware_settings">内部ファームウェア設定</string>
+    <string name="internal_firmware_settings_summary">内部ファームウェアの設定を調整します。</string>
+    <string name="custom_bios_firmware">カスタム BIOS とファームウェア</string>
+    <string name="custom_bios_firmware_description">カスタム BIOS とファームウェアを使用すると、実機と同じように ROM を読み込まずに DS のファームウェアを起動・操作できます</string>
+    <string name="bios_directory">DS BIOS ディレクトリ</string>
+    <string name="dsi_bios_directory">DSi BIOS ディレクトリ</string>
+    <string name="show_boot_screen">起動画面を表示</string>
+    <string name="mac_address">MAC アドレス</string>
+    <string name="randomize_mac_address">MAC アドレスをランダム化</string>
+    <string name="randomize_mac_address_summary">有効にすると、起動のたびにランダムな MAC アドレスが使用されます。一部のゲームが別のシステムで実行されていると認識し、時間ベースのイベントが機能しなくなる場合があります。</string>
+    <string name="generate_new_mac_address">新しく生成</string>
+    <string name="generate_new_mac_address_description">新しい MAC アドレスを生成すると、ゲームが別のシステムで実行されていると認識します。</string>
+    <string name="enable_jit">JIT を有効化</string>
+    <string name="enable_jit_summary">パフォーマンスが向上しますが、フリーズやクラッシュが発生する場合があります。</string>
+    <string name="jit_not_supported">JIT は 64 ビットデバイスでのみサポートされています。</string>
+    <string name="backup_settings">設定のバックアップ</string>
+    <string name="restore_settings">設定の復元</string>
+    <string name="settings_backup_success">設定のバックアップが作成されました。\n\n以下の項目はスキップされました:\n&#8226; RetroAchievements セッション\n&#8226; ROM/セーブディレクトリ\n&#8226; DS BIOS ディレクトリ\n&#8226; DSi BIOS ディレクトリ</string>
+    <string name="settings_backup_error">設定のバックアップに失敗しました</string>
+    <string name="settings_restore_success">設定が復元されました。\n\n以下の項目は変更されませんでした:\n&#8226; RetroAchievements セッション\n&#8226; ROM/セーブディレクトリ\n&#8226; DS BIOS ディレクトリ\n&#8226; DSi BIOS ディレクトリ</string>
+    <string name="settings_restore_error">設定の復元に失敗しました</string>
+    <string name="backup_internal_layout">内部レイアウトのバックアップ</string>
+    <string name="backup_external_layout">外部レイアウトのバックアップ</string>
+    <string name="restore_internal_layout">内部レイアウトの復元</string>
+    <string name="restore_external_layout">外部レイアウトの復元</string>
+    <string name="internal_layout_backup_success">内部レイアウトのバックアップが作成されました。</string>
+    <string name="internal_layout_backup_error">内部レイアウトのバックアップに失敗しました</string>
+    <string name="external_layout_backup_success">外部レイアウトのバックアップが作成されました。</string>
+    <string name="external_layout_backup_error">外部レイアウトのバックアップに失敗しました</string>
+    <string name="internal_layout_restore_success">内部レイアウトが復元されました。</string>
+    <string name="internal_layout_restore_error">内部レイアウトの復元に失敗しました</string>
+    <string name="external_layout_restore_success">外部レイアウトが復元されました。</string>
+    <string name="external_layout_restore_error">外部レイアウトの復元に失敗しました</string>
+    <string name="threaded_rendering">スレッドレンダリング</string>
+    <string name="fps_counter_position">FPS カウンターの位置</string>
+    <string name="threaded_rendering_summary">有効にすると 3D ゲームのパフォーマンスが向上しますが、グラフィックの不具合が発生する場合があります。</string>
+    <string name="category_video">映像</string>
+    <string name="category_video_summary">フィルター、スレッドレンダリング、FPS カウンター</string>
+    <string name="filter">フィルター</string>
+    <string name="internal_resolution">内部解像度</string>
+    <string name="renderer">レンダラー</string>
+    <string name="dsi_camera_source">DSi カメラソース</string>
+    <string name="external_screen_layout">外部画面レイアウト</string>
+    <string name="external_display_screen">外部ディスプレイ画面</string>
+    <string name="external_display_rotate_left">外部画面コンテンツを左に回転</string>
+    <string name="refresh_external_screen">外部画面を更新</string>
+    <string name="dsi_camera_image">DSi カメラ画像</string>
+    <string name="internal_screen_layout">内部画面レイアウト</string>
+    <string name="input_refresh_external_screen">外部画面を更新</string>
+    <string name="quick_settings">クイック設定</string>
+    <string name="category_audio">オーディオ</string>
+    <string name="category_audio_summary">音量、レイテンシー、マイクソース</string>
+    <string name="enable_sound">サウンドを有効化</string>
+    <string name="interpolation">補間</string>
+    <string name="bitrate">ビットレート</string>
+    <string name="volume">音量</string>
+    <string name="volume_percentage">%1$d%%</string>
+    <string name="audio_latency">オーディオレイテンシー</string>
+    <string name="microphone_source">マイクソース</string>
+    <string name="controller_layout">コントローラーレイアウト</string>
+    <string name="category_save_files">セーブファイル</string>
+    <string name="category_save_files_summary">セーブファイルとセーブステートの保存場所</string>
+    <string name="save_next_rom">ROM ファイルの隣に保存</string>
+    <string name="save_file_directory">セーブファイルディレクトリ</string>
+    <string name="save_state_location">セーブステートの保存場所</string>
+    <string name="input">入力</string>
+    <string name="input_summary">キーマッピング、レイアウト、触覚フィードバック</string>
+    <string name="key_mapping">キーマッピング</string>
+    <string name="key_mapping_summary">コントローラー入力にキーを割り当て</string>
+    <string name="show_soft_input">ソフト入力を表示</string>
+    <string name="soft_input_behaviour">ソフト入力の動作</string>
+    <string name="vibrate_on_touch">タッチ時に振動</string>
+    <string name="vibration_strength">振動の強度</string>
+    <string name="soft_input_opacity">ソフト入力の不透明度</string>
+    <string name="retroachievements">RetroAchievements</string>
+    <string name="retroachievements_summary">RetroAchievements のログインと連携を管理</string>
+    <string name="enable_rich_presence">リッチプレゼンスを有効化</string>
+    <string name="rich_presence_summary">他の RetroAchievements ユーザーがプレイ中のゲームを確認できます</string>
+    <string name="hardcore_mode">ハードコアモード</string>
+    <string name="hardcore_mode_summary">ハードコア実績を獲得できます。チート、セーブステート、スローモーション、巻き戻しが無効になります</string>
+    <string name="show_active_challenge_indicators">アクティブなチャレンジ表示を表示</string>
+    <string name="show_active_challenge_indicators_summary">特定の実績を獲得できる間、画面上の表示を表示します</string>
+    <string name="show_progress_indicators">進行状況表示を表示</string>
+    <string name="show_progress_indicators_summary">実績の進行状況があるときに画面上の表示を表示します</string>
+    <string name="show_leaderboard_indicators">リーダーボード表示を表示</string>
+    <string name="show_leaderboard_indicators_summary">リーダーボードの挑戦中に画面上の表示を表示します</string>
+
+    <string name="cheats">チート</string>
+    <string name="cheats_summary">チートコードを有効化・インポート</string>
+    <string name="enable_cheats">チートを有効化</string>
+    <string name="cheats_database">チートデータベース（XML 形式）</string>
+    <string name="import_cheats">チートをインポート</string>
+    <string name="import_cheats_summary">データベースファイルからチートをインポートして使用できるようにします。現在は XML データベースのみサポートされています。以前にインポートしたチートはすべて削除されます。</string>
+    <string name="rom_shortcut">ROM ショートカット</string>
+
+    <string name="firmware_nickname">ニックネーム</string>
+    <string name="firmware_message">メッセージ</string>
+    <string name="firmware_language">言語</string>
+    <string name="firmware_favourite_colour">好きな色</string>
+    <string name="firmware_birthday">誕生日</string>
+
+    <string name="error_clear_rom_cache">ROM キャッシュのクリアに失敗しました</string>
+    <string name="importing_cheats">チートをインポート中…</string>
+    <string name="starting">起動中…</string>
+    <string name="move_to_background">バックグラウンドへ移動</string>
+    <string name="failed_save_cheat_changes">チートの変更を保存できませんでした</string>
+    <string name="no_cheats_found">現在の ROM に対するチートが見つかりませんでした。別のチートデータベースをインポートしてみてください。</string>
+    <string name="enabled_cheats">有効なチート</string>
+    <string name="no_enabled_cheats_for_rom">この ROM に有効なチートはありません</string>
+    <string name="folder_is_empty">このフォルダーは空です。独自のチートコードを追加してみてください</string>
+    <string name="add_cheat_folder">チートフォルダーを追加</string>
+    <string name="new_cheat">新しいチート</string>
+    <string name="edit_cheat">チートを編集</string>
+    <string name="cheat_name">チート名</string>
+    <string name="description">説明</string>
+    <string name="cheat_code">コード</string>
+    <string name="error_name_cannot_be_empty">チート名を入力してください</string>
+    <string name="error_code_cannot_be_empty">コードを入力してください</string>
+    <string name="error_code_invalid_format">コードの形式が無効です</string>
+    <string name="cheat_deleted">チート「%1$s」を削除しました</string>
+    <string name="cheat_folder_default_name">マイチート</string>
+
+    <string name="day">日</string>
+    <string name="month">月</string>
+    <string name="symbol_increase">+</string>
+    <string name="symbol_decrease">-</string>
+
+    <string name="rom_settings">ROM 設定</string>
+    <string name="label_rom_config_console">起動システム</string>
+    <string name="label_rom_config_custom_name">ROM 表示名</string>
+    <string name="label_rom_config_gba_slot">GBA スロット</string>
+    <string name="label_rom_config_gba_rom_path">GBA ROM パス</string>
+    <string name="label_rom_config_gba_save_path">GBA セーブパス</string>
+    <string name="rom_details_configuration_tab">設定</string>
+    <string name="retro_achievements_tab">Retro&#8203;Achievements</string>
+
+    <string name="theme_option_light">ライト</string>
+    <string name="theme_option_dark">ダーク</string>
+    <string name="theme_option_system_default">システムデフォルト</string>
+
+    <string name="notification_channel_background_tasks">バックグラウンドタスク</string>
+
+    <string name="top_screen">上画面</string>
+    <string name="bottom_screen">下画面</string>
+    <string name="custom_layout">カスタムレイアウト</string>
+    <string name="input_a">A</string>
+    <string name="input_b">B</string>
+    <string name="input_x">X</string>
+    <string name="input_y">Y</string>
+    <string name="input_left">左</string>
+    <string name="input_right">右</string>
+    <string name="input_up">上</string>
+    <string name="input_down">下</string>
+    <string name="input_left_joy">左ジョイ</string>
+    <string name="input_right_joy">右ジョイ</string>
+    <string name="input_up_joy">上ジョイ</string>
+    <string name="input_down_joy">下ジョイ</string>
+    <string name="input_l">L</string>
+    <string name="input_r">R</string>
+    <string name="input_start">Start</string>
+    <string name="input_select">Select</string>
+    <string name="input_lid">蓋のトグル</string>
+    <string name="input_pause">一時停止</string>
+    <string name="input_fast_forward">早送り（トグル）</string>
+    <string name="input_microphone">マイクのトグル</string>
+    <string name="input_toggle_soft_input">ソフト入力のトグル</string>
+    <string name="input_reset">@string/reset</string>
+    <string name="input_dpad">DPAD</string>
+    <string name="input_abxy_buttons">ABXY ボタン</string>
+    <string name="input_swap_screens">画面の切り替え</string>
+    <string name="input_quick_save">クイックセーブ</string>
+    <string name="input_quick_load">クイックロード</string>
+
+    <string name="layouts">レイアウト</string>
+    <string name="layouts_summary">カスタムレイアウト設定を管理</string>
+    <string name="action_layouts_new">新しいレイアウト</string>
+    <string name="default_layout_name">デフォルト</string>
+    <string name="custom_layout_default_name">マイレイアウト</string>
+    <string name="use_global_layout">グローバルレイアウトを使用</string>
+    <string name="use_global_preference">グローバル設定を使用</string>
+    <string name="layout_deleted">レイアウトが削除されました</string>
+    <string name="named_layout_deleted">レイアウト「%1$s」が削除されました</string>
+
+    <string name="layout_editor">レイアウトエディター</string>
+    <string name="add_component">コンポーネントを追加</string>
+    <string name="no_more_components">追加できるコンポーネントがありません</string>
+    <string name="label_size">サイズ</string>
+    <string name="label_width">幅</string>
+    <string name="label_height">高さ</string>
+    <string name="label_alpha">アルファ</string>
+    <string name="label_aspect_ratio">アスペクト比:</string>
+    <string name="aspect_ratio_4_3">4:3（オリジナル）</string>
+    <string name="aspect_ratio_16_9">16:9（ワイドスクリーン）</string>
+    <string name="aspect_ratio_unrestricted">無制限</string>
+    <string name="keep_ds_ratio">DS のアスペクト比を維持</string>
+    <string name="above_other_screen">もう一方の画面の上に</string>
+    <string name="center_horizontal">水平方向に中央揃え</string>
+    <string name="center_vertical">垂直方向に中央揃え</string>
+    <string name="editing_internal_layout">内部レイアウトを編集中</string>
+    <string name="editing_external_layout">外部レイアウトを編集中</string>
+    <string name="menu">メニュー</string>
+    <string name="properties">プロパティ</string>
+    <string name="revert_changes">変更を元に戻す</string>
+    <string name="reset_default">デフォルトにリセット</string>
+    <string name="exit_without_saving">保存せずに終了</string>
+    <string name="save_and_exit">保存して終了</string>
+    <string name="layout_name">レイアウト名</string>
+    <string name="layout_orientation">レイアウトの向き</string>
+    <string name="layout_use_default_opacity">デフォルトの不透明度を使用</string>
+    <string name="layout_opacity">レイアウトの不透明度</string>
+    <string name="layout_background_load_failed">背景の読み込みに失敗しました</string>
+
+    <string name="layout_background_title">レイアウト背景</string>
+    <string name="background">背景</string>
+    <string name="backgrounds">背景一覧</string>
+    <string name="background_mode">背景モード</string>
+    <string name="action_backgrounds_new">新しい背景</string>
+    <string name="background_name">背景名</string>
+    <string name="background_deleted">背景が削除されました</string>
+    <string name="background_add_processing_failed">選択した背景画像の処理に失敗しました。画像が破損していないか確認してください。</string>
+
+    <string name="retro_achievements_login_description">RetroAchievements にログインすると、このゲームのプレイ中に獲得できる実績を確認できます！</string>
+    <string name="login_with_retro_achievements">RetroAchievements でログイン</string>
+    <string name="login">ログイン</string>
+    <string name="retroachievements_login_summary">RetroAchievements にログインしてプレイ中に実績を獲得しましょう！</string>
+    <string name="retroachievements_login_status">%1$s としてログイン中</string>
+    <string name="retroachievements_login_expired_status">RetroAchievements のログインが期限切れです。タップして再ログインしてください</string>
+    <string name="retroachievements_logout">ログアウト</string>
+    <string name="retroachievements_logout_confirmation">RetroAchievements からログアウトしますか？プレイ中に実績を獲得できなくなります。</string>
+    <string name="retro_achievements_login_error">ログイン中に問題が発生しました。ユーザー名とパスワードが正しいか、インターネットに接続されているか確認してください</string>
+    <string name="retro_achievements_login_error_short">ログイン中に問題が発生しました</string>
+    <string name="retro_achievements_load_error">このゲームの実績の読み込み中に問題が発生しました。インターネットに接続されているか確認して、後でもう一度試してください</string>
+    <string name="retro_achievements_no_achievements">このゲームの RetroAchievements は見つかりませんでした</string>
+    <string name="retro_achievements_relaunch_to_apply_settings">新しい RetroAchievements 設定を適用するには ROM を再起動してください</string>
+    <string name="retro_achievements_pending_unlocks">保留中のアンロック</string>
+    <string name="retro_achievements_active_challenges">アクティブなチャレンジ</string>
+    <string name="retro_achievements_recently_unlokced">最近アンロックした実績</string>
+    <string name="retro_achievements_almost_there">あと少しです</string>
+    <string name="retro_achievements_locked">ロック済み</string>
+    <string name="retro_achievements_unlocked">アンロック済み</string>
+    <string name="username">ユーザー名</string>
+    <string name="password">パスワード</string>
+    <string name="retry">再試行</string>
+    <string name="points_abbreviated">PTS</string>
+    <string name="points">ポイント</string>
+    <string name="completed">完了</string>
+    <string name="ra_mode_hardcore">ハードコア</string>
+    <string name="ra_mode_softcore">ソフトコア</string>
+    <string name="ra_base_set">ベースセット</string>
+    <string name="view_achievement">実績を見る</string>
+    <string name="completed_achievements"><b>%1$d</b> / <b>%2$d</b> (%3$d%%)</string>
+    <string name="submitting_achievements">RetroAchievements を送信中…</string>
+    <string name="achievements_loaded">実績を読み込みました</string>
+    <string name="achievements_unlocked_compact">アンロック済み: %1$d/%2$d</string>
+    <string name="game_has_no_achievements">このゲームに実績はありません</string>
+    <string name="achievements_failed_load">実績の読み込みに失敗しました！</string>
+    <string name="achievements_failed_load_tip">オンラインになっているか確認してください</string>
+    <string name="achievements_login_expired">RetroAchievements のログインが期限切れです！</string>
+    <string name="achievements_login_expired_tip">RetroAchievements を有効にするには再ログインしてください</string>
+    <string name="achievement_unlocked">実績をアンロックしました！</string>
+    <string name="achievement_missable">見逃し注意</string>
+    <string name="achievement_missable_description">この実績はプレイ中に見逃す可能性があります</string>
+    <string name="achievement_progress">%1$d/%2$d</string>
+    <string name="challenge_started">チャレンジが開始されました</string>
+    <string name="leaderboard_attempt_started">リーダーボードへの挑戦が開始されました！</string>
+    <string name="leaderboard_submission_info">%1$s • %2$d位 / %3$d人中</string>
+    <string name="game_completed">%1$s をクリアしました</string>
+    <string name="game_mastered">%1$s をマスターしました</string>
+    <string name="retroachievements_unsynchronized_data">未同期の RetroAchievements データ</string>
+    <string name="retroachievements_unsynchronized_data_info">未同期の RetroAchievements データがあります。次の操作が保留中です:</string>
+    <plurals name="retroachievements_pending_achievement_unlocks">
+        <item quantity="other">%d 件の実績アンロック</item>
+    </plurals>
+    <plurals name="retroachievements_pending_leaderboard_entries">
+        <item quantity="other">%d 件のリーダーボードエントリ</item>
+    </plurals>
+    <string name="retroachievements_unsynchronized_data_connect_internet">データを同期するにはインターネットに接続してください。</string>
+    <string name="retroachievements_unsynchronized_data_loss_info">今すぐ終了するとこのデータが失われます！</string>
+    <string name="retroachievements_unsynchronized_data_synchronized">すべてのデータが同期されました！</string>
+    <string name="retroachievements_unsynchronized_data_exiting">エミュレーターが終了します。</string>
+
+    <string-array name="fast_forward_speed_multiplier_options">
+        <item>無制限</item>
+        <item>1.5倍</item>
+        <item>2倍</item>
+        <item>3倍</item>
+        <item>4倍</item>
+        <item>8倍</item>
+    </string-array>
+
+    <string-array name="rom_icon_filtering_options">
+        <item>なし（ピクセル化）</item>
+        <item>線形（スムーズ）</item>
+    </string-array>
+
+    <string-array name="game_runtime_console_type_options">
+        <item>デフォルト</item>
+        <item>@string/console_ds</item>
+        <item>@string/console_dsi</item>
+    </string-array>
+
+    <string-array name="firmware_settings_language_options">
+        <item>英語</item>
+        <item>フランス語</item>
+        <item>ドイツ語</item>
+        <item>イタリア語</item>
+        <item>スペイン語</item>
+        <item>日本語</item>
+    </string-array>
+
+    <string-array name="game_runtime_mic_source_options">
+        <item>デフォルト</item>
+        <item>なし</item>
+        <item>吹き込み</item>
+        <item>デバイスマイク</item>
+    </string-array>
+
+    <string-array name="gba_slot_options">
+        <item>なし</item>
+        <item>GBA ROM</item>
+        <item>ランブルパック</item>
+        <item>メモリ拡張</item>
+    </string-array>
+
+    <string-array name="console_type_options">
+        <item>@string/console_ds</item>
+        <item>@string/console_dsi</item>
+    </string-array>
+
+    <string-array name="fps_counter_position_options">
+        <item>非表示</item>
+        <item>左上</item>
+        <item>中央上</item>
+        <item>右上</item>
+        <item>左下</item>
+        <item>中央下</item>
+        <item>右下</item>
+    </string-array>
+
+    <string-array name="video_renderer_options">
+        <item>ソフトウェア</item>
+        <item>OpenGL</item>
+        <item>コンピュート</item>
+    </string-array>
+
+    <string-array name="video_internal_resolution_options">
+        <item>1x ネイティブ（256x192）</item>
+        <item>2x ネイティブ（512x384）</item>
+        <item>3x ネイティブ（768x576）</item>
+        <item>4x ネイティブ（1024x768）</item>
+        <item>5x ネイティブ（1280x960）</item>
+        <item>6x ネイティブ（1536x1152）</item>
+        <item>7x ネイティブ（1792x1344）</item>
+        <item>8x ネイティブ（2048x1536）</item>
+    </string-array>
+
+    <string-array name="video_filtering_options">
+        <item>なし</item>
+        <item>線形</item>
+        <item>2xBR</item>
+        <item>HQ2X</item>
+        <item>HQ4X</item>
+        <item>Quilez</item>
+        <item>LCD</item>
+    </string-array>
+
+    <string-array name="dsi_camera_source_options">
+        <item>黒い画面</item>
+        <item>物理カメラ</item>
+        <item>静止画像</item>
+    </string-array>
+
+    <string-array name="external_display_screen_options">
+        <item>@string/top_screen</item>
+        <item>@string/bottom_screen</item>
+    </string-array>
+
+    <string-array name="audio_interpolation_options">
+        <item>なし</item>
+        <item>線形</item>
+        <item>コサイン</item>
+        <item>キュービック</item>
+    </string-array>
+
+    <string-array name="audio_bitrate_options">
+        <item>自動</item>
+        <item>10ビット</item>
+        <item>16ビット</item>
+    </string-array>
+
+    <string-array name="audio_latency_options">
+        <item>低（遅め）</item>
+        <item>中</item>
+        <item>高（速め）</item>
+    </string-array>
+
+    <string-array name="mic_source_options">
+        <item>なし</item>
+        <item>吹き込み</item>
+        <item>デバイスマイク</item>
+    </string-array>
+
+    <string-array name="soft_input_behaviour_options">
+        <item>常に表示</item>
+        <item>コントローラー接続時にコンソールボタンを隠す</item>
+        <item>コントローラー接続時に割り当てた入力を隠す</item>
+        <item>常に非表示</item>
+    </string-array>
+
+    <string-array name="soft_input_behaviour_descriptions">
+        <item>現在の入力レイアウト設定に従い、ソフト入力は常に表示されます。</item>
+        <item>コントローラーが接続されると、コンソールボタン（A B X Y、方向キー、L、R、Start、Select）が非表示になります。現在の入力レイアウトの他のボタンは引き続き表示されます。</item>
+        <item>コントローラーが接続されると、そのコントローラーに割り当てられたすべての入力が非表示になります。接続されたコントローラーに割り当てられていない現在の入力レイアウトの他の入力は引き続き表示されます。</item>
+        <item>現在の入力レイアウトのボタンに関係なく、ソフト入力は常に非表示になります。</item>
+    </string-array>
+
+    <string-array name="save_state_locations">
+        <item>セーブファイルディレクトリ</item>
+        <item>ROM ディレクトリ</item>
+        <item>内部ディレクトリ</item>
+    </string-array>
+
+    <string-array name="layout_orientation_options">
+        <item>システムに従う</item>
+        <item>縦向き</item>
+        <item>横向き</item>
+    </string-array>
+
+    <string-array name="background_portrait_mode_options">
+        <item>引き伸ばし</item>
+        <item>中央に合わせる</item>
+        <item>上に合わせる</item>
+        <item>左に合わせる</item>
+        <item>下に合わせる</item>
+        <item>右に合わせる</item>
+    </string-array>
+
+    <!-- Multiplayer -->
+    <string name="connection_wifi_aware">Wi-Fi Aware</string>
+    <string name="connection_wifi_direct">Wi-Fi Direct</string>
+    <string name="no_connection_methods_available">このデバイスで利用可能な接続方法がありません</string>
+    <string name="multiplayer_role_title">マルチプレイヤー</string>
+    <string name="multiplayer_role_host">ホスト</string>
+    <string name="multiplayer_role_join">参加</string>
+    <string name="multiplayer_connection_method_title">接続方法</string>
+    <string name="multiplayer_discovered_peers_title">利用可能なセッション</string>
+    <string name="multiplayer_searching">検索中…</string>
+    <string name="multiplayer_connecting">接続中…</string>
+    <string name="multiplayer_starting">セッションを開始中…</string>
+    <string name="multiplayer_discovering">ピアを検索中…</string>
+    <string name="multiplayer_connected">接続しました</string>
+    <string name="multiplayer_error_connection_failed">接続に失敗しました</string>
+    <string name="multiplayer_error_discovery_failed">検索に失敗しました</string>
+    <string name="multiplayer_error_lan_init_failed">LAN セッションの初期化に失敗しました</string>
+    <string name="multiplayer_error_permission_denied">必要な権限が許可されていません</string>
+
+    <!-- About screen -->
+    <string name="about">情報</string>
+    <string name="about_summary">バージョン、支援、オープンソース</string>
+    <string name="about_tagline">ROMがあればすぐにプレイ。\nDS、再び起動。</string>
+    <string name="about_support_title">開発者を支援</string>
+    <string name="about_support_desc">LiteDSは無料のオープンソースアプリです。\n気に入ったら、コーヒー一杯で\n開発を応援してください ☕</string>
+    <string name="about_kofi">Ko-fiで支援する</string>
+    <string name="about_kofi_url">https://ko-fi.com/liteds</string>
+    <string name="about_opensource_title">オープンソース</string>
+    <string name="about_opensource_desc">melonDS-android をベースに\nGPL-3.0 ライセンスで公開しています。\nソースコードは GitHub で確認できます。</string>
+    <string name="about_github_url">https://github.com/your-username/LiteDS</string>
+    <string name="about_github_label">GitHub を見る</string>
+    <string name="about_review_label">Play ストアでレビューする</string>
+    <string name="about_version">バージョン %1$s</string>
+    <string name="about_back">戻る</string>
+    <string name="about_melonds_credit">このアプリは melonDS（GPLv3）オープンソースを基に制作されています。</string>
+    <string name="about_melonds_label">オリジナルの melonDS を見る</string>
+    <string name="about_melonds_url">https://github.com/melonDS-emu/melonDS</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_step1_title">LiteDS</string>
+    <string name="onboarding_step1_desc">ROMファイルがあればすぐにプレイできます。</string>
+    <string name="onboarding_step1_button">はじめる →</string>
+    <string name="onboarding_step2_title">ゲームファイルは\nどこにありますか？</string>
+    <string name="onboarding_step2_desc">.nds ファイルがあるフォルダを選ぶと\n自動でリストに追加されます。</string>
+    <string name="onboarding_step2_button">📁 フォルダを選択</string>
+    <string name="onboarding_step2_skip">後で行う</string>
+    <string name="onboarding_step3_title">準備完了！</string>
+    <string name="onboarding_step3_desc">ゲームを始めましょう。</string>
+    <string name="onboarding_step3_button">ゲーム一覧を見る →</string>
+    <!-- View mode toggle -->
+    <string name="action_view_grid">グリッド表示</string>
+    <string name="action_view_list">リスト表示</string>
+    <!-- Settings advanced toggle -->
+    <string name="settings_show_advanced">詳細設定を表示</string>
+    <string name="settings_show_advanced_summary">より細かい設定が必要ですか？</string>
+    <!-- Pause menu bottom sheet -->
+    <string name="pause_menu_resume">続ける</string>
+    <string name="pause_menu_save">セーブ</string>
+    <string name="pause_menu_load">ロード</string>
+    <string name="pause_menu_reset">リスタート</string>
+    <string name="pause_menu_exit">ホームへ</string>
+    <string name="pause_menu_cheats">チート</string>
+    <string name="pause_menu_save_slots">セーブスロット</string>
+    <string name="pause_menu_slot_label">スロット %1$d</string>
+    <string name="pause_menu_empty_slot">空きスロット</string>
+    <string name="pause_menu_reset_confirm_title">リスタート</string>
+    <string name="pause_menu_reset_confirm_msg">保存していない進行状況は失われます。\nリスタートしますか？</string>
+    <string name="pause_menu_exit_confirm_title">ホームへ</string>
+    <string name="pause_menu_exit_confirm_msg">ゲームを終了してホーム画面に戻りますか？</string>
+</resources>
