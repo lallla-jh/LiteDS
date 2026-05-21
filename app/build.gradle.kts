@@ -53,6 +53,16 @@ android {
         }
         getByName("debug") {
             applicationIdSuffix = ".dev"
+            // Force the native emulation core to build optimized even in the
+            // debug variant. By default AGP compiles native code with -O0 for
+            // debuggable variants, which makes the NDS JIT core 2-3x slower and
+            // caps the achievable fast-forward speed. RelWithDebInfo gives -O2
+            // while keeping debug symbols for native debugging.
+            externalNativeBuild {
+                cmake {
+                    arguments += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+                }
+            }
         }
     }
 
