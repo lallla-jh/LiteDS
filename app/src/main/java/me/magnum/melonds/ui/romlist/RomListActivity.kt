@@ -29,7 +29,6 @@ import me.magnum.melonds.R
 import me.magnum.melonds.databinding.ActivityRomListBinding
 import me.magnum.melonds.domain.model.ConsoleType
 import me.magnum.melonds.domain.model.SortingMode
-import me.magnum.melonds.domain.model.Version
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.ui.common.rom.EmulatorLaunchValidatorDelegate
 import me.magnum.melonds.ui.emulator.EmulatorActivity
@@ -224,16 +223,6 @@ class RomListActivity : AppCompatActivity() {
             }
         }
         romListFragment.setRomSelectedListener { rom -> launchRom(rom) }
-    }
-
-    private fun getReadableVersionString(version: Version): String {
-        val typeString = when(version.type) {
-            Version.ReleaseType.ALPHA -> getString(R.string.version_alpha)
-            Version.ReleaseType.BETA -> getString(R.string.version_beta)
-            Version.ReleaseType.FINAL -> ""
-            Version.ReleaseType.NIGHTLY -> return getString(R.string.version_nightly)
-        }
-        return "$typeString${if (typeString.isEmpty()) "" else " "}${version.major}.${version.minor}.${version.patch}"
     }
 
     private fun launchRom(rom: Rom) {
