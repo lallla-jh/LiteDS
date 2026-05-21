@@ -7,13 +7,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.magnum.melonds.R
-import me.magnum.melonds.extensions.isSustainedPerformanceModeAvailable
 import me.magnum.melonds.impl.SettingsBackupManager
 import me.magnum.melonds.ui.settings.PreferenceFragmentTitleProvider
 import javax.inject.Inject
@@ -67,10 +65,6 @@ class GeneralPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentT
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_general, rootKey)
-
-        val sustainedPerformancePreference = findPreference<SwitchPreference>("enable_sustained_performance")!!
-
-        sustainedPerformancePreference.isVisible = requireContext().isSustainedPerformanceModeAvailable()
 
         findPreference<Preference>("backup_settings")?.setOnPreferenceClickListener {
             backupLauncher.launch(null)
