@@ -387,4 +387,46 @@
         <item>Ajustar em baixo</item>
         <item>Ajustar à direita</item>
     </string-array>
+
+    <string name="hide_auxiliary_buttons">Ocultar botões auxiliares</string>
+    <string name="hide_auxiliary_buttons_summary">Oculta os botões L, R, Select e Start durante o jogo</string>
+    <string name="about">Sobre</string>
+    <string name="about_summary">Versão, suporte, código aberto</string>
+    <string name="about_tagline">Tem uma ROM? É só jogar.\nO DS, de volta.</string>
+    <string name="about_support_title">Apoie o desenvolvedor</string>
+    <string name="about_support_desc">LiteDS é um app gratuito e de código aberto.\nSe você gosta, apoie o desenvolvimento\ncom um cafezinho ☕</string>
+    <string name="about_kofi">Apoiar no Ko-fi</string>
+    <string name="about_opensource_title">Código aberto</string>
+    <string name="about_opensource_desc">Baseado no melonDS-android\ne licenciado sob GPL-3.0.\nO código-fonte está disponível no GitHub.</string>
+    <string name="about_github_label">Ver no GitHub</string>
+    <string name="about_review_label">Deixar uma avaliação na Play Store</string>
+    <string name="about_version">Versão %1$s</string>
+    <string name="about_back">Voltar</string>
+    <string name="about_melonds_credit">Este app é construído sobre o projeto de código aberto melonDS (GPLv3).</string>
+    <string name="about_melonds_label">Ver o melonDS original</string>
+    <string name="onboarding_skip">Pular</string>
+    <string name="onboarding_step1_desc">Só traga um arquivo ROM e comece a jogar imediatamente.</string>
+    <string name="onboarding_step1_button">Começar →</string>
+    <string name="onboarding_step2_title">Onde estão seus\narquivos de jogos?</string>
+    <string name="onboarding_step2_desc">Selecione a pasta com seus arquivos .nds\ne eles serão adicionados automaticamente.</string>
+    <string name="onboarding_step2_button">📁 Selecionar pasta</string>
+    <string name="onboarding_step2_skip">Farei isso depois</string>
+    <string name="onboarding_step3_title">Tudo pronto!</string>
+    <string name="onboarding_step3_desc">Vá em frente e inicie um jogo.</string>
+    <string name="onboarding_step3_button">Ver lista de jogos →</string>
+    <string name="settings_show_advanced">Mostrar configurações avançadas</string>
+    <string name="settings_show_advanced_summary">Quer configurações mais detalhadas?</string>
+    <string name="pause_menu_resume">Continuar</string>
+    <string name="pause_menu_save">Salvar</string>
+    <string name="pause_menu_load">Carregar</string>
+    <string name="pause_menu_reset">Reiniciar</string>
+    <string name="pause_menu_exit">Início</string>
+    <string name="pause_menu_cheats">Cheats</string>
+    <string name="pause_menu_save_slots">Slots de salvamento</string>
+    <string name="pause_menu_slot_label">Slot %1$d</string>
+    <string name="pause_menu_empty_slot">Slot vazio</string>
+    <string name="pause_menu_reset_confirm_title">Reiniciar</string>
+    <string name="pause_menu_reset_confirm_msg">O progresso não salvo será perdido.\nReiniciar mesmo assim?</string>
+    <string name="pause_menu_exit_confirm_title">Início</string>
+    <string name="pause_menu_exit_confirm_msg">Sair do jogo e voltar para a tela inicial?</string>
 </resources>

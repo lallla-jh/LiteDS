@@ -620,4 +620,46 @@
         <item>Внизу</item>
         <item>Справа</item>
     </string-array>
+
+    <string name="hide_auxiliary_buttons">Скрыть вспомогательные кнопки</string>
+    <string name="hide_auxiliary_buttons_summary">Скрывает кнопки L, R, Select и Start во время игры</string>
+    <string name="about">О приложении</string>
+    <string name="about_summary">Версия, поддержка, открытый исходный код</string>
+    <string name="about_tagline">Есть ROM? Просто играй.\nDS снова в деле.</string>
+    <string name="about_support_title">Поддержать разработчика</string>
+    <string name="about_support_desc">LiteDS — бесплатное приложение с открытым исходным кодом.\nЕсли оно вам нравится, поддержите разработку\nчашечкой кофе ☕</string>
+    <string name="about_kofi">Поддержать на Ko-fi</string>
+    <string name="about_opensource_title">Открытый исходный код</string>
+    <string name="about_opensource_desc">Основан на melonDS-android\nи лицензирован под GPL-3.0.\nИсходный код доступен на GitHub.</string>
+    <string name="about_github_label">Смотреть на GitHub</string>
+    <string name="about_review_label">Оставить отзыв в Play Store</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_back">Назад</string>
+    <string name="about_melonds_credit">Это приложение построено на основе открытого проекта melonDS (GPLv3).</string>
+    <string name="about_melonds_label">Смотреть оригинальный melonDS</string>
+    <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_step1_desc">Просто возьмите ROM-файл и сразу начните играть.</string>
+    <string name="onboarding_step1_button">Начать →</string>
+    <string name="onboarding_step2_title">Где ваши\nигровые файлы?</string>
+    <string name="onboarding_step2_desc">Выберите папку с вашими .nds файлами,\nи они будут добавлены автоматически.</string>
+    <string name="onboarding_step2_button">📁 Выбрать папку</string>
+    <string name="onboarding_step2_skip">Сделаю это позже</string>
+    <string name="onboarding_step3_title">Всё готово!</string>
+    <string name="onboarding_step3_desc">Начните играть в игру.</string>
+    <string name="onboarding_step3_button">Список игр →</string>
+    <string name="settings_show_advanced">Показать расширенные настройки</string>
+    <string name="settings_show_advanced_summary">Хотите более детальные настройки?</string>
+    <string name="pause_menu_resume">Продолжить</string>
+    <string name="pause_menu_save">Сохранить</string>
+    <string name="pause_menu_load">Загрузить</string>
+    <string name="pause_menu_reset">Перезапустить</string>
+    <string name="pause_menu_exit">Главная</string>
+    <string name="pause_menu_cheats">Читы</string>
+    <string name="pause_menu_save_slots">Слоты сохранений</string>
+    <string name="pause_menu_slot_label">Слот %1$d</string>
+    <string name="pause_menu_empty_slot">Пустой слот</string>
+    <string name="pause_menu_reset_confirm_title">Перезапустить</string>
+    <string name="pause_menu_reset_confirm_msg">Несохранённый прогресс будет потерян.\nВсё равно перезапустить?</string>
+    <string name="pause_menu_exit_confirm_title">Главная</string>
+    <string name="pause_menu_exit_confirm_msg">Выйти из игры и вернуться на главный экран?</string>
 </resources>

@@ -175,8 +175,8 @@
     <string name="rewind_memory_usage_above_recommended_limit">Memory usage above recommended limit</string>
     <string name="sustained_performance_mode">Sustained performance mode</string>
     <string name="sustained_performance_mode_summary">When enabled, peak performance will be lower but thermal throttling will be less pronounced.</string>
-    <string name="hide_auxiliary_buttons">보조 버튼 숨기기</string>
-    <string name="hide_auxiliary_buttons_summary">게임 중 L, R, Select, Start 버튼을 숨깁니다</string>
+    <string name="hide_auxiliary_buttons">Hide auxiliary buttons</string>
+    <string name="hide_auxiliary_buttons_summary">Hides the L, R, Select, and Start buttons during gameplay</string>
     <string name="check_for_updates">Check for updates</string>
     <string name="check_for_updates_summary">When enabled, the app will periodically check for available updates</string>
     <string name="rom_icon_filtering">Icon filtering</string>
@@ -646,51 +646,54 @@
     <string name="multiplayer_error_permission_denied">Required permissions not granted</string>
 
     <!-- About screen -->
-    <string name="about">정보</string>
-    <string name="about_summary">버전, 후원, 오픈소스</string>
-    <string name="about_tagline">ROM 파일만 있으면 바로 플레이.\nDS, 다시 켜다.</string>
-    <string name="about_support_title">개발자 후원</string>
-    <string name="about_support_desc">LiteDS는 무료 오픈소스 앱입니다.\n마음에 드셨다면 커피 한 잔으로\n개발을 응원해 주세요 ☕</string>
-    <string name="about_kofi">Ko-fi로 후원하기</string>
-    <string name="about_kofi_url">https://ko-fi.com/liteds</string>
-    <string name="about_bmac">Buy Me a Coffee</string>
-    <string name="about_bmac_url">https://buymeacoffee.com/liteds</string>
-    <string name="about_opensource_title">오픈소스</string>
-    <string name="about_opensource_desc">melonDS-android 기반\nGPL-3.0 라이선스 오픈소스입니다.\n소스코드는 GitHub에서 확인하실 수 있습니다.</string>
-    <string name="about_github_url">https://github.com/your-username/LiteDS</string>
-    <string name="about_github_label">GitHub 보러가기</string>
-    <string name="about_review_label">Play Store 리뷰 남기기</string>
+    <string name="about">About</string>
+    <string name="about_summary">Version, support, open source</string>
+    <string name="about_tagline">Got a ROM? Just play.\nThe DS, back on.</string>
+    <string name="about_support_title">Support the developer</string>
+    <string name="about_support_desc">LiteDS is a free, open-source app.\nIf you like it, support development\nwith a cup of coffee ☕</string>
+    <string name="about_kofi">Support on Ko-fi</string>
+    <string name="about_kofi_url">https://ko-fi.com/lallalaaa51</string>
+    <string name="about_opensource_title">Open source</string>
+    <string name="about_opensource_desc">Based on melonDS-android\nand licensed under GPL-3.0.\nThe source code is available on GitHub.</string>
+    <string name="about_github_url">https://github.com/lallla-jh/LiteDS</string>
+    <string name="about_github_label">View on GitHub</string>
+    <string name="about_review_label">Leave a review on the Play Store</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_back">Back</string>
+    <string name="about_melonds_credit">This app is built on the melonDS (GPLv3) open-source project.</string>
+    <string name="about_melonds_label">View the original melonDS</string>
+    <string name="about_melonds_url">https://github.com/melonDS-emu/melonDS</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_skip">건너뛰기</string>
+    <string name="onboarding_skip">Skip</string>
     <string name="onboarding_step1_title">LiteDS</string>
-    <string name="onboarding_step1_desc">ROM 파일만 있으면 바로 플레이할 수 있어요.</string>
-    <string name="onboarding_step1_button">시작하기 →</string>
-    <string name="onboarding_step2_title">게임 파일이\n어디 있나요?</string>
-    <string name="onboarding_step2_desc">.nds 파일이 있는 폴더를 선택하면\n자동으로 목록에 추가돼요.</string>
-    <string name="onboarding_step2_button">📁 폴더 선택하기</string>
-    <string name="onboarding_step2_skip">나중에 할게요</string>
-    <string name="onboarding_step3_title">준비 완료!</string>
-    <string name="onboarding_step3_desc">게임을 시작해보세요.</string>
-    <string name="onboarding_step3_button">게임 목록 보기 →</string>
+    <string name="onboarding_step1_desc">Just bring a ROM file and start playing right away.</string>
+    <string name="onboarding_step1_button">Get started →</string>
+    <string name="onboarding_step2_title">Where are your\ngame files?</string>
+    <string name="onboarding_step2_desc">Select the folder with your .nds files\nand they\'ll be added automatically.</string>
+    <string name="onboarding_step2_button">📁 Select folder</string>
+    <string name="onboarding_step2_skip">I\'ll do it later</string>
+    <string name="onboarding_step3_title">All set!</string>
+    <string name="onboarding_step3_desc">Go ahead and start a game.</string>
+    <string name="onboarding_step3_button">View game list →</string>
     <!-- View mode toggle -->
     <string name="action_view_grid">Grid View</string>
     <string name="action_view_list">List View</string>
     <!-- Settings advanced toggle -->
-    <string name="settings_show_advanced">고급 설정 보기</string>
-    <string name="settings_show_advanced_summary">더 세밀한 설정을 원하시나요?</string>
+    <string name="settings_show_advanced">Show advanced settings</string>
+    <string name="settings_show_advanced_summary">Want more detailed settings?</string>
     <!-- Pause menu bottom sheet -->
-    <string name="pause_menu_resume">계속하기</string>
-    <string name="pause_menu_save">저장</string>
-    <string name="pause_menu_load">불러오기</string>
-    <string name="pause_menu_reset">재시작</string>
-    <string name="pause_menu_exit">홈으로</string>
-    <string name="pause_menu_cheats">치트</string>
-    <string name="pause_menu_save_slots">저장 슬롯</string>
-    <string name="pause_menu_slot_label">슬롯 %1$d</string>
-    <string name="pause_menu_empty_slot">빈 슬롯</string>
-    <string name="pause_menu_reset_confirm_title">재시작</string>
-    <string name="pause_menu_reset_confirm_msg">저장하지 않은 진행상황이 사라집니다.\n재시작할까요?</string>
-    <string name="pause_menu_exit_confirm_title">홈으로</string>
-    <string name="pause_menu_exit_confirm_msg">게임을 종료하고 홈 화면으로 나가시겠어요?</string>
+    <string name="pause_menu_resume">Resume</string>
+    <string name="pause_menu_save">Save</string>
+    <string name="pause_menu_load">Load</string>
+    <string name="pause_menu_reset">Restart</string>
+    <string name="pause_menu_exit">Home</string>
+    <string name="pause_menu_cheats">Cheats</string>
+    <string name="pause_menu_save_slots">Save slots</string>
+    <string name="pause_menu_slot_label">Slot %1$d</string>
+    <string name="pause_menu_empty_slot">Empty slot</string>
+    <string name="pause_menu_reset_confirm_title">Restart</string>
+    <string name="pause_menu_reset_confirm_msg">Unsaved progress will be lost.\nRestart anyway?</string>
+    <string name="pause_menu_exit_confirm_title">Home</string>
+    <string name="pause_menu_exit_confirm_msg">Quit the game and return to the home screen?</string>
 </resources>

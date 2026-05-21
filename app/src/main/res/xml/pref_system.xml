@@ -22,6 +22,13 @@
             app:iconSpaceReserved="false"
             android:defaultValue="true" />
 
+    <SwitchPreference
+            android:key="enable_sustained_performance"
+            android:title="@string/sustained_performance_mode"
+            android:summary="@string/sustained_performance_mode_summary"
+            app:iconSpaceReserved="false"
+            android:defaultValue="false" />
+
     <Preference
             android:key="backup_internal_layout"
             android:title="@string/backup_internal_layout"

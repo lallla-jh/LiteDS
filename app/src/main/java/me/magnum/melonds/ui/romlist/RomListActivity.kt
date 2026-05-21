@@ -7,9 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,16 +23,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import io.noties.markwon.Markwon
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import me.magnum.melonds.R
 import me.magnum.melonds.databinding.ActivityRomListBinding
 import me.magnum.melonds.domain.model.ConsoleType
-import me.magnum.melonds.domain.model.DownloadProgress
 import me.magnum.melonds.domain.model.SortingMode
-import me.magnum.melonds.domain.model.Version
-import me.magnum.melonds.domain.model.appupdate.AppUpdate
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.ui.common.rom.EmulatorLaunchValidatorDelegate
 import me.magnum.melonds.ui.emulator.EmulatorActivity
@@ -43,7 +36,6 @@ import androidx.preference.PreferenceManager
 import me.magnum.melonds.ui.onboarding.OnboardingActivity
 import me.magnum.melonds.ui.onboarding.OnboardingViewModel
 import me.magnum.melonds.ui.settings.SettingsActivity
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RomListActivity : AppCompatActivity() {
@@ -53,12 +45,8 @@ class RomListActivity : AppCompatActivity() {
         const val EXTRA_ROM_DIRECTORY_URI = "extra_rom_directory_uri"
     }
 
-    @Inject lateinit var markwon: Markwon
     private val viewModel: RomListViewModel by viewModels()
-    private val updatesViewModel: UpdatesViewModel by viewModels()
     private lateinit var emulatorLauncherValidatorDelegate: EmulatorLaunchValidatorDelegate
-
-    private var downloadProgressDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -142,23 +130,6 @@ class RomListActivity : AppCompatActivity() {
             }
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                updatesViewModel.appUpdate.collectLatest {
-                    when (it.type) {
-                        AppUpdate.Type.PRODUCTION -> showProdUpdateAvailableDialog(it)
-                        AppUpdate.Type.NIGHTLY -> showNightlyUpdateAvailableDialog(it)
-                    }
-                }
-            }
-        }
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                updatesViewModel.updateDownloadProgressEvent.collectLatest {
-                    onDownloadProgressUpdated(it)
-                }
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -252,90 +223,6 @@ class RomListActivity : AppCompatActivity() {
             }
         }
         romListFragment.setRomSelectedListener { rom -> launchRom(rom) }
-    }
-
-    private fun showProdUpdateAvailableDialog(update: AppUpdate) {
-        val message = markwon.toMarkdown(update.description)
-
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.update_available, getReadableVersionString(update.newVersion)))
-            .setMessage(message)
-            .setPositiveButton(R.string.update) { _, _ ->
-                startUpdateDownload(update)
-            }
-            .setNegativeButton(R.string.cancel, null)
-            .setNeutralButton(R.string.skip_update) { _, _ ->
-                updatesViewModel.skipUpdate(update)
-            }
-            .show()
-    }
-
-    private fun showNightlyUpdateAvailableDialog(update: AppUpdate) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.nightly_update_available))
-            .setMessage(getString(R.string.nightly_update_available_message))
-            .setPositiveButton(R.string.update) { _, _ ->
-                startUpdateDownload(update)
-            }
-            .setNegativeButton(R.string.remind_later_update) { _, _ ->
-                updatesViewModel.skipUpdate(update)
-            }
-            .show()
-    }
-
-    private fun startUpdateDownload(update: AppUpdate) {
-        downloadProgressDialog?.dismiss()
-        downloadProgressDialog = AlertDialog.Builder(this)
-            .setTitle(R.string.downloading_update)
-            .setView(R.layout.dialog_layout_update_download_progress)
-            .setPositiveButton(R.string.move_to_background) { _, _ ->
-                downloadProgressDialog = null
-            }
-            .setCancelable(false)
-            .show()
-
-        updatesViewModel.downloadUpdate(update)
-    }
-
-    private fun onDownloadProgressUpdated(downloadProgress: DownloadProgress) {
-        downloadProgressDialog?.let {
-            when (downloadProgress) {
-                is DownloadProgress.DownloadUpdate -> {
-                    val progressBar = it.findViewById<ProgressBar>(R.id.progress_bar_download_progress)!!
-                    val progressText = it.findViewById<TextView>(R.id.text_download_progress)!!
-
-                    val progress = (downloadProgress.downloadedBytes.toDouble() / downloadProgress.totalSize) * 100
-                    val downloadedMb = (downloadProgress.downloadedBytes.toDouble() / 1024 / 1024)
-                    val totalMb = (downloadProgress.totalSize.toDouble() / 1024 / 1024)
-
-                    progressBar.apply {
-                        isIndeterminate = false
-                        this.progress = progress.toInt()
-                    }
-
-                    progressText.text = getString(R.string.download_progress_sizes, downloadedMb, totalMb)
-                }
-                is DownloadProgress.DownloadComplete -> {
-                    it.dismiss()
-                    downloadProgressDialog = null
-                }
-                is DownloadProgress.DownloadFailed -> {
-                    it.dismiss()
-                    downloadProgressDialog = null
-                    Toast.makeText(this, R.string.update_download_failed, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    private fun getReadableVersionString(version: Version): String {
-        val typeString = when(version.type) {
-            Version.ReleaseType.ALPHA -> getString(R.string.version_alpha)
-            Version.ReleaseType.BETA -> getString(R.string.version_beta)
-            Version.ReleaseType.FINAL -> ""
-            Version.ReleaseType.NIGHTLY -> return getString(R.string.version_nightly)
-        }
-        return "$typeString${if (typeString.isEmpty()) "" else " "}${version.major}.${version.minor}.${version.patch}"
     }
 
     private fun launchRom(rom: Rom) {

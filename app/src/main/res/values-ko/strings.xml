@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiteDS</string>
+
+    <string name="ok">확인</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="on">켜기</string>
+    <string name="off">끄기</string>
+    <string name="cancel">취소</string>
+    <string name="not_set">설정 안 됨</string>
+    <string name="delete">삭제</string>
+    <string name="edit">편집</string>
+    <string name="clear">지우기</string>
+    <string name="none">없음</string>
+    <string name="options">옵션</string>
+    <string name="preview">미리보기</string>
+    <string name="undo">실행 취소</string>
+    <string name="update">업데이트</string>
+    <string name="close">닫기</string>
+    <string name="play">플레이</string>
+    <string name="save">저장</string>
+    <string name="ellipsis">…</string>
+    <string name="navigate_back">뒤로</string>
+
+    <string name="version_alpha">알파</string>
+    <string name="version_beta">베타</string>
+    <string name="version_nightly">나이틀리</string>
+
+    <string name="console_ds">DS</string>
+    <string name="console_dsi">DSi (실험적)</string>
+
+    <string name="console_ds_full">Nintendo DS</string>
+    <string name="console_dsi_full">Nintendo DSi</string>
+
+    <string name="size_bytes">B</string>
+    <string name="size_kb">KB</string>
+    <string name="size_mb">MB</string>
+    <string name="size_gb">GB</string>
+
+    <string name="error_rom_not_found">ROM을 찾을 수 없습니다</string>
+    <string name="error_rom_not_found_info">선택한 ROM 파일을 찾을 수 없습니다. 선택한 ROM이 현재 ROM 검색 디렉토리에 있는지 확인하세요.\n%1$s</string>
+    <string name="error_load_rom">ROM을 불러올 수 없습니다</string>
+    <string name="error_load_rom_message">ROM을 불러오는 중 문제가 발생했습니다. 파일이 손상되지 않았는지 확인하고 다시 시도하세요.</string>
+    <string name="error_load_firmware">펌웨어를 불러올 수 없습니다</string>
+    <string name="error_load_firmware_message">펌웨어(%1$s)를 불러오는 중 문제가 발생했습니다. BIOS 및 펌웨어 덤프가 손상되지 않았는지, 펌웨어가 부팅 가능한지 확인하고 다시 시도하세요.</string>
+    <string name="error_load_rom_report_issue">이 문제를 해결하는 데 도움이 되는 오류 로그가 생성되었습니다. 이 로그를 포함해 GitHub에 이슈를 등록하시겠습니까? GitHub 계정이 필요합니다.</string>
+    <string name="title_emulator_running">에뮬레이터 실행 중</string>
+    <string name="message_stop_emulation">에뮬레이션을 중지하고 새 ROM을 불러올까요?</string>
+    <string name="error_load_gba_rom">GBA ROM을 불러올 수 없습니다</string>
+    <string name="action_search_roms">ROM 검색</string>
+    <string name="action_sort_roms">ROM 정렬</string>
+    <string name="action_boot_firmware">펌웨어 부팅</string>
+    <string name="action_refresh_rom_list">ROM 목록 새로고침</string>
+    <string name="hint_search_roms">ROM 검색…</string>
+    <string name="update_available">업데이트 가능: %1$s</string>
+    <string name="nightly_update_available">나이틀리 업데이트 가능</string>
+    <string name="nightly_update_available_message">지금 다운로드하시겠습니까?</string>
+    <string name="skip_update">건너뛰기</string>
+    <string name="remind_later_update">나중에</string>
+    <string name="downloading_update">업데이트 다운로드 중…</string>
+    <string name="starting_download">다운로드 시작 중…</string>
+    <string name="download_progress_sizes">%1$.1fMB/%2$.1fMB</string>
+    <string name="update_download_failed">업데이트 다운로드에 실패했습니다</string>
+
+    <string name="dsiware_manager">DSiWare 관리자</string>
+    <string name="no_dsiware_titles_installed">설치된 DSiWare 타이틀이 없습니다</string>
+    <string name="dsiware_manager_no_dsi_setup">DSi 시스템이 설정되어 있지 않습니다</string>
+    <string name="dsiware_manager_invalid_dsi_setup">DSi 시스템 설정이 올바르지 않습니다</string>
+    <string name="import_dsiware_title">DSiWare 타이틀 가져오기</string>
+    <string name="dsiware_manager_setup">설정</string>
+    <string name="dsiware_manager_fix_setup">설정 수정</string>
+    <string name="dsiware_manager_load_error">DSiWare 타이틀 목록을 불러오는 중 문제가 발생했습니다. DSi 설정을 확인하세요</string>
+    <string name="dsiware_manager_import_title_error_open_nand_failed">NAND를 열 수 없습니다</string>
+    <string name="dsiware_manager_import_title_error_open_file_failed">선택한 파일을 여는 중 오류 발생</string>
+    <string name="dsiware_manager_import_title_error_not_dsiware_title">DSiWare 타이틀이 아닙니다</string>
+    <string name="dsiware_manager_import_title_error_title_already_imported">DSiWare 타이틀이 이미 가져와져 있습니다</string>
+    <string name="dsiware_manager_import_title_error_insatll_failed">타이틀 설치에 실패했습니다</string>
+    <string name="dsiware_manager_import_title_error_metadat_fetch_failed">타이틀 메타데이터를 다운로드하지 못했습니다. 인터넷 연결을 확인하세요</string>
+    <string name="dsiware_manager_import_title_error_unknown">알 수 없는 오류가 발생했습니다</string>
+    <string name="dsiware_manager_import_data">데이터 가져오기…</string>
+    <string name="dsiware_manager_export_data">데이터 내보내기…</string>
+    <string name="dsiware_manager_import_file_success">%1$s 가져오기 완료</string>
+    <string name="dsiware_manager_import_file_error">파일 가져오기에 실패했습니다</string>
+    <string name="dsiware_manager_export_file_success">%1$s 내보내기 완료</string>
+    <string name="dsiware_manager_export_file_error">파일 내보내기에 실패했습니다</string>
+    <string name="dsiware_import_from_file">파일에서 가져오기</string>
+    <string name="dsiware_import_from_rom_list">ROM 목록에서 가져오기</string>
+
+    <string name="select_dsiware_title">DSiWare 타이틀 선택</string>
+    <string name="no_dsiware_roms_found">DSiWare ROM을 찾을 수 없습니다</string>
+
+    <string name="info_fps">FPS: %1$d</string>
+    <string name="info_play_time_hours_minutes">플레이 시간: %1$dh %2$dm</string>
+    <string name="info_play_time_minutes">플레이 시간: %1$dm</string>
+    <string name="info_loading">로딩 중…</string>
+    <string name="save_state_slot">%1$s.</string>
+    <string name="failed_save_state">상태 저장에 실패했습니다</string>
+    <string name="failed_load_state">상태 불러오기에 실패했습니다</string>
+    <string name="cant_load_empty_slot">빈 저장 슬롯은 불러올 수 없습니다</string>
+    <string name="failed_reset_emulation">에뮬레이션 재시작에 실패했습니다</string>
+    <string name="save_states_not_supported">펌웨어 실행 중에는 저장 상태가 지원되지 않습니다</string>
+    <string name="save_states_unavailable_ra_hardcore_enabled">하드코어 모드가 활성화된 동안에는 저장 상태를 사용할 수 없습니다</string>
+    <string name="rewind_time_seconds">%1$ss</string>
+    <string name="rewind_time_minutes_seconds">%1$dm%2$ss</string>
+    <string name="rewind_not_enabled">되감기가 활성화되지 않았습니다</string>
+    <string name="rewind_unavailable_ra_hardcore_enabled">하드코어 모드가 활성화된 동안에는 되감기를 사용할 수 없습니다</string>
+    <string name="no_image_selected">선택된 이미지 없음</string>
+    <string name="failed_to_load_image">이미지 불러오기에 실패했습니다</string>
+    <string name="emulator_stop_gba_mode_unsupported">GBA 모드는 지원되지 않습니다</string>
+    <string name="emulator_stop_internal_error">ROM 실행 중 오류가 발생했습니다</string>
+
+    <string name="action_sort_alphabetically">가나다순</string>
+    <string name="action_sort_recently_played">최근 플레이</string>
+
+    <string name="ds_bios_dir_not_set">DS BIOS 디렉토리가 설정되지 않았습니다</string>
+    <string name="ds_bios_dir_not_set_info">DS BIOS 디렉토리가 설정되지 않았습니다. 다음 파일이 포함된 디렉토리를 선택하세요:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
+    <string name="dsi_bios_dir_not_set">DSi BIOS 디렉토리가 설정되지 않았습니다</string>
+    <string name="dsi_bios_dir_not_set_info">DSi BIOS 디렉토리가 설정되지 않았습니다. 다음 파일이 포함된 디렉토리를 선택하세요:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
+    <string name="incorrect_bios_dir">잘못된 BIOS 디렉토리</string>
+    <string name="ds_incorrect_bios_dir_info">DS 시스템용 BIOS 디렉토리가 올바르지 않습니다. 선택한 디렉토리에 다음 파일이 포함되어 있는지 확인하세요:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin</string>
+    <string name="dsi_incorrect_bios_dir_info">DSi 시스템용 BIOS 디렉토리가 올바르지 않습니다. 선택한 디렉토리에 다음 파일이 포함되어 있는지 확인하세요:\n&#8226; bios7.bin\n&#8226; bios9.bin\n&#8226; firmware.bin\n&#8226; nand.bin</string>
+    <string name="storage_permission_required">저장소 권한 필요</string>
+    <string name="storage_permission_required_info">기기에서 ROM을 불러오려면 저장소 권한이 필요합니다. 다음 대화 상자에서 저장소 접근 권한을 허용하세요.</string>
+    <string name="microphone_permission_required">오디오 녹음 권한 필요</string>
+    <string name="microphone_permission_required_info">에뮬레이터로 마이크 데이터를 전송하려면 오디오 녹음 권한이 필요합니다. 다음 대화 상자에서 마이크 접근 권한을 허용하세요.</string>
+    <string name="system_file_picker_not_found">기기에 파일 선택기가 없습니다. 파일 선택기 없이는 이 에뮬레이터를 사용할 수 없습니다</string>
+    <string name="system_file_picker_not_enabled">기기의 파일 선택기가 비활성화되어 있습니다. 활성화해 주세요</string>
+    <string name="file_picker_settings">파일 선택기 설정</string>
+    <string name="no_rom_search_directory_specified">ROM 검색 디렉토리가 지정되지 않았습니다</string>
+    <string name="set_rom_directory">ROM 디렉토리 설정</string>
+    <string name="error_invalid_directory">잘못된 디렉토리</string>
+    <string name="error_invalid_directory_description">선택한 디렉토리에 쓸 수 없습니다. 다른 디렉토리를 선택하세요. 압축 파일을 선택하고 있다면 먼저 압축을 해제해 보세요.</string>
+    <string name="no_roms_found">ROM을 찾을 수 없습니다</string>
+    <string name="rom_launch_failed">ROM 실행에 실패했습니다</string>
+    <string name="rom_launch_custom_bios_firmware_bad_setup">이 ROM은 커스텀 BIOS 및 펌웨어를 사용하도록 설정되어 있지만 올바르게 구성되지 않았습니다.</string>
+    <string name="firmware_launch_failed">펌웨어 실행에 실패했습니다</string>
+    <string name="firmware_launch_bad_setup">이 펌웨어를 실행하려면 커스텀 BIOS 및 펌웨어가 필요하지만 올바르게 구성되지 않았습니다.</string>
+    <string name="failed_launch_dsiware_title">DSiWare 타이틀 실행에 실패했습니다</string>
+    <string name="failed_launch_dsiware_title_check_failed">DSiWare 타이틀 설치 여부를 확인할 수 없습니다. 자세한 내용은 DSiWare 관리자를 확인하세요.</string>
+    <string name="failed_launch_dsiware_title_rom_failed">ROM 파일을 파싱할 수 없습니다. ROM 파일이 유효하고 손상되지 않았는지 확인하세요.</string>
+    <string name="failed_launch_dsiware_title_not_installed">DSiWare 타이틀을 실행하려면 먼저 NAND에 설치해야 합니다. DSiWare 관리자에서 설치할 수 있습니다.</string>
+
+    <string name="press_any_button">아무 버튼이나 누르세요…</string>
+    <string name="waiting_for_input">입력 대기 중…</string>
+
+    <string name="choose_component">구성 요소 선택</string>
+
+    <string name="pause">일시 정지</string>
+    <string name="achievements">도전 과제</string>
+    <string name="reset">초기화</string>
+    <string name="exit">종료</string>
+
+    <string name="settings">설정</string>
+    <string name="save_state">상태 저장</string>
+    <string name="load_state">상태 불러오기</string>
+    <string name="rewind">되감기</string>
+    <string name="save_slot">저장 슬롯</string>
+    <string name="empty_slot">%1$s. &lt;비어 있음&gt;</string>
+    <string name="quick_slot">빠른 슬롯</string>
+    <string name="saved">저장됨</string>
+    <string name="loaded">불러옴</string>
+    <string name="title_activity_settings">설정</string>
+    <string name="category_general">일반</string>
+    <string name="category_general_summary">테마, 일반 설정</string>
+    <string name="category_roms">ROM</string>
+    <string name="category_roms_summary">검색 디렉토리, 아이콘 필터링, 캐시 설정</string>
+    <string name="category_system">시스템</string>
+    <string name="category_system_summary">펌웨어 설정, 커스텀 BIOS, JIT</string>
+    <string name="theme">테마</string>
+    <string name="fast_forward_max_speed">빠른 진행 최대 속도</string>
+    <string name="rewind_description">이 기능을 활성화하면 저장 상태가 주기적으로 자동 저장됩니다. 잠시 전으로 돌아가고 싶을 때 되감기 화면을 열고 원하는 상태를 선택하세요.\n\n이 기능을 활성화하면 기기 성능에 따라 간헐적인 끊김이 발생할 수 있습니다. 상태 캡처 빈도와 보관 기간에 따라 상당한 메모리가 사용됩니다.</string>
+    <string name="rewind_save_period">저장 주기</string>
+    <string name="rewind_length">되감기 길이</string>
+    <string name="rewind_max_memory_usage">최대 메모리 사용량: %1$s</string>
+    <string name="rewind_memory_usage_above_recommended_limit">메모리 사용량이 권장 한도를 초과했습니다</string>
+    <string name="sustained_performance_mode">지속 성능 모드</string>
+    <string name="sustained_performance_mode_summary">활성화하면 최고 성능은 낮아지지만 온도 제한이 덜 심해집니다.</string>
+    <string name="hide_auxiliary_buttons">보조 버튼 숨기기</string>
+    <string name="hide_auxiliary_buttons_summary">게임 중 L, R, Select, Start 버튼을 숨깁니다</string>
+    <string name="check_for_updates">업데이트 확인</string>
+    <string name="check_for_updates_summary">활성화하면 앱이 주기적으로 새 업데이트를 확인합니다</string>
+    <string name="rom_icon_filtering">아이콘 필터링</string>
+    <string name="max_rom_cache_size">최대 ROM 캐시 크기</string>
+    <string name="clear_extracted_rom_cache">압축 해제된 ROM 캐시 지우기</string>
+    <string name="cache_size">캐시 크기: %s</string>
+    <string name="cache_size_calculating">캐시 크기 계산 중…</string>
+    <string name="rom_search_directory">검색 디렉토리</string>
+    <string name="use_custom_bios">커스텀 BIOS 및 펌웨어 사용</string>
+    <string name="console_type">기본 시스템</string>
+    <string name="internal_firmware_settings">내부 펌웨어 설정</string>
+    <string name="internal_firmware_settings_summary">내부 펌웨어의 설정을 조정합니다.</string>
+    <string name="custom_bios_firmware">커스텀 BIOS 및 펌웨어</string>
+    <string name="custom_bios_firmware_description">커스텀 BIOS 및 펌웨어를 사용하면 실제 기기처럼 ROM 없이도 DS 펌웨어를 실행하고 탐색할 수 있습니다</string>
+    <string name="bios_directory">DS BIOS 디렉토리</string>
+    <string name="dsi_bios_directory">DSi BIOS 디렉토리</string>
+    <string name="show_boot_screen">부팅 화면 표시</string>
+    <string name="mac_address">MAC 주소</string>
+    <string name="randomize_mac_address">MAC 주소 무작위화</string>
+    <string name="randomize_mac_address_summary">활성화하면 부팅할 때마다 무작위 MAC 주소가 사용됩니다. 일부 게임이 다른 시스템에서 실행 중이라고 인식하여 시간 기반 이벤트가 작동하지 않을 수 있습니다.</string>
+    <string name="generate_new_mac_address">새로 생성</string>
+    <string name="generate_new_mac_address_description">새 MAC 주소를 생성하면 게임이 다른 시스템에서 실행 중이라고 인식합니다.</string>
+    <string name="enable_jit">JIT 활성화</string>
+    <string name="enable_jit_summary">성능이 향상되지만 멈춤이나 충돌이 발생할 수 있습니다.</string>
+    <string name="jit_not_supported">JIT는 64비트 기기에서만 지원됩니다.</string>
+    <string name="backup_settings">설정 백업</string>
+    <string name="restore_settings">설정 복원</string>
+    <string name="settings_backup_success">설정 백업이 생성되었습니다.\n\n다음 항목은 건너뛰었습니다:\n&#8226; RetroAchievements 세션\n&#8226; ROM/저장 디렉토리\n&#8226; DS BIOS 디렉토리\n&#8226; DSi BIOS 디렉토리</string>
+    <string name="settings_backup_error">설정 백업에 실패했습니다</string>
+    <string name="settings_restore_success">설정이 복원되었습니다.\n\n다음 항목은 변경되지 않았습니다:\n&#8226; RetroAchievements 세션\n&#8226; ROM/저장 디렉토리\n&#8226; DS BIOS 디렉토리\n&#8226; DSi BIOS 디렉토리</string>
+    <string name="settings_restore_error">설정 복원에 실패했습니다</string>
+    <string name="backup_internal_layout">내부 레이아웃 백업</string>
+    <string name="backup_external_layout">외부 레이아웃 백업</string>
+    <string name="restore_internal_layout">내부 레이아웃 복원</string>
+    <string name="restore_external_layout">외부 레이아웃 복원</string>
+    <string name="internal_layout_backup_success">내부 레이아웃 백업이 생성되었습니다.</string>
+    <string name="internal_layout_backup_error">내부 레이아웃 백업에 실패했습니다</string>
+    <string name="external_layout_backup_success">외부 레이아웃 백업이 생성되었습니다.</string>
+    <string name="external_layout_backup_error">외부 레이아웃 백업에 실패했습니다</string>
+    <string name="internal_layout_restore_success">내부 레이아웃이 복원되었습니다.</string>
+    <string name="internal_layout_restore_error">내부 레이아웃 복원에 실패했습니다</string>
+    <string name="external_layout_restore_success">외부 레이아웃이 복원되었습니다.</string>
+    <string name="external_layout_restore_error">외부 레이아웃 복원에 실패했습니다</string>
+    <string name="threaded_rendering">스레드 렌더링</string>
+    <string name="fps_counter_position">FPS 카운터 위치</string>
+    <string name="threaded_rendering_summary">활성화하면 3D 게임 성능이 향상되지만 그래픽 오류가 발생할 수 있습니다.</string>
+    <string name="category_video">비디오</string>
+    <string name="category_video_summary">필터, 스레드 렌더링, FPS 카운터</string>
+    <string name="filter">필터</string>
+    <string name="internal_resolution">내부 해상도</string>
+    <string name="renderer">렌더러</string>
+    <string name="dsi_camera_source">DSi 카메라 소스</string>
+    <string name="external_screen_layout">외부 화면 레이아웃</string>
+    <string name="external_display_screen">외부 디스플레이 화면</string>
+    <string name="external_display_rotate_left">외부 화면 콘텐츠 왼쪽으로 회전</string>
+    <string name="refresh_external_screen">외부 화면 새로고침</string>
+    <string name="dsi_camera_image">DSi 카메라 이미지</string>
+    <string name="internal_screen_layout">내부 화면 레이아웃</string>
+    <string name="input_refresh_external_screen">외부 화면 새로고침</string>
+    <string name="quick_settings">빠른 설정</string>
+    <string name="category_audio">오디오</string>
+    <string name="category_audio_summary">볼륨, 지연, 마이크 소스</string>
+    <string name="enable_sound">사운드 활성화</string>
+    <string name="interpolation">보간</string>
+    <string name="bitrate">비트레이트</string>
+    <string name="volume">볼륨</string>
+    <string name="volume_percentage">%1$d%%</string>
+    <string name="audio_latency">오디오 지연</string>
+    <string name="microphone_source">마이크 소스</string>
+    <string name="controller_layout">컨트롤러 레이아웃</string>
+    <string name="category_save_files">저장 파일</string>
+    <string name="category_save_files_summary">저장 파일 및 상태 저장 위치</string>
+    <string name="save_next_rom">ROM 파일 옆에 저장</string>
+    <string name="save_file_directory">저장 파일 디렉토리</string>
+    <string name="save_state_location">저장 상태 위치</string>
+    <string name="input">입력</string>
+    <string name="input_summary">키 매핑, 레이아웃, 햅틱 피드백</string>
+    <string name="key_mapping">키 매핑</string>
+    <string name="key_mapping_summary">컨트롤러 입력에 키 할당</string>
+    <string name="show_soft_input">소프트 입력 표시</string>
+    <string name="soft_input_behaviour">소프트 입력 동작</string>
+    <string name="vibrate_on_touch">터치 시 진동</string>
+    <string name="vibration_strength">진동 세기</string>
+    <string name="soft_input_opacity">소프트 입력 불투명도</string>
+    <string name="retroachievements">RetroAchievements</string>
+    <string name="retroachievements_summary">RetroAchievements 로그인 및 연동 관리</string>
+    <string name="enable_rich_presence">리치 프레즌스 활성화</string>
+    <string name="rich_presence_summary">다른 RetroAchievements 사용자가 플레이 중인 게임을 볼 수 있습니다</string>
+    <string name="hardcore_mode">하드코어 모드</string>
+    <string name="hardcore_mode_summary">하드코어 도전 과제를 획득할 수 있습니다. 치트, 상태 저장, 슬로우 모션, 되감기가 비활성화됩니다</string>
+    <string name="show_active_challenge_indicators">활성 챌린지 표시기 표시</string>
+    <string name="show_active_challenge_indicators_summary">특정 도전 과제를 획득할 수 있는 동안 화면 표시기를 보여줍니다</string>
+    <string name="show_progress_indicators">진행 표시기 표시</string>
+    <string name="show_progress_indicators_summary">도전 과제 진행 시 화면 표시기를 보여줍니다</string>
+    <string name="show_leaderboard_indicators">리더보드 표시기 표시</string>
+    <string name="show_leaderboard_indicators_summary">리더보드 시도 중 화면 표시기를 보여줍니다</string>
+
+    <string name="cheats">치트</string>
+    <string name="cheats_summary">치트 코드 활성화 및 가져오기</string>
+    <string name="enable_cheats">치트 활성화</string>
+    <string name="cheats_database">치트 데이터베이스 (XML 형식)</string>
+    <string name="import_cheats">치트 가져오기</string>
+    <string name="import_cheats_summary">데이터베이스 파일에서 치트를 가져와 사용할 수 있습니다. 현재 XML 데이터베이스만 지원됩니다. 이전에 가져온 치트는 모두 삭제됩니다.</string>
+    <string name="rom_shortcut">ROM 바로가기</string>
+
+    <string name="firmware_nickname">닉네임</string>
+    <string name="firmware_message">메시지</string>
+    <string name="firmware_language">언어</string>
+    <string name="firmware_favourite_colour">좋아하는 색상</string>
+    <string name="firmware_birthday">생일</string>
+
+    <string name="error_clear_rom_cache">ROM 캐시 지우기에 실패했습니다</string>
+    <string name="importing_cheats">치트 가져오는 중…</string>
+    <string name="starting">시작 중…</string>
+    <string name="move_to_background">백그라운드로 이동</string>
+    <string name="failed_save_cheat_changes">치트 변경 사항을 저장할 수 없습니다</string>
+    <string name="no_cheats_found">현재 ROM에 대한 치트를 찾을 수 없습니다. 다른 치트 데이터베이스를 가져와 보세요.</string>
+    <string name="enabled_cheats">활성화된 치트</string>
+    <string name="no_enabled_cheats_for_rom">이 ROM에 활성화된 치트가 없습니다</string>
+    <string name="folder_is_empty">이 폴더가 비어 있습니다. 직접 치트 코드를 추가해 보세요</string>
+    <string name="add_cheat_folder">치트 폴더 추가</string>
+    <string name="new_cheat">새 치트</string>
+    <string name="edit_cheat">치트 편집</string>
+    <string name="cheat_name">치트 이름</string>
+    <string name="description">설명</string>
+    <string name="cheat_code">코드</string>
+    <string name="error_name_cannot_be_empty">치트 이름을 입력하세요</string>
+    <string name="error_code_cannot_be_empty">코드를 입력하세요</string>
+    <string name="error_code_invalid_format">코드 형식이 올바르지 않습니다</string>
+    <string name="cheat_deleted">치트 \"%1$s\" 삭제됨</string>
+    <string name="cheat_folder_default_name">내 치트</string>
+
+    <string name="day">일</string>
+    <string name="month">월</string>
+    <string name="symbol_increase">+</string>
+    <string name="symbol_decrease">-</string>
+
+    <string name="rom_settings">ROM 설정</string>
+    <string name="label_rom_config_console">부팅 시스템</string>
+    <string name="label_rom_config_custom_name">ROM 표시 이름</string>
+    <string name="label_rom_config_gba_slot">GBA 슬롯</string>
+    <string name="label_rom_config_gba_rom_path">GBA ROM 경로</string>
+    <string name="label_rom_config_gba_save_path">GBA 저장 경로</string>
+    <string name="rom_details_configuration_tab">설정</string>
+    <string name="retro_achievements_tab">Retro&#8203;Achievements</string>
+
+    <string name="theme_option_light">밝음</string>
+    <string name="theme_option_dark">어두움</string>
+    <string name="theme_option_system_default">시스템 기본값</string>
+
+    <string name="notification_channel_background_tasks">백그라운드 작업</string>
+
+    <string name="top_screen">상단 화면</string>
+    <string name="bottom_screen">하단 화면</string>
+    <string name="custom_layout">커스텀 레이아웃</string>
+    <string name="input_a">A</string>
+    <string name="input_b">B</string>
+    <string name="input_x">X</string>
+    <string name="input_y">Y</string>
+    <string name="input_left">왼쪽</string>
+    <string name="input_right">오른쪽</string>
+    <string name="input_up">위</string>
+    <string name="input_down">아래</string>
+    <string name="input_left_joy">왼쪽 조이</string>
+    <string name="input_right_joy">오른쪽 조이</string>
+    <string name="input_up_joy">위 조이</string>
+    <string name="input_down_joy">아래 조이</string>
+    <string name="input_l">L</string>
+    <string name="input_r">R</string>
+    <string name="input_start">Start</string>
+    <string name="input_select">Select</string>
+    <string name="input_lid">뚜껑 토글</string>
+    <string name="input_pause">일시 정지</string>
+    <string name="input_fast_forward">빠른 진행 (토글)</string>
+    <string name="input_microphone">마이크 토글</string>
+    <string name="input_toggle_soft_input">소프트 입력 토글</string>
+    <string name="input_reset">@string/reset</string>
+    <string name="input_dpad">방향키</string>
+    <string name="input_abxy_buttons">ABXY 버튼</string>
+    <string name="input_swap_screens">화면 전환</string>
+    <string name="input_quick_save">빠른 저장</string>
+    <string name="input_quick_load">빠른 불러오기</string>
+
+    <string name="layouts">레이아웃</string>
+    <string name="layouts_summary">커스텀 레이아웃 구성 관리</string>
+    <string name="action_layouts_new">새 레이아웃</string>
+    <string name="default_layout_name">기본</string>
+    <string name="custom_layout_default_name">내 레이아웃</string>
+    <string name="use_global_layout">전체 레이아웃 사용</string>
+    <string name="use_global_preference">전체 설정 사용</string>
+    <string name="layout_deleted">레이아웃 삭제됨</string>
+    <string name="named_layout_deleted">레이아웃 \"%1$s\" 삭제됨</string>
+
+    <string name="layout_editor">레이아웃 편집기</string>
+    <string name="add_component">구성 요소 추가</string>
+    <string name="no_more_components">추가할 구성 요소가 없습니다</string>
+    <string name="label_size">크기</string>
+    <string name="label_width">너비</string>
+    <string name="label_height">높이</string>
+    <string name="label_alpha">불투명도</string>
+    <string name="label_aspect_ratio">화면 비율:</string>
+    <string name="aspect_ratio_4_3">4:3 (원본)</string>
+    <string name="aspect_ratio_16_9">16:9 (와이드스크린)</string>
+    <string name="aspect_ratio_unrestricted">제한 없음</string>
+    <string name="keep_ds_ratio">DS 화면 비율 유지</string>
+    <string name="above_other_screen">다른 화면 위에</string>
+    <string name="center_horizontal">가로 가운데</string>
+    <string name="center_vertical">세로 가운데</string>
+    <string name="editing_internal_layout">내부 레이아웃 편집 중</string>
+    <string name="editing_external_layout">외부 레이아웃 편집 중</string>
+    <string name="menu">메뉴</string>
+    <string name="properties">속성</string>
+    <string name="revert_changes">변경 사항 되돌리기</string>
+    <string name="reset_default">기본값으로 초기화</string>
+    <string name="exit_without_saving">저장하지 않고 종료</string>
+    <string name="save_and_exit">저장하고 종료</string>
+    <string name="layout_name">레이아웃 이름</string>
+    <string name="layout_orientation">레이아웃 방향</string>
+    <string name="layout_use_default_opacity">기본 불투명도 사용</string>
+    <string name="layout_opacity">레이아웃 불투명도</string>
+    <string name="layout_background_load_failed">배경을 불러오지 못했습니다</string>
+
+    <string name="layout_background_title">레이아웃 배경</string>
+    <string name="background">배경</string>
+    <string name="backgrounds">배경 목록</string>
+    <string name="background_mode">배경 모드</string>
+    <string name="action_backgrounds_new">새 배경</string>
+    <string name="background_name">배경 이름</string>
+    <string name="background_deleted">배경 삭제됨</string>
+    <string name="background_add_processing_failed">선택한 배경 이미지를 처리하지 못했습니다. 이미지가 손상되지 않았는지 확인하세요.</string>
+
+    <string name="retro_achievements_login_description">RetroAchievements에 로그인하면 게임 중 획득 가능한 도전 과제를 볼 수 있습니다!</string>
+    <string name="login_with_retro_achievements">RetroAchievements로 로그인</string>
+    <string name="login">로그인</string>
+    <string name="retroachievements_login_summary">RetroAchievements에 로그인하고 게임 중 도전 과제를 획득하세요!</string>
+    <string name="retroachievements_login_status">%1$s(으)로 로그인됨</string>
+    <string name="retroachievements_login_expired_status">RetroAchievements 로그인이 만료되었습니다. 다시 로그인하려면 탭하세요</string>
+    <string name="retroachievements_logout">로그아웃</string>
+    <string name="retroachievements_logout_confirmation">정말 RetroAchievements에서 로그아웃하시겠습니까? 게임 중 도전 과제를 획득할 수 없습니다.</string>
+    <string name="retro_achievements_login_error">로그인 중 문제가 발생했습니다. 사용자 이름과 비밀번호가 올바른지, 인터넷에 연결되어 있는지 확인하세요</string>
+    <string name="retro_achievements_login_error_short">로그인 중 문제가 발생했습니다</string>
+    <string name="retro_achievements_load_error">이 게임의 도전 과제를 불러오는 중 문제가 발생했습니다. 인터넷 연결을 확인하고 나중에 다시 시도하세요</string>
+    <string name="retro_achievements_no_achievements">이 게임에 대한 RetroAchievements가 없습니다</string>
+    <string name="retro_achievements_relaunch_to_apply_settings">새 RetroAchievements 설정을 적용하려면 ROM을 다시 실행하세요</string>
+    <string name="retro_achievements_pending_unlocks">보류 중인 잠금 해제</string>
+    <string name="retro_achievements_active_challenges">활성 챌린지</string>
+    <string name="retro_achievements_recently_unlokced">최근 잠금 해제됨</string>
+    <string name="retro_achievements_almost_there">거의 다 왔어요</string>
+    <string name="retro_achievements_locked">잠김</string>
+    <string name="retro_achievements_unlocked">잠금 해제됨</string>
+    <string name="username">사용자 이름</string>
+    <string name="password">비밀번호</string>
+    <string name="retry">다시 시도</string>
+    <string name="points_abbreviated">점</string>
+    <string name="points">포인트</string>
+    <string name="completed">완료됨</string>
+    <string name="ra_mode_hardcore">하드코어</string>
+    <string name="ra_mode_softcore">소프트코어</string>
+    <string name="ra_base_set">기본 세트</string>
+    <string name="view_achievement">도전 과제 보기</string>
+    <string name="completed_achievements"><b>%1$d</b> / <b>%2$d</b> (%3$d%%)</string>
+    <string name="submitting_achievements">RetroAchievements 제출 중…</string>
+    <string name="achievements_loaded">도전 과제 불러옴</string>
+    <string name="achievements_unlocked_compact">잠금 해제: %1$d/%2$d</string>
+    <string name="game_has_no_achievements">이 게임에는 도전 과제가 없습니다</string>
+    <string name="achievements_failed_load">도전 과제 불러오기 실패!</string>
+    <string name="achievements_failed_load_tip">인터넷에 연결되어 있는지 확인하세요</string>
+    <string name="achievements_login_expired">RetroAchievements 로그인 만료!</string>
+    <string name="achievements_login_expired_tip">RetroAchievements를 활성화하려면 다시 로그인하세요</string>
+    <string name="achievement_unlocked">도전 과제 잠금 해제!</string>
+    <string name="achievement_missable">놓칠 수 있음</string>
+    <string name="achievement_missable_description">이 도전 과제는 플레이 중 놓칠 수 있습니다</string>
+    <string name="achievement_progress">%1$d/%2$d</string>
+    <string name="challenge_started">챌린지 시작됨</string>
+    <string name="leaderboard_attempt_started">리더보드 시도 시작!</string>
+    <string name="leaderboard_submission_info">%1$s • %2$d위 / %3$d명</string>
+    <string name="game_completed">%1$s 완료</string>
+    <string name="game_mastered">%1$s 마스터</string>
+    <string name="retroachievements_unsynchronized_data">동기화되지 않은 RetroAchievements 데이터</string>
+    <string name="retroachievements_unsynchronized_data_info">동기화되지 않은 RetroAchievements 데이터가 있습니다. 다음 작업이 보류 중입니다:</string>
+    <plurals name="retroachievements_pending_achievement_unlocks">
+        <item quantity="other">%d개의 도전 과제 잠금 해제</item>
+    </plurals>
+    <plurals name="retroachievements_pending_leaderboard_entries">
+        <item quantity="other">%d개의 리더보드 항목</item>
+    </plurals>
+    <string name="retroachievements_unsynchronized_data_connect_internet">데이터를 동기화하려면 인터넷에 연결하세요.</string>
+    <string name="retroachievements_unsynchronized_data_loss_info">지금 종료하면 이 데이터가 손실됩니다!</string>
+    <string name="retroachievements_unsynchronized_data_synchronized">모든 데이터가 동기화되었습니다!</string>
+    <string name="retroachievements_unsynchronized_data_exiting">에뮬레이터가 종료됩니다.</string>
+
+    <string-array name="fast_forward_speed_multiplier_options">
+        <item>제한 없음</item>
+        <item>1.5배</item>
+        <item>2배</item>
+        <item>3배</item>
+        <item>4배</item>
+        <item>8배</item>
+    </string-array>
+
+    <string-array name="rom_icon_filtering_options">
+        <item>없음 (픽셀화)</item>
+        <item>선형 (부드럽게)</item>
+    </string-array>
+
+    <string-array name="game_runtime_console_type_options">
+        <item>기본</item>
+        <item>@string/console_ds</item>
+        <item>@string/console_dsi</item>
+    </string-array>
+
+    <string-array name="firmware_settings_language_options">
+        <item>영어</item>
+        <item>프랑스어</item>
+        <item>독일어</item>
+        <item>이탈리아어</item>
+        <item>스페인어</item>
+        <item>일본어</item>
+    </string-array>
+
+    <string-array name="game_runtime_mic_source_options">
+        <item>기본</item>
+        <item>없음</item>
+        <item>입김 불기</item>
+        <item>기기 마이크</item>
+    </string-array>
+
+    <string-array name="gba_slot_options">
+        <item>없음</item>
+        <item>GBA ROM</item>
+        <item>럼블 팩</item>
+        <item>메모리 확장</item>
+    </string-array>
+
+    <string-array name="console_type_options">
+        <item>@string/console_ds</item>
+        <item>@string/console_dsi</item>
+    </string-array>
+
+    <string-array name="fps_counter_position_options">
+        <item>숨김</item>
+        <item>왼쪽 상단</item>
+        <item>중앙 상단</item>
+        <item>오른쪽 상단</item>
+        <item>왼쪽 하단</item>
+        <item>중앙 하단</item>
+        <item>오른쪽 하단</item>
+    </string-array>
+
+    <string-array name="video_renderer_options">
+        <item>소프트웨어</item>
+        <item>OpenGL</item>
+        <item>컴퓨트</item>
+    </string-array>
+
+    <string-array name="video_internal_resolution_options">
+        <item>1배 기본 (256x192)</item>
+        <item>2배 기본 (512x384)</item>
+        <item>3배 기본 (768x576)</item>
+        <item>4배 기본 (1024x768)</item>
+        <item>5배 기본 (1280x960)</item>
+        <item>6배 기본 (1536x1152)</item>
+        <item>7배 기본 (1792x1344)</item>
+        <item>8배 기본 (2048x1536)</item>
+    </string-array>
+
+    <string-array name="video_filtering_options">
+        <item>없음</item>
+        <item>선형</item>
+        <item>2xBR</item>
+        <item>HQ2X</item>
+        <item>HQ4X</item>
+        <item>Quilez</item>
+        <item>LCD</item>
+    </string-array>
+
+    <string-array name="dsi_camera_source_options">
+        <item>검은 화면</item>
+        <item>물리 카메라</item>
+        <item>정적 이미지</item>
+    </string-array>
+
+    <string-array name="external_display_screen_options">
+        <item>@string/top_screen</item>
+        <item>@string/bottom_screen</item>
+    </string-array>
+
+    <string-array name="audio_interpolation_options">
+        <item>없음</item>
+        <item>선형</item>
+        <item>코사인</item>
+        <item>큐빅</item>
+    </string-array>
+
+    <string-array name="audio_bitrate_options">
+        <item>자동</item>
+        <item>10비트</item>
+        <item>16비트</item>
+    </string-array>
+
+    <string-array name="audio_latency_options">
+        <item>낮음 (느림)</item>
+        <item>중간</item>
+        <item>높음 (빠름)</item>
+    </string-array>
+
+    <string-array name="mic_source_options">
+        <item>없음</item>
+        <item>입김 불기</item>
+        <item>기기 마이크</item>
+    </string-array>
+
+    <string-array name="soft_input_behaviour_options">
+        <item>항상 표시</item>
+        <item>컨트롤러 연결 시 콘솔 버튼 숨기기</item>
+        <item>컨트롤러 연결 시 할당된 입력 숨기기</item>
+        <item>항상 숨기기</item>
+    </string-array>
+
+    <string-array name="soft_input_behaviour_descriptions">
+        <item>현재 입력 레이아웃 설정에 따라 소프트 입력이 항상 표시됩니다.</item>
+        <item>컨트롤러가 연결되면 콘솔 버튼(A B X Y, 방향키, L, R, Start, Select)이 숨겨집니다. 현재 입력 레이아웃의 다른 버튼은 계속 표시됩니다.</item>
+        <item>컨트롤러가 연결되면 해당 컨트롤러에 할당된 모든 입력이 숨겨집니다. 연결된 컨트롤러에 할당되지 않은 현재 입력 레이아웃의 다른 입력은 계속 표시됩니다.</item>
+        <item>현재 입력 레이아웃의 버튼에 관계없이 소프트 입력이 항상 숨겨집니다.</item>
+    </string-array>
+
+    <string-array name="save_state_locations">
+        <item>저장 파일 디렉토리</item>
+        <item>ROM 디렉토리</item>
+        <item>내부 디렉토리</item>
+    </string-array>
+
+    <string-array name="layout_orientation_options">
+        <item>시스템 따라가기</item>
+        <item>세로</item>
+        <item>가로</item>
+    </string-array>
+
+    <string-array name="background_portrait_mode_options">
+        <item>늘이기</item>
+        <item>가운데 맞춤</item>
+        <item>위에 맞춤</item>
+        <item>왼쪽 맞춤</item>
+        <item>아래 맞춤</item>
+        <item>오른쪽 맞춤</item>
+    </string-array>
+
+    <!-- Multiplayer -->
+    <string name="connection_wifi_aware">Wi-Fi Aware</string>
+    <string name="connection_wifi_direct">Wi-Fi Direct</string>
+    <string name="no_connection_methods_available">이 기기에서 사용 가능한 연결 방법이 없습니다</string>
+    <string name="multiplayer_role_title">멀티플레이어</string>
+    <string name="multiplayer_role_host">호스트</string>
+    <string name="multiplayer_role_join">참가</string>
+    <string name="multiplayer_connection_method_title">연결 방법</string>
+    <string name="multiplayer_discovered_peers_title">사용 가능한 세션</string>
+    <string name="multiplayer_searching">검색 중…</string>
+    <string name="multiplayer_connecting">연결 중…</string>
+    <string name="multiplayer_starting">세션 시작 중…</string>
+    <string name="multiplayer_discovering">피어 검색 중…</string>
+    <string name="multiplayer_connected">연결됨</string>
+    <string name="multiplayer_error_connection_failed">연결 실패</string>
+    <string name="multiplayer_error_discovery_failed">검색 실패</string>
+    <string name="multiplayer_error_lan_init_failed">LAN 세션 초기화에 실패했습니다</string>
+    <string name="multiplayer_error_permission_denied">필요한 권한이 허용되지 않았습니다</string>
+
+    <!-- About screen -->
+    <string name="about">정보</string>
+    <string name="about_summary">버전, 후원, 오픈소스</string>
+    <string name="about_tagline">ROM 파일만 있으면 바로 플레이.\nDS, 다시 켜다.</string>
+    <string name="about_support_title">개발자 후원</string>
+    <string name="about_support_desc">LiteDS는 무료 오픈소스 앱입니다.\n마음에 드셨다면 커피 한 잔으로\n개발을 응원해 주세요 ☕</string>
+    <string name="about_kofi">Ko-fi로 후원하기</string>
+    <string name="about_kofi_url">https://ko-fi.com/lallalaaa51</string>
+    <string name="about_opensource_title">오픈소스</string>
+    <string name="about_opensource_desc">melonDS-android 기반\nGPL-3.0 라이선스 오픈소스입니다.\n소스코드는 GitHub에서 확인하실 수 있습니다.</string>
+    <string name="about_github_url">https://github.com/lallla-jh/LiteDS</string>
+    <string name="about_github_label">GitHub 보러가기</string>
+    <string name="about_review_label">Play Store 리뷰 남기기</string>
+    <string name="about_version">버전 %1$s</string>
+    <string name="about_back">뒤로</string>
+    <string name="about_melonds_credit">이 앱은 melonDS(GPLv3) 오픈소스 기반으로 제작되었습니다.</string>
+    <string name="about_melonds_label">원작 melonDS 보러가기</string>
+    <string name="about_melonds_url">https://github.com/melonDS-emu/melonDS</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">건너뛰기</string>
+    <string name="onboarding_step1_title">LiteDS</string>
+    <string name="onboarding_step1_desc">ROM 파일만 있으면 바로 플레이할 수 있어요.</string>
+    <string name="onboarding_step1_button">시작하기 →</string>
+    <string name="onboarding_step2_title">게임 파일이\n어디 있나요?</string>
+    <string name="onboarding_step2_desc">.nds 파일이 있는 폴더를 선택하면\n자동으로 목록에 추가돼요.</string>
+    <string name="onboarding_step2_button">📁 폴더 선택하기</string>
+    <string name="onboarding_step2_skip">나중에 할게요</string>
+    <string name="onboarding_step3_title">준비 완료!</string>
+    <string name="onboarding_step3_desc">게임을 시작해보세요.</string>
+    <string name="onboarding_step3_button">게임 목록 보기 →</string>
+    <!-- View mode toggle -->
+    <string name="action_view_grid">그리드 보기</string>
+    <string name="action_view_list">목록 보기</string>
+    <!-- Settings advanced toggle -->
+    <string name="settings_show_advanced">고급 설정 보기</string>
+    <string name="settings_show_advanced_summary">더 세밀한 설정을 원하시나요?</string>
+    <!-- Pause menu bottom sheet -->
+    <string name="pause_menu_resume">계속하기</string>
+    <string name="pause_menu_save">저장</string>
+    <string name="pause_menu_load">불러오기</string>
+    <string name="pause_menu_reset">재시작</string>
+    <string name="pause_menu_exit">홈으로</string>
+    <string name="pause_menu_cheats">치트</string>
+    <string name="pause_menu_save_slots">저장 슬롯</string>
+    <string name="pause_menu_slot_label">슬롯 %1$d</string>
+    <string name="pause_menu_empty_slot">빈 슬롯</string>
+    <string name="pause_menu_reset_confirm_title">재시작</string>
+    <string name="pause_menu_reset_confirm_msg">저장하지 않은 진행상황이 사라집니다.\n재시작할까요?</string>
+    <string name="pause_menu_exit_confirm_title">홈으로</string>
+    <string name="pause_menu_exit_confirm_msg">게임을 종료하고 홈 화면으로 나가시겠어요?</string>
+</resources>

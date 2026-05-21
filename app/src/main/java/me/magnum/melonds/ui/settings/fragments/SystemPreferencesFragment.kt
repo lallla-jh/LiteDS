@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import me.magnum.melonds.R
+import me.magnum.melonds.extensions.isSustainedPerformanceModeAvailable
 import me.magnum.melonds.common.DirectoryAccessValidator
 import me.magnum.melonds.common.UriPermissionManager
 import me.magnum.melonds.impl.SettingsBackupManager
@@ -122,6 +123,9 @@ class SystemPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentTi
             jitPreference.isChecked = false
             jitPreference.setSummary(R.string.jit_not_supported)
         }
+
+        val sustainedPerformancePreference = findPreference<SwitchPreference>("enable_sustained_performance")!!
+        sustainedPerformancePreference.isVisible = requireContext().isSustainedPerformanceModeAvailable()
 
         findPreference<Preference>("backup_internal_layout")?.setOnPreferenceClickListener {
             backupInternalLayoutLauncher.launch(null)

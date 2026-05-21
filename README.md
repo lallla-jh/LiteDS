@@ -1,62 +1,115 @@
-# melonDS Android port
-Android port of [melonDS](https://melonds.kuribo64.net/), a DS and DSi emulator.
+# LiteDS — Nintendo DS Emulator for Android
 
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=me.magnum.melonds&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)[<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png" alt="Get it on GitHub" height="80">](https://github.com/rafaelvcaetano/melonDS-android/releases/latest)
+A clean, lightweight Nintendo DS emulator for Android, forked from [melonDS-android](https://github.com/rafaelvcaetano/melonDS-android) by rafaelvcaetano.
 
-|Rom List|Dark Theme|Pocket Physics|Layout Editor|
-|---|---|---|---|
-|![Screenshot 1](./.github/images/screenshot_mobile0.png)|![Screenshot 2](./.github/images/screenshot_mobile1.png)|![Screenshot 3](./.github/images/screenshot_mobile2.png)|![Screenshot 4](./.github/images/screenshot_mobile3.png)|
+LiteDS strips away complexity and focuses on what matters: playing your DS games with a smooth, modern experience.
 
-# Missing Features
-*  Local Multiplayer
-*  DSi SD card support
-*  Customizable button skins
-*  More display filters
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/lallalaaa51)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# Performance
-Performance is solid on 64 bit devices with thread rendering and JIT enabled, and should run at full speed on flagship devices. Performance on older devices, specially
-32 bit devices, is very poor due to the lack of JIT support.
+---
 
-# Integration with third-party frontends
-It's possible to launch melonDS from third part frontends. For that, you will need to have the ROMs you want to launch already scanned by melonDS. Then, you can configure your
-third-party frontend with the following configuration:
-*  Package name: `me.magnum.melonds`
-*  Activity name: `me.magnum.melonds.ui.emulator.EmulatorActivity`
-*  Parameters (choose one):
-    * Intent data (preferred) - a URI of the NDS ROM (ZIP and 7z files are supported). Ensure [read permission is granted](https://developer.android.com/reference/android/content/Intent#FLAG_GRANT_READ_URI_PERMISSION)
-    * `uri` (deprecated) - a string with the [SAF](https://developer.android.com/guide/topics/providers/create-document-provider) URI of the NDS ROM (ZIP and 7z files are supported)
-    * `PATH` (deprecated) - a string with the absolute path to the NDS ROM (ZIP and 7z files are supported)
+## What's Different from melonDS-android
 
-### Pegasus metadata files
-* [melonds.metadata.txt](./.github/pegasus/melonds.metadata.txt) 
-* [melonds-nightly.metadata.txt](./.github/pegasus/melonds-nightly.metadata.txt) 
+| Feature | melonDS-android | LiteDS |
+|---|---|---|
+| D-pad input | Traditional D-pad | Analog joystick UX |
+| Fast-forward | Capped on debug builds | Optimized native build (-O2) |
+| Settings | Full-featured | Streamlined (essentials only) |
+| Language support | Partial | English / Korean / Japanese + 7 more |
+| Donation | Multiple platforms | Ko-fi only |
 
-### Info regarding save files
-When launching ROMs from third-party frontends, if melonDS hasn't scanned that particular ROM previously, it won't be able to create the save file next to the ROM file if the
-option "Save next to ROM file" is enabled in the settings or the save file directory is not set. Instead, melonDS will create a save file in
-`Android/data/me.magnum.melonds/files/saves`
+### Joystick Input
+The on-screen D-pad has been replaced with a virtual analog stick. A fixed-center base ring displays on screen, and a draggable nub maps your thumb position to 4-directional input with a configurable dead zone.
 
-# Nightly Builds
+- Dead zone: 25% of the view radius (no accidental input at rest)
+- Direction mapping: 45° boundary sectors (up / down / left / right)
+- Haptic feedback on press and release
 
-To have access to the latest changes, you can install nightly builds that you can find [here](https://github.com/rafaelvcaetano/melonDS-android/releases/tag/nightly-release).
+### Fast-Forward Fix
+The upstream debug build compiles native code with `-O0`, which makes the NDS JIT core 2–3× slower and caps fast-forward speed regardless of the chosen multiplier. LiteDS applies `-DCMAKE_BUILD_TYPE=RelWithDebInfo` to the debug build type so the native core runs at `-O2` while Java remains fully debuggable.
 
-Be aware that these builds can contain more bugs than usual and you may need to clear your app data to get it to work properly after updates.
+### Streamlined Settings
+- Removed: Rewind, Check for updates, sustained-performance clutter in General
+- Kept: Theme, fast-forward multiplier, backup/restore, JIT, sustained performance (moved to System)
+- About screen: Ko-fi donation, melonDS (GPLv3) attribution
 
-# Building
-To build the project you will need Android SDK, NDK and CMake.
+---
 
-## Build steps:
-1.  Clone the project, including submodules with:
-    
-    `git clone --recurse-submodules https://github.com/rafaelvcaetano/melonDS-android.git`
-2.  Install the Android SDK, NDK and CMake
-3.  Build with:
-    1.  Unix: `./gradlew :app:assembleGitHubProdDebug`
-    2.  Windows: `gradlew.bat :app:assembleGitHubProdDebug`
-4.  The generated APK can be found at `app/gitHubProd/debug`
+## Performance
 
-If you want to create a release build, you will need to modify your `local.properties` file to include the following fields:  
-*  `MELONDS_KEYSTORE=<path_to_your_keystore>`
-*  `MELONDS_KEYSTORE_PASSWORD=<keystore_password>`
-*  `MELONDS_KEY_ALIAS=<name_of_your_key_alias>`
-*  `MELONDS_KEY_PASSWORD=<key_alias_password>`
+Performance is solid on 64-bit devices with JIT and thread rendering enabled. Flagship devices should run at full speed. 32-bit devices have limited performance due to lack of JIT support.
+
+**Fast-forward** is implemented by raising the frame-rate cap. The actual speedup depends on your device's CPU performance.
+
+---
+
+## Language Support
+
+| Locale | Coverage |
+|---|---|
+| English | Full (default) |
+| Korean (ko) | Full — 521 strings |
+| Japanese (ja) | Full — 521 strings |
+| Chinese Simplified, Russian, Portuguese (BR), Indonesian, Italian, French, Spanish | Partial (LiteDS-specific keys + upstream base) |
+
+---
+
+## Building
+
+### Requirements
+- Android SDK, NDK, CMake
+- JDK 17+
+
+### Steps
+
+```bash
+# Clone with submodules
+git clone --recurse-submodules https://github.com/lallla-jh/LiteDS.git
+
+# Debug build (native code optimized with RelWithDebInfo)
+./gradlew :app:assembleGitHubProdDebug
+# Windows: gradlew.bat :app:assembleGitHubProdDebug
+```
+
+The generated APK is at `app/gitHubProd/debug/`.
+
+### Release Build
+
+Add the following to your `local.properties`:
+
+```
+MELONDS_KEYSTORE=<path_to_your_keystore>
+MELONDS_KEYSTORE_PASSWORD=<keystore_password>
+MELONDS_KEY_ALIAS=<key_alias>
+MELONDS_KEY_PASSWORD=<key_alias_password>
+```
+
+Then build:
+```bash
+./gradlew :app:assembleGitHubProdRelease
+```
+
+---
+
+## Third-Party Frontend Integration
+
+LiteDS can be launched from third-party frontends (e.g., Pegasus):
+
+- **Package name:** `me.magnum.melonds`
+- **Activity:** `me.magnum.melonds.ui.emulator.EmulatorActivity`
+- **Intent data:** SAF URI of the NDS ROM (ZIP and 7z supported)
+
+---
+
+## Credits
+
+- **melonDS** — core NDS emulator engine by StapleButter et al. ([melonds.kuribo64.net](https://melonds.kuribo64.net/)) — GPL-3.0
+- **melonDS-android** — Android port by rafaelvcaetano ([GitHub](https://github.com/rafaelvcaetano/melonDS-android)) — GPL-3.0
+- **LiteDS** — this fork, same GPL-3.0 license
+
+---
+
+## License
+
+GNU General Public License v3.0 — see [LICENSE](LICENSE) for details.
