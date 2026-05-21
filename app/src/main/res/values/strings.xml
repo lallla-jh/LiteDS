@@ -653,13 +653,16 @@
     <string name="about_support_desc">LiteDS는 무료 오픈소스 앱입니다.\n마음에 드셨다면 커피 한 잔으로\n개발을 응원해 주세요 ☕</string>
     <string name="about_kofi">Ko-fi로 후원하기</string>
     <string name="about_kofi_url">https://ko-fi.com/liteds</string>
-    <string name="about_bmac">Buy Me a Coffee</string>
-    <string name="about_bmac_url">https://buymeacoffee.com/liteds</string>
     <string name="about_opensource_title">오픈소스</string>
     <string name="about_opensource_desc">melonDS-android 기반\nGPL-3.0 라이선스 오픈소스입니다.\n소스코드는 GitHub에서 확인하실 수 있습니다.</string>
     <string name="about_github_url">https://github.com/your-username/LiteDS</string>
     <string name="about_github_label">GitHub 보러가기</string>
     <string name="about_review_label">Play Store 리뷰 남기기</string>
+    <string name="about_version">버전 %1$s</string>
+    <string name="about_back">뒤로</string>
+    <string name="about_melonds_credit">이 앱은 melonDS(GPLv3) 오픈소스 기반으로 제작되었습니다.</string>
+    <string name="about_melonds_label">원작 melonDS 보러가기</string>
+    <string name="about_melonds_url">https://github.com/melonDS-emu/melonDS</string>
 
     <!-- Onboarding -->
     <string name="onboarding_skip">건너뛰기</string>

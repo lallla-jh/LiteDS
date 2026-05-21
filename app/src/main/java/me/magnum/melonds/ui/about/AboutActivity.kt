@@ -61,7 +61,6 @@ fun AboutScreen(onBack: () -> Unit) {
     }
     val mintColor = ComposeColor(0xFF00BFA5)
     val kofiColor = ComposeColor(0xFFFF5E5B)
-    val bmacColor = ComposeColor(0xFFFFDD00)
 
     fun openUrl(url: String) {
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -75,7 +74,7 @@ fun AboutScreen(onBack: () -> Unit) {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "뒤로"
+                            contentDescription = stringResource(R.string.about_back)
                         )
                     }
                 }
@@ -129,7 +128,7 @@ fun AboutScreen(onBack: () -> Unit) {
                 fontWeight = FontWeight.ExtraBold
             )
             Text(
-                text = "버전 $versionName",
+                text = stringResource(R.string.about_version, versionName),
                 fontSize = 13.sp,
                 color = MaterialTheme.colors.onBackground
             )
@@ -165,16 +164,6 @@ fun AboutScreen(onBack: () -> Unit) {
                 textColor = ComposeColor.White,
                 onClick = { openUrl(context.getString(R.string.about_kofi_url)) }
             )
-            Spacer(Modifier.height(10.dp))
-
-            // Buy Me a Coffee 버튼
-            DonationButton(
-                label = stringResource(R.string.about_bmac),
-                subLabel = stringResource(R.string.about_bmac_url).removePrefix("https://"),
-                backgroundColor = bmacColor,
-                textColor = ComposeColor(0xFF1B1B1F),
-                onClick = { openUrl(context.getString(R.string.about_bmac_url)) }
-            )
 
             Spacer(Modifier.height(20.dp))
             Divider()
@@ -203,6 +192,32 @@ fun AboutScreen(onBack: () -> Unit) {
                     ) {
                         Text(
                             text = stringResource(R.string.about_github_label),
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = mintColor
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null,
+                            tint = mintColor,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = stringResource(R.string.about_melonds_credit),
+                        fontSize = 12.sp,
+                        lineHeight = 18.sp,
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.clickable { openUrl(context.getString(R.string.about_melonds_url)) },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.about_melonds_label),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = mintColor
