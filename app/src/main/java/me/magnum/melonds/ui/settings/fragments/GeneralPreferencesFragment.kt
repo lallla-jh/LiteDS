@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import com.smp.masterswitchpreference.MasterSwitchPreference
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,8 +28,6 @@ class GeneralPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentT
     @Inject lateinit var uriPermissionManager: UriPermissionManager
     @Inject lateinit var directoryAccessValidator: DirectoryAccessValidator
     @Inject lateinit var settingsBackupManager: SettingsBackupManager
-
-    private lateinit var rewindPreference: MasterSwitchPreference
 
     private val backupLauncher = registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
         if (uri != null) {
@@ -78,10 +75,8 @@ class GeneralPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentT
         setPreferencesFromResource(R.xml.pref_general, rootKey)
         addPreferencesFromResource(R.xml.pref_general_updates)
 
-        rewindPreference = findPreference("enable_rewind")!!
         val sustainedPerformancePreference = findPreference<SwitchPreference>("enable_sustained_performance")!!
 
-        helper.bindPreferenceSummaryToValue(rewindPreference)
         sustainedPerformancePreference.isVisible = requireContext().isSustainedPerformanceModeAvailable()
 
         findPreference<Preference>("backup_settings")?.setOnPreferenceClickListener {
@@ -92,12 +87,6 @@ class GeneralPreferencesFragment : BasePreferenceFragment(), PreferenceFragmentT
             restoreLauncher.launch(null)
             true
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Set proper value for Rewind preference since the value is not updated when returning from the fragment
-        rewindPreference.onPreferenceChangeListener?.onPreferenceChange(rewindPreference, rewindPreference.sharedPreferences?.getBoolean(rewindPreference.key, false))
     }
 
     override fun getTitle() = getString(R.string.category_general)
