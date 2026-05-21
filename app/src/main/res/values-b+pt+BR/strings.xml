@@ -405,6 +405,7 @@
     <string name="about_melonds_credit">Este app é construído sobre o projeto de código aberto melonDS (GPLv3).</string>
     <string name="about_melonds_label">Ver o melonDS original</string>
     <string name="onboarding_skip">Pular</string>
+    <string name="onboarding_step1_title">LiteDS</string>
     <string name="onboarding_step1_desc">Só traga um arquivo ROM e comece a jogar imediatamente.</string>
     <string name="onboarding_step1_button">Começar →</string>
     <string name="onboarding_step2_title">Onde estão seus\narquivos de jogos?</string>

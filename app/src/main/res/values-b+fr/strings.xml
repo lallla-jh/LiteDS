@@ -463,6 +463,7 @@
     <string name="about_melonds_credit">Cette application est construite sur le projet open source melonDS (GPLv3).</string>
     <string name="about_melonds_label">Voir le melonDS original</string>
     <string name="onboarding_skip">Passer</string>
+    <string name="onboarding_step1_title">LiteDS</string>
     <string name="onboarding_step1_desc">Apportez simplement un fichier ROM et commencez à jouer immédiatement.</string>
     <string name="onboarding_step1_button">Commencer →</string>
     <string name="onboarding_step2_title">Où sont vos\nfichiers de jeux ?</string>

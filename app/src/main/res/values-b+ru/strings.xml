@@ -638,6 +638,7 @@
     <string name="about_melonds_credit">Это приложение построено на основе открытого проекта melonDS (GPLv3).</string>
     <string name="about_melonds_label">Смотреть оригинальный melonDS</string>
     <string name="onboarding_skip">Пропустить</string>
+    <string name="onboarding_step1_title">LiteDS</string>
     <string name="onboarding_step1_desc">Просто возьмите ROM-файл и сразу начните играть.</string>
     <string name="onboarding_step1_button">Начать →</string>
     <string name="onboarding_step2_title">Где ваши\nигровые файлы?</string>

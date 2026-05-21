@@ -636,6 +636,7 @@
     <string name="about_melonds_credit">本应用基于 melonDS（GPLv3）开源项目构建。</string>
     <string name="about_melonds_label">查看原版 melonDS</string>
     <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_step1_title">LiteDS</string>
     <string name="onboarding_step1_desc">只需带上 ROM 文件，立即开始游戏。</string>
     <string name="onboarding_step1_button">开始 →</string>
     <string name="onboarding_step2_title">你的游戏\n文件在哪里？</string>

@@ -638,6 +638,7 @@
     <string name="about_melonds_credit">Aplikasi ini dibangun di atas proyek sumber terbuka melonDS (GPLv3).</string>
     <string name="about_melonds_label">Lihat melonDS asli</string>
     <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_step1_title">LiteDS</string>
     <string name="onboarding_step1_desc">Cukup bawa file ROM dan langsung mulai bermain.</string>
     <string name="onboarding_step1_button">Mulai →</string>
     <string name="onboarding_step2_title">Di mana file\ngame kamu?</string>
