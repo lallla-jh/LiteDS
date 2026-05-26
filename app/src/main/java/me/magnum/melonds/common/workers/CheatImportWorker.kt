@@ -1,24 +1,17 @@
 package me.magnum.melonds.common.workers
 
 import android.content.Context
-import android.content.pm.ServiceInfo
 import android.content.res.AssetFileDescriptor
 import android.net.Uri
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.runBlocking
-import me.magnum.melonds.MelonDSApplication
-import me.magnum.melonds.R
 import me.magnum.melonds.common.cheats.CheatDatabaseParser
 import me.magnum.melonds.common.cheats.CheatDatabaseParserListener
 import me.magnum.melonds.common.cheats.ProgressTrackerInputStream
@@ -40,16 +33,12 @@ class CheatImportWorker @AssistedInject constructor(
         const val KEY_URI = "uri"
         const val KEY_PROGRESS_RELATIVE = "progress_relative"
         const val KEY_PROGRESS_ITEM = "progress_item"
-
-        private const val NOTIFICATION_ID_CHEATS_IMPORT = 100
     }
 
     override suspend fun doWork(): Result {
-        setForeground(createForegroundInfo(null, 0, true))
-
         val uri = inputData.getString(KEY_URI)?.toUri() ?: return Result.failure()
 
-        try {
+        return try {
             val databaseDocument = DocumentFile.fromSingleUri(applicationContext, uri)
             if (databaseDocument?.isFile != true) {
                 return Result.failure()
@@ -57,24 +46,18 @@ class CheatImportWorker @AssistedInject constructor(
 
             val totalFileSize = applicationContext.contentResolver.openAssetFileDescriptor(uri, "r")?.use {
                 val length = it.length
-                if (length == AssetFileDescriptor.UNKNOWN_LENGTH) {
-                    null
-                } else {
-                    length
-                }
+                if (length == AssetFileDescriptor.UNKNOWN_LENGTH) null else length
             }
 
             val databaseExtension = databaseDocument.name?.substringAfterLast('.')
             val parser = when (databaseExtension) {
                 "xml" -> XmlCheatDatabaseParser()
-                else -> {
-                    return Result.failure()
-                }
+                else -> return Result.failure()
             }
 
-            return parseXmlDocument(uri, parser, totalFileSize)
+            parseXmlDocument(uri, parser, totalFileSize)
         } catch (e: Exception) {
-            return Result.failure()
+            Result.failure()
         }
     }
 
@@ -93,8 +76,6 @@ class CheatImportWorker @AssistedInject constructor(
                     } else {
                         0
                     }
-
-                    setForegroundAsync(createForegroundInfo(gameName, readProgress, totalFileSize == null))
                     setProgressAsync(workDataOf(
                         KEY_PROGRESS_RELATIVE to readProgress / 100f,
                         KEY_PROGRESS_ITEM to gameName
@@ -109,23 +90,6 @@ class CheatImportWorker @AssistedInject constructor(
                     continuation.resume(Result.success())
                 }
             })
-        }
-    }
-
-    private fun createForegroundInfo(gameName: String?, progress: Int, indeterminate: Boolean): ForegroundInfo {
-        val notification = NotificationCompat.Builder(applicationContext, MelonDSApplication.NOTIFICATION_CHANNEL_ID_BACKGROUND_TASKS)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setSubText(applicationContext.getString(R.string.importing_cheats))
-                .setContentTitle(gameName ?: "")
-                .setColor(ContextCompat.getColor(applicationContext, R.color.melonMain))
-                .setSmallIcon(R.drawable.ic_melon_small)
-                .setProgress(100, progress, indeterminate)
-                .build()
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            ForegroundInfo(NOTIFICATION_ID_CHEATS_IMPORT, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
-        } else {
-            ForegroundInfo(NOTIFICATION_ID_CHEATS_IMPORT, notification)
         }
     }
 }
