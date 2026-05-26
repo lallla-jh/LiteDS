@@ -1,3 +1,9 @@
+---
+layout: default
+title: Privacy Policy
+permalink: /privacy-policy/
+---
+
 # Privacy Policy — LiteDS
 
 **Last updated: 2026-05-23**
