@@ -8,3 +8,5 @@
 /captures
 .externalNativeBuild
 .kotlin
+# AI 설계·스펙 문서 (개발 내부용)
+docs/superpowers/
