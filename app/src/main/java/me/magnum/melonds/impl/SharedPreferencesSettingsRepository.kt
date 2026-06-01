@@ -216,6 +216,14 @@ class SharedPreferencesSettingsRepository(
         return JoystickDirectionMode.valueOf(mode.uppercase())
     }
 
+    override fun getJoystickDeadZonePercent(): Int {
+        return preferences.getInt("joystick_dead_zone", 25)
+    }
+
+    override fun isJoystickFloating(): Boolean {
+        return preferences.getBoolean("joystick_floating", false)
+    }
+
     override fun getRomSearchDirectories(): Array<Uri> {
         val dirPreference = preferences.getStringSet("rom_search_dirs", emptySet())
         return dirPreference?.map { it.toUri() }?.toTypedArray() ?: emptyArray()

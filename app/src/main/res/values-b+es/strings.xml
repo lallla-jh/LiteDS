@@ -527,4 +527,8 @@
         <item>4 direcciones</item>
         <item>8 direcciones</item>
     </string-array>
+    <string name="joystick_dead_zone">Zona muerta</string>
+    <string name="joystick_dead_zone_summary">Ignora movimientos pequeños cerca del centro</string>
+    <string name="joystick_floating">Joystick flotante</string>
+    <string name="joystick_floating_summary">El joystick aparece donde tocas primero</string>
 </resources>

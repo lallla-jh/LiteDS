@@ -507,4 +507,8 @@
         <item>4 directions</item>
         <item>8 directions</item>
     </string-array>
+    <string name="joystick_dead_zone">Zone morte</string>
+    <string name="joystick_dead_zone_summary">Ignore les petits mouvements près du centre</string>
+    <string name="joystick_floating">Joystick flottant</string>
+    <string name="joystick_floating_summary">Le joystick apparaît là où vous touchez</string>
 </resources>

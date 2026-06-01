@@ -682,4 +682,8 @@
         <item>4 arah</item>
         <item>8 arah</item>
     </string-array>
+    <string name="joystick_dead_zone">Zona mati</string>
+    <string name="joystick_dead_zone_summary">Abaikan gerakan kecil di dekat pusat</string>
+    <string name="joystick_floating">Joystick mengambang</string>
+    <string name="joystick_floating_summary">Joystick muncul di tempat sentuhan pertama</string>
 </resources>

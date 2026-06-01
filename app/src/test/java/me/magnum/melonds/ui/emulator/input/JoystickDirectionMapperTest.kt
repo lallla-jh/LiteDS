@@ -26,6 +26,20 @@ class JoystickDirectionMapperTest {
         assertEquals(emptySet<Input>(), map(10f, 0f, JoystickDirectionMode.FOUR_WAY))
     }
 
+    @Test
+    fun `dead zone radius is configurable`() {
+        // distance = sqrt(20^2 + 20^2) ≈ 28.28
+        // A large dead zone suppresses what a small one would register
+        assertEquals(
+            emptySet<Input>(),
+            JoystickDirectionMapper.map(20f, 20f, 30f, JoystickDirectionMode.EIGHT_WAY),
+        )
+        assertEquals(
+            setOf(Input.DOWN, Input.RIGHT),
+            JoystickDirectionMapper.map(20f, 20f, 10f, JoystickDirectionMode.EIGHT_WAY),
+        )
+    }
+
     // ── 4-way cardinals ──
 
     @Test

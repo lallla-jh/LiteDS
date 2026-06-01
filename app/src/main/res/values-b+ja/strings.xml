@@ -714,4 +714,8 @@
         <item>4方向</item>
         <item>8方向</item>
     </string-array>
+    <string name="joystick_dead_zone">デッドゾーン</string>
+    <string name="joystick_dead_zone_summary">中心付近のわずかな動きを無視します</string>
+    <string name="joystick_floating">フローティングジョイスティック</string>
+    <string name="joystick_floating_summary">最初にタッチした位置にジョイスティックが表示されます</string>
 </resources>

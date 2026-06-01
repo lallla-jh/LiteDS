@@ -718,4 +718,8 @@
         <item>4 directions</item>
         <item>8 directions</item>
     </string-array>
+    <string name="joystick_dead_zone">Dead zone</string>
+    <string name="joystick_dead_zone_summary">Ignore small movements near the center</string>
+    <string name="joystick_floating">Floating joystick</string>
+    <string name="joystick_floating_summary">The joystick appears where you first touch</string>
 </resources>

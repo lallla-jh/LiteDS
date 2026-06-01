@@ -22,6 +22,8 @@ interface SettingsRepository {
     fun setHideAuxiliaryButtons(hide: Boolean)
     fun observeHideAuxiliaryButtons(): Flow<Boolean>
     fun getJoystickDirectionMode(): JoystickDirectionMode
+    fun getJoystickDeadZonePercent(): Int
+    fun isJoystickFloating(): Boolean
 
     fun getRomSearchDirectories(): Array<Uri>
     fun clearRomSearchDirectories()

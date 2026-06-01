@@ -17,6 +17,7 @@ import me.magnum.melonds.ui.emulator.input.JoystickInputHandler
 import me.magnum.melonds.ui.emulator.input.IInputListener
 import me.magnum.melonds.ui.emulator.input.SingleButtonInputHandler
 import me.magnum.melonds.ui.emulator.input.TouchscreenInputHandler
+import me.magnum.melonds.ui.emulator.input.view.JoystickView
 import me.magnum.melonds.ui.emulator.input.view.ToggleableImageView
 import me.magnum.melonds.ui.emulator.model.ConnectedControllersState
 import me.magnum.melonds.ui.emulator.model.RuntimeInputLayoutConfiguration
@@ -94,7 +95,13 @@ class RuntimeLayoutView(context: Context, attrs: AttributeSet? = null) : LayoutV
 
         val enableHapticFeedback = currentRuntimeLayout.isHapticFeedbackEnabled
         systemInputHandler?.let {
-            getLayoutComponentView(LayoutComponent.DPAD)?.view?.setOnTouchListener(JoystickInputHandler(it, enableHapticFeedback, touchVibrator, settingsRepository.getJoystickDirectionMode()))
+            val joystickDirectionMode = settingsRepository.getJoystickDirectionMode()
+            val joystickDeadZone = settingsRepository.getJoystickDeadZonePercent()
+            val joystickFloating = settingsRepository.isJoystickFloating()
+            getLayoutComponentView(LayoutComponent.DPAD)?.view?.let { dpadView ->
+                (dpadView as? JoystickView)?.setFloatingMode(joystickFloating)
+                dpadView.setOnTouchListener(JoystickInputHandler(it, enableHapticFeedback, touchVibrator, joystickDirectionMode, joystickDeadZone, joystickFloating))
+            }
             getLayoutComponentView(LayoutComponent.BUTTONS)?.view?.setOnTouchListener(ButtonsInputHandler(it, enableHapticFeedback, touchVibrator))
             getLayoutComponentView(LayoutComponent.BUTTON_L)?.view?.setOnTouchListener(SingleButtonInputHandler(it, Input.L, enableHapticFeedback, touchVibrator))
             getLayoutComponentView(LayoutComponent.BUTTON_R)?.view?.setOnTouchListener(SingleButtonInputHandler(it, Input.R, enableHapticFeedback, touchVibrator))

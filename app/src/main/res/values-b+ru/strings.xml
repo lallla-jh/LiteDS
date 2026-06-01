@@ -682,4 +682,8 @@
         <item>4 направления</item>
         <item>8 направлений</item>
     </string-array>
+    <string name="joystick_dead_zone">Мёртвая зона</string>
+    <string name="joystick_dead_zone_summary">Игнорировать малые движения у центра</string>
+    <string name="joystick_floating">Плавающий джойстик</string>
+    <string name="joystick_floating_summary">Джойстик появляется в месте касания</string>
 </resources>

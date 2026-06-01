@@ -24,6 +24,24 @@
         android:defaultValue="four_way"
         app:iconSpaceReserved="false" />
 
+    <SeekBarPreference
+        android:key="joystick_dead_zone"
+        android:title="@string/joystick_dead_zone"
+        android:summary="@string/joystick_dead_zone_summary"
+        app:iconSpaceReserved="false"
+        app:updatesContinuously="true"
+        app:showSeekBarValue="true"
+        android:defaultValue="25"
+        app:min="10"
+        android:max="40" />
+
+    <SwitchPreference
+        android:key="joystick_floating"
+        android:title="@string/joystick_floating"
+        android:summary="@string/joystick_floating_summary"
+        android:defaultValue="false"
+        app:iconSpaceReserved="false" />
+
     <me.magnum.melonds.ui.settings.preferences.SoftwareInputBehaviourPreference
         android:key="soft_input_behaviour"
         android:title="@string/soft_input_behaviour"

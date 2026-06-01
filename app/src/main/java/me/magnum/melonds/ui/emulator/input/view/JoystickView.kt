@@ -10,8 +10,10 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
- * Fixed-center virtual joystick view.
- * Draws a base ring and a movable stick nub. The nub is clamped to the base radius.
+ * Virtual joystick view. Draws a base ring and a movable stick nub clamped to the base radius.
+ *
+ * By default the base is centered in the view (fixed mode). In floating mode the base is only
+ * drawn once a finger lands, anchored at the touch origin set via [setOrigin] / [clearOrigin].
  */
 class JoystickView @JvmOverloads constructor(
     context: Context,
@@ -50,6 +52,28 @@ class JoystickView @JvmOverloads constructor(
     private var stickDx = 0f
     private var stickDy = 0f
 
+    // Floating mode: base anchored at the touch origin. null origin = not currently touched.
+    private var floatingMode = false
+    private var baseOriginX: Float? = null
+    private var baseOriginY: Float? = null
+
+    fun setFloatingMode(floating: Boolean) {
+        floatingMode = floating
+        invalidate()
+    }
+
+    fun setOrigin(x: Float, y: Float) {
+        baseOriginX = x
+        baseOriginY = y
+        invalidate()
+    }
+
+    fun clearOrigin() {
+        baseOriginX = null
+        baseOriginY = null
+        invalidate()
+    }
+
     fun updateStickPosition(dx: Float, dy: Float, rawDistance: Float) {
         val baseRadius = min(width, height) / 2f * BASE_RADIUS_RATIO
         val clampedRadius = min(rawDistance, baseRadius)
@@ -66,8 +90,13 @@ class JoystickView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val cx = width / 2f
-        val cy = height / 2f
+        // In floating mode, draw nothing until the finger lands and an origin is set.
+        if (floatingMode && baseOriginX == null) {
+            return
+        }
+
+        val cx = baseOriginX ?: (width / 2f)
+        val cy = baseOriginY ?: (height / 2f)
         val baseRadius = min(width, height) / 2f * BASE_RADIUS_RATIO
         val nubRadius = baseRadius * NUB_RADIUS_RATIO
 
