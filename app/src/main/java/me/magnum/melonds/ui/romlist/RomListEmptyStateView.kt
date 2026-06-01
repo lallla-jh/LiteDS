@@ -17,8 +17,10 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import me.magnum.melonds.R
 
 @Composable
 fun RomListEmptyStateView(
@@ -42,7 +44,7 @@ fun RomListEmptyStateView(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "\"$searchQuery\"에 대한\n검색 결과가 없습니다",
+                text = stringResource(R.string.rom_list_search_empty, searchQuery),
                 style = MaterialTheme.typography.body1,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
@@ -56,20 +58,20 @@ fun RomListEmptyStateView(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "ROM 파일이 없습니다",
+                text = stringResource(R.string.rom_list_empty_title),
                 style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "NDS 파일을 추가하고 다시 스캔해 주세요",
+                text = stringResource(R.string.rom_list_empty_desc),
                 style = MaterialTheme.typography.body2,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedButton(onClick = onRefresh) {
-                Text("새로고침")
+                Text(stringResource(R.string.action_refresh))
             }
         }
     }

@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
 
     <string name="ok">OKE</string>
     <string name="yes">Ya</string>
@@ -663,4 +662,19 @@
     <string name="pause_menu_reset_confirm_msg">Kemajuan yang belum disimpan akan hilang.\nMulai ulang tetap?</string>
     <string name="pause_menu_exit_confirm_title">Beranda</string>
     <string name="pause_menu_exit_confirm_msg">Keluar dari game dan kembali ke layar beranda?</string>
+    <!-- LiteDS i18n additions -->
+    <string name="pause_menu_slot_screenshot">Tangkapan layar slot %1$d</string>
+    <string name="pause_menu_hide_aux">Sembunyikan L·R·Sel·Sta</string>
+    <string name="pause_menu_speed_unlimited">Tanpa batas</string>
+    <string name="pause_menu_fast_forward">Maju cepat</string>
+    <string name="recently_played_title">Baru dimainkan</string>
+    <string name="time_just_now">Baru saja</string>
+    <string name="time_minutes_ago">%1$d mnt lalu</string>
+    <string name="time_hours_ago">%1$d jam lalu</string>
+    <string name="time_days_ago">%1$d hr lalu</string>
+    <string name="time_months_ago">%1$d bln lalu</string>
+    <string name="rom_list_search_empty">Tidak ada hasil untuk\n\"%1$s\"</string>
+    <string name="rom_list_empty_title">Tidak ada file ROM</string>
+    <string name="rom_list_empty_desc">Tambahkan file NDS dan pindai ulang</string>
+    <string name="action_refresh">Segarkan</string>
 </resources>

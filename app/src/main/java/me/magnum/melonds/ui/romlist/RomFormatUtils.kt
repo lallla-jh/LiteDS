@@ -1,5 +1,7 @@
 package me.magnum.melonds.ui.romlist
 
+import android.content.Context
+import me.magnum.melonds.R
 import java.util.Date
 import kotlin.time.Duration
 
@@ -12,14 +14,14 @@ fun Duration.toPlayTimeString(): String {
     return if (hours > 0) "⏱ ${hours}h ${minutes}m" else "⏱ ${minutes}m"
 }
 
-/** "방금 전", "5분 전", "2시간 전", "3일 전", "2개월 전" */
-fun Date.toRelativeTimeString(): String {
+/** Localized relative time, e.g. "Just now", "5 min ago", "2 hr ago", "3 days ago", "2 months ago". */
+fun Date.toRelativeTimeString(context: Context): String {
     val diffMs = System.currentTimeMillis() - time
     return when {
-        diffMs < 60_000L -> "방금 전"
-        diffMs < 3_600_000L -> "${diffMs / 60_000L}분 전"
-        diffMs < 86_400_000L -> "${diffMs / 3_600_000L}시간 전"
-        diffMs < 2_592_000_000L -> "${diffMs / 86_400_000L}일 전"
-        else -> "${diffMs / 2_592_000_000L}개월 전"
+        diffMs < 60_000L -> context.getString(R.string.time_just_now)
+        diffMs < 3_600_000L -> context.getString(R.string.time_minutes_ago, (diffMs / 60_000L).toInt())
+        diffMs < 86_400_000L -> context.getString(R.string.time_hours_ago, (diffMs / 3_600_000L).toInt())
+        diffMs < 2_592_000_000L -> context.getString(R.string.time_days_ago, (diffMs / 86_400_000L).toInt())
+        else -> context.getString(R.string.time_months_ago, (diffMs / 2_592_000_000L).toInt())
     }
 }

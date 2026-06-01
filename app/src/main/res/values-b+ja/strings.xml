@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LiteDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">はい</string>
@@ -695,4 +694,19 @@
     <string name="pause_menu_reset_confirm_msg">保存していない進行状況は失われます。\nリスタートしますか？</string>
     <string name="pause_menu_exit_confirm_title">ホームへ</string>
     <string name="pause_menu_exit_confirm_msg">ゲームを終了してホーム画面に戻りますか？</string>
+    <!-- LiteDS i18n additions -->
+    <string name="pause_menu_slot_screenshot">スロット%1$dのスクリーンショット</string>
+    <string name="pause_menu_hide_aux">L·R·Sel·Staを隠す</string>
+    <string name="pause_menu_speed_unlimited">無制限</string>
+    <string name="pause_menu_fast_forward">早送り</string>
+    <string name="recently_played_title">最近プレイ</string>
+    <string name="time_just_now">たった今</string>
+    <string name="time_minutes_ago">%1$d分前</string>
+    <string name="time_hours_ago">%1$d時間前</string>
+    <string name="time_days_ago">%1$d日前</string>
+    <string name="time_months_ago">%1$dヶ月前</string>
+    <string name="rom_list_search_empty">「%1$s」の\n検索結果がありません</string>
+    <string name="rom_list_empty_title">ROMファイルがありません</string>
+    <string name="rom_list_empty_desc">NDSファイルを追加して再スキャンしてください</string>
+    <string name="action_refresh">更新</string>
 </resources>

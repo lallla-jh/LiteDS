@@ -12,10 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.magnum.melonds.R
 import me.magnum.melonds.domain.model.rom.Rom
 
 private val placeholderColors = listOf(
@@ -38,7 +41,7 @@ fun RecentlyPlayedSection(
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = "최근 플레이",
+            text = stringResource(R.string.recently_played_title),
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
@@ -97,8 +100,9 @@ private fun RecentlyPlayedCard(rom: Rom, onClick: () -> Unit) {
                     lineHeight = 14.sp,
                 )
                 rom.lastPlayed?.let { date ->
+                    val context = LocalContext.current
                     Text(
-                        text = date.toRelativeTimeString(),
+                        text = date.toRelativeTimeString(context),
                         fontSize = 10.sp,
                         color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
                     )

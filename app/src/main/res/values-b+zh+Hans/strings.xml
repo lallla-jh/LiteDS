@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">melonDS</string>
 
     <string name="ok">确定</string>
     <string name="yes">是</string>
@@ -661,4 +660,19 @@
     <string name="pause_menu_reset_confirm_msg">未保存的进度将丢失。\n仍要重新开始？</string>
     <string name="pause_menu_exit_confirm_title">主页</string>
     <string name="pause_menu_exit_confirm_msg">退出游戏并返回主页？</string>
+    <!-- LiteDS i18n additions -->
+    <string name="pause_menu_slot_screenshot">存档位 %1$d 截图</string>
+    <string name="pause_menu_hide_aux">隐藏 L·R·Sel·Sta</string>
+    <string name="pause_menu_speed_unlimited">无限制</string>
+    <string name="pause_menu_fast_forward">快进</string>
+    <string name="recently_played_title">最近游玩</string>
+    <string name="time_just_now">刚刚</string>
+    <string name="time_minutes_ago">%1$d 分钟前</string>
+    <string name="time_hours_ago">%1$d 小时前</string>
+    <string name="time_days_ago">%1$d 天前</string>
+    <string name="time_months_ago">%1$d 个月前</string>
+    <string name="rom_list_search_empty">没有找到\n\"%1$s\" 的结果</string>
+    <string name="rom_list_empty_title">没有 ROM 文件</string>
+    <string name="rom_list_empty_desc">添加 NDS 文件后重新扫描</string>
+    <string name="action_refresh">刷新</string>
 </resources>

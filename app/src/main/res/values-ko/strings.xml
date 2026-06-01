@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LiteDS</string>
 
     <string name="ok">확인</string>
     <string name="yes">예</string>
@@ -695,4 +694,19 @@
     <string name="pause_menu_reset_confirm_msg">저장하지 않은 진행상황이 사라집니다.\n재시작할까요?</string>
     <string name="pause_menu_exit_confirm_title">홈으로</string>
     <string name="pause_menu_exit_confirm_msg">게임을 종료하고 홈 화면으로 나가시겠어요?</string>
+    <!-- LiteDS i18n additions -->
+    <string name="pause_menu_slot_screenshot">슬롯 %1$d 스크린샷</string>
+    <string name="pause_menu_hide_aux">L·R·Sel·Sta 숨기기</string>
+    <string name="pause_menu_speed_unlimited">무제한</string>
+    <string name="pause_menu_fast_forward">빠른 진행</string>
+    <string name="recently_played_title">최근 플레이</string>
+    <string name="time_just_now">방금 전</string>
+    <string name="time_minutes_ago">%1$d분 전</string>
+    <string name="time_hours_ago">%1$d시간 전</string>
+    <string name="time_days_ago">%1$d일 전</string>
+    <string name="time_months_ago">%1$d개월 전</string>
+    <string name="rom_list_search_empty">\"%1$s\"에 대한\n검색 결과가 없습니다</string>
+    <string name="rom_list_empty_title">ROM 파일이 없습니다</string>
+    <string name="rom_list_empty_desc">NDS 파일을 추가하고 다시 스캔해 주세요</string>
+    <string name="action_refresh">새로고침</string>
 </resources>

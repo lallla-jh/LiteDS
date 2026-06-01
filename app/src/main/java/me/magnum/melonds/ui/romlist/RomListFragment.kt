@@ -317,7 +317,7 @@ class RomListFragment : Fragment() {
                 this.rom = rom
                 textViewRomName.text = rom.config.customName ?: rom.name
                 val playTimeStr = rom.totalPlayTime.toPlayTimeString()
-                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString() ?: ""
+                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString(itemView.context) ?: ""
                 textViewRomPath.text = listOfNotNull(
                     playTimeStr.ifEmpty { null },
                     lastPlayedStr.ifEmpty { null },
@@ -406,7 +406,7 @@ class RomListFragment : Fragment() {
                 textViewPlayTime.text = playTimeStr
                 textViewPlayTime.visibility = if (playTimeStr.isNotEmpty()) View.VISIBLE else View.GONE
 
-                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString() ?: ""
+                val lastPlayedStr = rom.lastPlayed?.toRelativeTimeString(itemView.context) ?: ""
                 textViewLastPlayed.text = lastPlayedStr
                 textViewLastPlayed.visibility = if (lastPlayedStr.isNotEmpty()) View.VISIBLE else View.GONE
 

@@ -696,4 +696,21 @@
     <string name="pause_menu_reset_confirm_msg">Unsaved progress will be lost.\nRestart anyway?</string>
     <string name="pause_menu_exit_confirm_title">Home</string>
     <string name="pause_menu_exit_confirm_msg">Quit the game and return to the home screen?</string>
+    <string name="pause_menu_slot_screenshot">Slot %1$d screenshot</string>
+    <string name="pause_menu_hide_aux">Hide L·R·Sel·Sta</string>
+    <string name="pause_menu_speed_unlimited">Unlimited</string>
+    <string name="pause_menu_fast_forward">Fast-forward</string>
+    <!-- Recently played section -->
+    <string name="recently_played_title">Recently played</string>
+    <!-- Relative time -->
+    <string name="time_just_now">Just now</string>
+    <string name="time_minutes_ago">%1$d min ago</string>
+    <string name="time_hours_ago">%1$d hr ago</string>
+    <string name="time_days_ago">%1$d days ago</string>
+    <string name="time_months_ago">%1$d months ago</string>
+    <!-- ROM list empty state -->
+    <string name="rom_list_search_empty">No results for\n\"%1$s\"</string>
+    <string name="rom_list_empty_title">No ROM files</string>
+    <string name="rom_list_empty_desc">Add NDS files and scan again</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ import androidx.fragment.app.activityViewModels
 import coil.compose.AsyncImage
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import me.magnum.melonds.R
 import me.magnum.melonds.domain.model.SaveStateSlot
 import me.magnum.melonds.ui.emulator.EmulatorViewModel
 import me.magnum.melonds.ui.emulator.PauseMenuState
@@ -187,8 +189,8 @@ private fun PauseMenuSheetContent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                PauseActionButton(icon = Icons.Default.PlayArrow, label = "계속하기", mintColor = mintColor, onClick = onResume)
-                PauseActionButton(icon = Icons.Default.Save, label = "저장", mintColor = mintColor, onClick = {
+                PauseActionButton(icon = Icons.Default.PlayArrow, label = stringResource(R.string.pause_menu_resume), mintColor = mintColor, onClick = onResume)
+                PauseActionButton(icon = Icons.Default.Save, label = stringResource(R.string.pause_menu_save), mintColor = mintColor, onClick = {
                     slotAction = SlotAction.SAVE
                     val target = state.saveSlots
                         .filter { it.slot != SaveStateSlot.QUICK_SAVE_SLOT }
@@ -197,7 +199,7 @@ private fun PauseMenuSheetContent(
                         ?: state.saveSlots.filter { it.slot != SaveStateSlot.QUICK_SAVE_SLOT }.take(6).firstOrNull()
                     pendingSlot = target
                 })
-                PauseActionButton(icon = Icons.Default.Folder, label = "불러오기", mintColor = mintColor, onClick = {
+                PauseActionButton(icon = Icons.Default.Folder, label = stringResource(R.string.pause_menu_load), mintColor = mintColor, onClick = {
                     slotAction = SlotAction.LOAD
                     val target = state.saveSlots
                         .filter { it.slot != SaveStateSlot.QUICK_SAVE_SLOT && it.exists }
@@ -214,10 +216,10 @@ private fun PauseMenuSheetContent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                PauseActionButton(icon = Icons.Default.Refresh, label = "재시작", mintColor = mintColor, onClick = { showResetConfirm = true })
-                PauseActionButton(icon = Icons.AutoMirrored.Filled.ExitToApp, label = "홈으로", mintColor = mintColor, onClick = { showExitConfirm = true })
+                PauseActionButton(icon = Icons.Default.Refresh, label = stringResource(R.string.pause_menu_reset), mintColor = mintColor, onClick = { showResetConfirm = true })
+                PauseActionButton(icon = Icons.AutoMirrored.Filled.ExitToApp, label = stringResource(R.string.pause_menu_exit), mintColor = mintColor, onClick = { showExitConfirm = true })
                 if (state.options.any { it is RomPauseMenuOption && it == RomPauseMenuOption.CHEATS }) {
-                    PauseActionButton(icon = Icons.Default.BugReport, label = "치트", mintColor = mintColor, onClick = onCheats)
+                    PauseActionButton(icon = Icons.Default.BugReport, label = stringResource(R.string.pause_menu_cheats), mintColor = mintColor, onClick = onCheats)
                 } else {
                     Spacer(Modifier.weight(1f))
                 }
@@ -227,7 +229,7 @@ private fun PauseMenuSheetContent(
             if (state.saveSlots.isNotEmpty()) {
                 Spacer(Modifier.height(20.dp))
                 Text(
-                    text = "저장 슬롯",
+                    text = stringResource(R.string.pause_menu_save_slots),
                     fontSize = 13.sp,
                     color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
                 )
@@ -275,10 +277,10 @@ private fun PauseMenuSheetContent(
     pendingSlot?.let { slot ->
         val dateStr = slot.lastUsedDate
             ?.let { SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault()).format(it) }
-            ?: "빈 슬롯"
+            ?: stringResource(R.string.pause_menu_empty_slot)
         AlertDialog(
             onDismissRequest = { pendingSlot = null },
-            title = { Text("슬롯 ${slot.slot}") },
+            title = { Text(stringResource(R.string.pause_menu_slot_label, slot.slot)) },
             text = { Text(dateStr) },
             buttons = {
                 Row(
@@ -287,14 +289,14 @@ private fun PauseMenuSheetContent(
                         .padding(horizontal = 8.dp, vertical = 4.dp),
                     horizontalArrangement = Arrangement.End,
                 ) {
-                    TextButton(onClick = { pendingSlot = null }) { Text("취소") }
+                    TextButton(onClick = { pendingSlot = null }) { Text(stringResource(R.string.cancel)) }
                     if (slot.exists) {
                         TextButton(onClick = { pendingSlot = null; onLoad(slot) }) {
-                            Text("불러오기")
+                            Text(stringResource(R.string.pause_menu_load))
                         }
                     }
                     TextButton(onClick = { pendingSlot = null; onSave(slot) }) {
-                        Text("저장", color = mintColor)
+                        Text(stringResource(R.string.pause_menu_save), color = mintColor)
                     }
                 }
             },
@@ -305,15 +307,15 @@ private fun PauseMenuSheetContent(
     if (showResetConfirm) {
         AlertDialog(
             onDismissRequest = { showResetConfirm = false },
-            title = { Text("재시작") },
-            text = { Text("저장하지 않은 진행상황이 사라집니다.\n재시작할까요?") },
+            title = { Text(stringResource(R.string.pause_menu_reset_confirm_title)) },
+            text = { Text(stringResource(R.string.pause_menu_reset_confirm_msg)) },
             confirmButton = {
                 TextButton(onClick = { showResetConfirm = false; onReset() }) {
-                    Text("재시작", color = mintColor)
+                    Text(stringResource(R.string.pause_menu_reset), color = mintColor)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showResetConfirm = false }) { Text("취소") }
+                TextButton(onClick = { showResetConfirm = false }) { Text(stringResource(R.string.cancel)) }
             },
         )
     }
@@ -322,15 +324,15 @@ private fun PauseMenuSheetContent(
     if (showExitConfirm) {
         AlertDialog(
             onDismissRequest = { showExitConfirm = false },
-            title = { Text("홈으로") },
-            text = { Text("게임을 종료하고 홈 화면으로 나가시겠어요?") },
+            title = { Text(stringResource(R.string.pause_menu_exit_confirm_title)) },
+            text = { Text(stringResource(R.string.pause_menu_exit_confirm_msg)) },
             confirmButton = {
                 TextButton(onClick = { showExitConfirm = false; onExit() }) {
-                    Text("나가기", color = Color(0xFFE53935))
+                    Text(stringResource(R.string.exit), color = Color(0xFFE53935))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showExitConfirm = false }) { Text("취소") }
+                TextButton(onClick = { showExitConfirm = false }) { Text(stringResource(R.string.cancel)) }
             },
         )
     }
@@ -403,7 +405,7 @@ private fun SaveSlotCard(
             if (slot.exists && slot.screenshot != null) {
                 AsyncImage(
                     model = slot.screenshot,
-                    contentDescription = "슬롯 ${slot.slot} 스크린샷",
+                    contentDescription = stringResource(R.string.pause_menu_slot_screenshot, slot.slot),
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
@@ -448,7 +450,7 @@ private fun SaveSlotCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "빈 슬롯",
+                        contentDescription = stringResource(R.string.pause_menu_empty_slot),
                         tint = MaterialTheme.colors.onSurface.copy(alpha = 0.3f),
                         modifier = Modifier.size(22.dp),
                     )
@@ -484,7 +486,7 @@ private fun HideAuxButtonsToggleRow(
         )
         Spacer(Modifier.width(8.dp))
         Text(
-            text = "L·R·Sel·Sta 숨기기",
+            text = stringResource(R.string.pause_menu_hide_aux),
             fontSize = 14.sp,
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.75f),
             modifier = Modifier.weight(1f),
@@ -507,8 +509,9 @@ private fun SpeedSpinnerRow(
     onSpeedChange: (Float) -> Unit,
 ) {
     val speedCycle = listOf(-1.0f, 1.5f, 2.0f, 3.0f, 4.0f, 8.0f)
+    val unlimitedLabel = stringResource(R.string.pause_menu_speed_unlimited)
     val labels = mapOf(
-        -1.0f to "무제한",
+        -1.0f to unlimitedLabel,
         1.5f  to "1.5×",
         2.0f  to "2×",
         3.0f  to "3×",
@@ -531,7 +534,7 @@ private fun SpeedSpinnerRow(
         )
         Spacer(Modifier.width(8.dp))
         Text(
-            text = "패스트포워드",
+            text = stringResource(R.string.pause_menu_fast_forward),
             fontSize = 14.sp,
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.75f),
             modifier = Modifier.weight(1f),
@@ -546,7 +549,7 @@ private fun SpeedSpinnerRow(
             Text("‹", fontSize = 20.sp, color = mintColor, fontWeight = FontWeight.Bold)
         }
         Text(
-            text = labels[currentSpeed] ?: "무제한",
+            text = labels[currentSpeed] ?: unlimitedLabel,
             fontSize = 14.sp,
             color = mintColor,
             fontWeight = FontWeight.SemiBold,

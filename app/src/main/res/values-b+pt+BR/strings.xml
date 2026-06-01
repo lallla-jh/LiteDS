@@ -1,5 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">melonDS</string>
 
     <string name="ok">OK</string>
     <string name="yes">Sim</string>
@@ -430,4 +429,19 @@
     <string name="pause_menu_reset_confirm_msg">O progresso não salvo será perdido.\nReiniciar mesmo assim?</string>
     <string name="pause_menu_exit_confirm_title">Início</string>
     <string name="pause_menu_exit_confirm_msg">Sair do jogo e voltar para a tela inicial?</string>
+    <!-- LiteDS i18n additions -->
+    <string name="pause_menu_slot_screenshot">Captura do slot %1$d</string>
+    <string name="pause_menu_hide_aux">Ocultar L·R·Sel·Sta</string>
+    <string name="pause_menu_speed_unlimited">Ilimitado</string>
+    <string name="pause_menu_fast_forward">Avanço rápido</string>
+    <string name="recently_played_title">Jogados recentemente</string>
+    <string name="time_just_now">Agora mesmo</string>
+    <string name="time_minutes_ago">há %1$d min</string>
+    <string name="time_hours_ago">há %1$d h</string>
+    <string name="time_days_ago">há %1$d d</string>
+    <string name="time_months_ago">há %1$d meses</string>
+    <string name="rom_list_search_empty">Nenhum resultado para\n\"%1$s\"</string>
+    <string name="rom_list_empty_title">Nenhum arquivo ROM</string>
+    <string name="rom_list_empty_desc">Adicione arquivos NDS e escaneie novamente</string>
+    <string name="action_refresh">Atualizar</string>
 </resources>
