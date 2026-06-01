@@ -444,4 +444,9 @@
     <string name="rom_list_empty_title">Nenhum arquivo ROM</string>
     <string name="rom_list_empty_desc">Adicione arquivos NDS e escaneie novamente</string>
     <string name="action_refresh">Atualizar</string>
+    <string name="joystick_direction_mode">Direção do joystick</string>
+    <string-array name="joystick_direction_mode_options">
+        <item>4 direções</item>
+        <item>8 direções</item>
+    </string-array>
 </resources>

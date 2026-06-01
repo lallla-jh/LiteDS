@@ -15,6 +15,15 @@
         android:summary="@string/layouts_summary"
         app:iconSpaceReserved="false" />
 
+    <ListPreference
+        android:key="joystick_direction_mode"
+        android:title="@string/joystick_direction_mode"
+        android:summary="%s"
+        android:entries="@array/joystick_direction_mode_options"
+        android:entryValues="@array/joystick_direction_mode_values"
+        android:defaultValue="four_way"
+        app:iconSpaceReserved="false" />
+
     <me.magnum.melonds.ui.settings.preferences.SoftwareInputBehaviourPreference
         android:key="soft_input_behaviour"
         android:title="@string/soft_input_behaviour"

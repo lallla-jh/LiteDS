@@ -713,4 +713,9 @@
     <string name="rom_list_empty_title">No ROM files</string>
     <string name="rom_list_empty_desc">Add NDS files and scan again</string>
     <string name="action_refresh">Refresh</string>
+    <string name="joystick_direction_mode">Joystick direction</string>
+    <string-array name="joystick_direction_mode_options">
+        <item>4 directions</item>
+        <item>8 directions</item>
+    </string-array>
 </resources>

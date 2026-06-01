@@ -9,6 +9,7 @@ import me.magnum.melonds.common.vibration.TouchVibrator
 import me.magnum.melonds.domain.model.Input
 import me.magnum.melonds.domain.model.input.SoftInputBehaviour
 import me.magnum.melonds.domain.model.layout.LayoutComponent
+import me.magnum.melonds.domain.repositories.SettingsRepository
 import me.magnum.melonds.ui.common.LayoutView
 import me.magnum.melonds.ui.emulator.input.ButtonsInputHandler
 import me.magnum.melonds.ui.emulator.input.FrontendInputHandler
@@ -27,6 +28,9 @@ class RuntimeLayoutView(context: Context, attrs: AttributeSet? = null) : LayoutV
 
     @Inject
     lateinit var touchVibrator: TouchVibrator
+
+    @Inject
+    lateinit var settingsRepository: SettingsRepository
 
     private var currentRuntimeLayout: RuntimeInputLayoutConfiguration? = null
     private var frontendInputHandler: IInputListener? = null
@@ -90,7 +94,7 @@ class RuntimeLayoutView(context: Context, attrs: AttributeSet? = null) : LayoutV
 
         val enableHapticFeedback = currentRuntimeLayout.isHapticFeedbackEnabled
         systemInputHandler?.let {
-            getLayoutComponentView(LayoutComponent.DPAD)?.view?.setOnTouchListener(JoystickInputHandler(it, enableHapticFeedback, touchVibrator))
+            getLayoutComponentView(LayoutComponent.DPAD)?.view?.setOnTouchListener(JoystickInputHandler(it, enableHapticFeedback, touchVibrator, settingsRepository.getJoystickDirectionMode()))
             getLayoutComponentView(LayoutComponent.BUTTONS)?.view?.setOnTouchListener(ButtonsInputHandler(it, enableHapticFeedback, touchVibrator))
             getLayoutComponentView(LayoutComponent.BUTTON_L)?.view?.setOnTouchListener(SingleButtonInputHandler(it, Input.L, enableHapticFeedback, touchVibrator))
             getLayoutComponentView(LayoutComponent.BUTTON_R)?.view?.setOnTouchListener(SingleButtonInputHandler(it, Input.R, enableHapticFeedback, touchVibrator))

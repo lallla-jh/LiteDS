@@ -114,4 +114,8 @@
         <item>rom_dir</item>
         <item>internal_dir</item>
     </string-array>
+    <string-array name="joystick_direction_mode_values">
+        <item>four_way</item>
+        <item>eight_way</item>
+    </string-array>
 </resources>

@@ -675,4 +675,9 @@
     <string name="rom_list_empty_title">没有 ROM 文件</string>
     <string name="rom_list_empty_desc">添加 NDS 文件后重新扫描</string>
     <string name="action_refresh">刷新</string>
+    <string name="joystick_direction_mode">摇杆方向</string>
+    <string-array name="joystick_direction_mode_options">
+        <item>4方向</item>
+        <item>8方向</item>
+    </string-array>
 </resources>

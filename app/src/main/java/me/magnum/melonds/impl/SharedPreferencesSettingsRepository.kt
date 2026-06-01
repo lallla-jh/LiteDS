@@ -32,6 +32,7 @@ import me.magnum.melonds.domain.model.AudioInterpolation
 import me.magnum.melonds.domain.model.AudioLatency
 import me.magnum.melonds.domain.model.ConsoleType
 import me.magnum.melonds.domain.model.ControllerConfiguration
+import me.magnum.melonds.domain.model.JoystickDirectionMode
 import me.magnum.melonds.domain.model.EmulatorConfiguration
 import me.magnum.melonds.domain.model.FirmwareConfiguration
 import me.magnum.melonds.domain.model.FpsCounterPosition
@@ -208,6 +209,11 @@ class SharedPreferencesSettingsRepository(
         return getOrCreatePreferenceSharedFlow("hide_auxiliary_buttons") {
             getHideAuxiliaryButtons()
         }
+    }
+
+    override fun getJoystickDirectionMode(): JoystickDirectionMode {
+        val mode = preferences.getString("joystick_direction_mode", "four_way")!!
+        return JoystickDirectionMode.valueOf(mode.uppercase())
     }
 
     override fun getRomSearchDirectories(): Array<Uri> {
