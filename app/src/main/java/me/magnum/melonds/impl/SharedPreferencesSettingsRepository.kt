@@ -316,20 +316,19 @@ class SharedPreferencesSettingsRepository(
 
     override fun getVideoRenderer(): Flow<VideoRenderer> {
         return getOrCreatePreferenceSharedFlow("video_renderer") {
-            // LiteDS defaults to OpenGL renderer for better fast-forward performance.
-            // If the user had the old "software" default (set automatically, not by user choice),
-            // upgrade them to "opengl" on first read by checking a migration flag.
-            if (!preferences.getBoolean("liteds_renderer_upgraded_v1", false)) {
-                val current = preferences.getString("video_renderer", null)
-                if (current == null || current == "software") {
-                    preferences.edit().putString("video_renderer", "opengl")
-                        .putBoolean("liteds_renderer_upgraded_v1", true)
-                        .apply()
-                } else {
-                    preferences.edit().putBoolean("liteds_renderer_upgraded_v1", true).apply()
+            // Undo the earlier forced OpenGL upgrade. The hardware renderer caused
+            // graphical artifacts (e.g. black dots) on some games, so default back to
+            // the accurate software renderer (matching melonDS). Anyone who was
+            // auto-upgraded to "opengl" is reverted to "software" once; manual choices
+            // made afterwards are preserved.
+            if (preferences.getBoolean("liteds_renderer_upgraded_v1", false)) {
+                val edit = preferences.edit().remove("liteds_renderer_upgraded_v1")
+                if (preferences.getString("video_renderer", null) == "opengl") {
+                    edit.putString("video_renderer", "software")
                 }
+                edit.apply()
             }
-            val videoRendererPreference = preferences.getString("video_renderer", "opengl")!!
+            val videoRendererPreference = preferences.getString("video_renderer", "software")!!
             VideoRenderer.valueOf(videoRendererPreference.uppercase())
         }
     }
