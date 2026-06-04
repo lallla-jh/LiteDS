@@ -46,6 +46,8 @@ import me.magnum.melonds.domain.model.RomIconFiltering
 import me.magnum.melonds.domain.model.RomScanningStatus
 import me.magnum.melonds.domain.model.rom.Rom
 import me.magnum.melonds.extensions.setViewEnabledRecursive
+import me.magnum.melonds.common.Permission
+import me.magnum.melonds.common.contracts.DirectoryPickerContract
 import me.magnum.melonds.parcelables.RomParcelable
 import me.magnum.melonds.ui.romdetails.RomDetailsActivity
 import me.magnum.melonds.ui.romlist.RomListFragment.RomListAdapter.RomViewHolder
@@ -76,6 +78,13 @@ class RomListFragment : Fragment() {
     private lateinit var romListAdapter: RomListAdapter
 
     private var romSelectedListener: ((Rom) -> Unit)? = null
+
+    private val directoryPickerLauncher = registerForActivityResult(DirectoryPickerContract(Permission.READ_WRITE)) { uri ->
+        if (uri != null) {
+            romListViewModel.addRomSearchDirectory(uri)
+        }
+    }
+
     private var isGridMode = false
     private val viewModePrefs by lazy {
         requireContext().getSharedPreferences("liteds_prefs", Context.MODE_PRIVATE)
@@ -161,6 +170,7 @@ class RomListFragment : Fragment() {
                     RomListEmptyStateView(
                         searchQuery = searchQuery,
                         onRefresh = { romListViewModel.refreshRoms() },
+                        onSelectDirectory = { directoryPickerLauncher.launch(null) },
                     )
                 }
             }
