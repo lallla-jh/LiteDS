@@ -216,6 +216,10 @@ class SharedPreferencesSettingsRepository(
         return JoystickDirectionMode.valueOf(mode.uppercase())
     }
 
+    override fun setJoystickDirectionMode(mode: JoystickDirectionMode) {
+        preferences.edit { putString("joystick_direction_mode", mode.name.lowercase()) }
+    }
+
     override fun getJoystickDeadZonePercent(): Int {
         return preferences.getInt("joystick_dead_zone", 25)
     }

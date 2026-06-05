@@ -718,4 +718,5 @@
     <string name="joystick_dead_zone_summary">中心付近のわずかな動きを無視します</string>
     <string name="joystick_floating">フローティングジョイスティック</string>
     <string name="joystick_floating_summary">最初にタッチした位置にジョイスティックが表示されます</string>
+    <string name="pause_menu_joystick_8way">8方向ジョイスティック</string>
 </resources>

@@ -718,4 +718,5 @@
     <string name="joystick_dead_zone_summary">중심 근처의 미세한 움직임을 무시합니다</string>
     <string name="joystick_floating">부동형 조이스틱</string>
     <string name="joystick_floating_summary">처음 터치한 위치에 조이스틱이 나타납니다</string>
+    <string name="pause_menu_joystick_8way">8방향 조이스틱</string>
 </resources>

@@ -41,6 +41,7 @@ import me.magnum.melonds.common.romprocessors.RomFileProcessorFactory
 import me.magnum.melonds.common.runtime.ScreenshotFrameBufferProvider
 import me.magnum.melonds.domain.model.Cheat
 import me.magnum.melonds.domain.model.ConsoleType
+import me.magnum.melonds.domain.model.JoystickDirectionMode
 import me.magnum.melonds.domain.model.FpsCounterPosition
 import me.magnum.melonds.domain.model.RomInfo
 import me.magnum.melonds.domain.model.RuntimeBackground
@@ -180,6 +181,17 @@ class EmulatorViewModel @Inject constructor(
         _hideAuxiliaryButtons.value = hide
         viewModelScope.launch(Dispatchers.IO) {
             settingsRepository.setHideAuxiliaryButtons(hide)
+        }
+    }
+
+    // joystick direction mode — pause menu toggle
+    private val _joystickDirectionMode = MutableStateFlow(settingsRepository.getJoystickDirectionMode())
+    val joystickDirectionMode: StateFlow<JoystickDirectionMode> = _joystickDirectionMode.asStateFlow()
+
+    fun setJoystickDirectionMode(mode: JoystickDirectionMode) {
+        _joystickDirectionMode.value = mode
+        viewModelScope.launch(Dispatchers.IO) {
+            settingsRepository.setJoystickDirectionMode(mode)
         }
     }
 

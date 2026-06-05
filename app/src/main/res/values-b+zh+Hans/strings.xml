@@ -684,4 +684,5 @@
     <string name="joystick_dead_zone_summary">忽略中心附近的细微移动</string>
     <string name="joystick_floating">浮动摇杆</string>
     <string name="joystick_floating_summary">摇杆出现在首次触摸的位置</string>
+    <string name="pause_menu_joystick_8way">8方向摇杆</string>
 </resources>

@@ -50,6 +50,10 @@ class RuntimeLayoutView(context: Context, attrs: AttributeSet? = null) : LayoutV
         updateInputs()
     }
 
+    fun updateJoystickDirectionMode() {
+        updateInputs()
+    }
+
     fun setConnectedControllersState(state: ConnectedControllersState) {
         connectedControllersState = state
         updateVisibility()

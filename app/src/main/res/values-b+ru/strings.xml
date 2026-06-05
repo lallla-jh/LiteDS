@@ -686,4 +686,5 @@
     <string name="joystick_dead_zone_summary">Игнорировать малые движения у центра</string>
     <string name="joystick_floating">Плавающий джойстик</string>
     <string name="joystick_floating_summary">Джойстик появляется в месте касания</string>
+    <string name="pause_menu_joystick_8way">Джойстик 8 направлений</string>
 </resources>

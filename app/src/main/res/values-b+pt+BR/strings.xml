@@ -453,4 +453,5 @@
     <string name="joystick_dead_zone_summary">Ignora pequenos movimentos perto do centro</string>
     <string name="joystick_floating">Joystick flutuante</string>
     <string name="joystick_floating_summary">O joystick aparece onde você toca primeiro</string>
+    <string name="pause_menu_joystick_8way">Joystick de 8 direções</string>
 </resources>

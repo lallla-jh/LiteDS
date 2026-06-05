@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Gamepad
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ import coil.compose.AsyncImage
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import me.magnum.melonds.R
+import me.magnum.melonds.domain.model.JoystickDirectionMode
 import me.magnum.melonds.domain.model.SaveStateSlot
 import me.magnum.melonds.ui.emulator.EmulatorViewModel
 import me.magnum.melonds.ui.emulator.PauseMenuState
@@ -69,11 +71,13 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
                     val state by viewModel.pauseMenuState.collectAsState()
                     val fastForwardSpeed by viewModel.fastForwardSpeed.collectAsState()
                     val hideAuxiliaryButtons by viewModel.hideAuxiliaryButtons.collectAsState()
+                    val joystickDirectionMode by viewModel.joystickDirectionMode.collectAsState()
                     state?.let { pauseState ->
                         PauseMenuSheetContent(
                             state = pauseState,
                             fastForwardSpeed = fastForwardSpeed,
                             hideAuxiliaryButtons = hideAuxiliaryButtons,
+                            joystickDirectionMode = joystickDirectionMode,
                             onResume = {
                                 actionTaken = true
                                 viewModel.resumeEmulator()
@@ -111,6 +115,7 @@ class PauseMenuBottomSheetFragment : BottomSheetDialogFragment() {
                             },
                             onSpeedChange = { viewModel.setFastForwardSpeed(it) },
                             onHideAuxiliaryButtonsChange = { viewModel.setHideAuxiliaryButtons(it) },
+                            onJoystickDirectionModeChange = { viewModel.setJoystickDirectionMode(it) },
                         )
                     }
                 }
@@ -137,6 +142,7 @@ private fun PauseMenuSheetContent(
     state: PauseMenuState,
     fastForwardSpeed: Float,
     hideAuxiliaryButtons: Boolean,
+    joystickDirectionMode: JoystickDirectionMode,
     onResume: () -> Unit,
     onSave: (SaveStateSlot) -> Unit,
     onLoad: (SaveStateSlot) -> Unit,
@@ -146,6 +152,7 @@ private fun PauseMenuSheetContent(
     onDeleteSlot: (SaveStateSlot) -> Unit,
     onSpeedChange: (Float) -> Unit,
     onHideAuxiliaryButtonsChange: (Boolean) -> Unit,
+    onJoystickDirectionModeChange: (JoystickDirectionMode) -> Unit,
 ) {
     val mintColor = Color(0xFF00BFA5)
     var pendingSlot by remember { mutableStateOf<SaveStateSlot?>(null) }
@@ -262,6 +269,11 @@ private fun PauseMenuSheetContent(
                 enabled = hideAuxiliaryButtons,
                 mintColor = mintColor,
                 onToggle = onHideAuxiliaryButtonsChange,
+            )
+            JoystickDirectionToggleRow(
+                mode = joystickDirectionMode,
+                mintColor = mintColor,
+                onToggle = onJoystickDirectionModeChange,
             )
             SpeedSpinnerRow(
                 currentSpeed = fastForwardSpeed,
@@ -494,6 +506,45 @@ private fun HideAuxButtonsToggleRow(
         Switch(
             checked = enabled,
             onCheckedChange = onToggle,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = mintColor,
+                checkedTrackColor = mintColor.copy(alpha = 0.5f),
+            ),
+        )
+    }
+}
+
+@Composable
+private fun JoystickDirectionToggleRow(
+    mode: JoystickDirectionMode,
+    mintColor: Color,
+    onToggle: (JoystickDirectionMode) -> Unit,
+) {
+    val isEightWay = mode == JoystickDirectionMode.EIGHT_WAY
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Gamepad,
+            contentDescription = null,
+            tint = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = stringResource(R.string.pause_menu_joystick_8way),
+            fontSize = 14.sp,
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.75f),
+            modifier = Modifier.weight(1f),
+        )
+        Switch(
+            checked = isEightWay,
+            onCheckedChange = { checked ->
+                onToggle(if (checked) JoystickDirectionMode.EIGHT_WAY else JoystickDirectionMode.FOUR_WAY)
+            },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = mintColor,
                 checkedTrackColor = mintColor.copy(alpha = 0.5f),
